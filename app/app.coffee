@@ -4,6 +4,7 @@
 `import config from './config/environment'`
 
 Ember.MODEL_FACTORY_INJECTIONS = true
+window.Showdown = window.showdown;
 
 App = Ember.Application.extend
   modulePrefix: config.modulePrefix,

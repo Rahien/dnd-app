@@ -1,76 +1,41 @@
 <div class="character">
 	<div class="name">
-		<p>Thavann Nirissh</p>
+		<p>{{model.name}}</p>
 	</div>
 
 	<div class="class" id="text-2">
-		Red Dragonborn sorceress 
+		{{model.race}} {{model.class}} 
 	</div>
 	
 	<div class="level">
-		3
+		{{model.level}}
 	</div>
 	<div class="prof-bonus">
 		<span class="label">proficiency bonus</span>
-		<span class="value">2</span>
+		<span class="value">{{profBonus}}</span>
 	</div>
 	<div class="image">
 		<div class="figure">
-			<img src="/assets/images/sorceress.png" alt="sorceress.png" />
+			<img src="{{model.image}}"/>
 		</div>
 	</div>
 
 	<div class="stats">
 		<div class="prop">
 			<span class="label">Keywords</span>
-			<span class="value">massive magic damage, dragon-like, low armor, rage</span>
+			<span class="value">{{model.keywords}}</span>
 		</div>
-
-		<div class="prop">
-			<span class="label">Height</span>
-			<span class="value">6'4"</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Weight</span>
-			<span class="value">260lb.</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Size</span>
-			<span class="value">Medium</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Speed</span>
-			<span class="value">30 ft</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Vision</span>
-			<span class="value">normal</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Deity</span>
-			<span class="value">Magic</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Languages</span>
-			<span class="value">Common, Draconic, Demonic, Dwarven</span>
-		</div>
-
-		<div class="prop">
-			<span class="label">Alignment</span>
-			<span class="value">Chaotic neutral</span>
-		</div>
-
+		{{#each prop in stats}}
+			<div class="prop">
+				<span class="label">{{prop.label}}</span>
+				<span class="value">{{prop.value}}</span>
+			</div>
+		{{/each}}
 	</div>
 
 	<div class="notes">
 		<span class="title">Notes and effects</span>
-		<div></div>
+		<div>{{model.notes}}</div>
 	</div>
 
 	<div class="life">
@@ -78,8 +43,8 @@
 			<tbody>
 				<tr>
 					<td class="left">HP</td>
-					<td class="left"></td>
-					<td class="left"></td>
+					<td class="left">{{model.hp.total}}</td>
+					<td class="left">{{model.hp.current}}</td>
 				</tr>
 
 				<tr>
@@ -94,8 +59,8 @@
 			<tbody>
 				<tr>
 					<td class="left">HD</td>
-					<td class="right">3d6</td>
-					<td class="left"></td>
+					<td class="right">{{model.hd.total}}</td>
+					<td class="left">{{model.hd.current}}</td>
 				</tr>
 
 				<tr>
@@ -111,13 +76,13 @@
 		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 			<tbody>
 				<tr>
-					<td class="right">14</td>
+					<td class="right">{{model.ac.armor}}</td>
 				</tr>
 				<tr>
 					<td class="right">Armor Class</td>
 				</tr>
 				<tr>
-					<td class="right">13</td>
+					<td class="right">{{model.ac.noArmor}}</td>
 				</tr>
 				<tr>
 					<td class="right">AC - no armor</td>
@@ -135,7 +100,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>10</td><td>13</td><td>14</td><td>10</td><td>12</td><td>16</td>
+					<td>{{model.abilities.str}}</td><td>{{model.abilities.dex}}</td><td>{{model.abilities.con}}</td><td>{{model.abilities.int}}</td><td>{{model.abilities.wis}}</td><td>{{model.abilities.cha}}</td>
 				</tr>
 
 				<tr>
@@ -143,7 +108,7 @@
 				</tr>
 
 				<tr>
-					<td>0</td><td>1</td><td>2</td><td>0</td><td>1</td><td>3</td>
+					<td>{{strmod}}</td><td>{{dexmod}}</td><td>{{conmod}}</td><td>{{intmod}}</td><td>{{wismod}}</td><td>{{chamod}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -151,10 +116,10 @@
 	</div>
 
 	<div class="initiative">
-		3
+		{{model.initiative}}
 	</div>
 	<div class="perception">
-		11
+		{{model.perception}}
 	</div>
 	<div class="left-side">
 		<div class="attacks">
@@ -167,18 +132,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Dagger</td><td>Dex.</td><td>1d4</td><td>AC</td><td>&#xa0;</td><td>piercing</td>
-						</tr>
-						<tr>
-							<td>Dagger thrown</td><td>Dex.</td><td>1d4</td><td>AC</td><td>20/60</td><td>piercing</td>
-						</tr>
-						<tr>
-							<td>Quarterstaff</td><td>Str.</td><td>1d6/1d8</td><td>AC</td><td>&#xa0;</td><td>versatile</td>
-						</tr>
-						<tr>
-							<td>Ray of frost</td><td>Spell</td><td>1d8</td><td>DC</td><td>60</td><td>cold</td>
-						</tr>
+						{{#each attack in model.attacks}}
+							<tr>
+								<td>{{attack.name}}</td>
+								<td>{{attack.attack}}</td>
+								<td>{{attack.damage}}</td>
+								<td>{{attack.def}}</td>
+								<td>{{attack.range}}</td>
+								<td>{{attack.type}}</td>
+							</tr>
+						{{/each}}
 					</tbody>
 				</table>
 			</div>
@@ -188,25 +151,25 @@
 			<div>
 				<span class="title">Saves</span>
 				<div>
-					Constitution, Charisma
+					{{model.profs.saves}}
 				</div>
 			</div>
 			<div>
 				<span class="title">Armor</span>
 				<div>
-					None
+					{{model.profs.armor}}
 				</div>
 			</div>
 			<div>
 				<span class="title">Weapons</span>
 				<div>
-					Daggers, darts, slings, quarterstaffs, light crossbows
+					{{model.profs.weapons}}
 				</div>
 			</div>
 			<div>
 				<span class="title">Tools</span>
 				<div>
-					None
+					{{model.profs.tools}}
 				</div>
 			</div>
 		</div>
@@ -220,13 +183,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="left">Quarterstaff</td><td class="right">2</td><td class="right">4</td><td class="left">&#xa0;</td>
-						</tr>
-
-						<tr>
-							<td class="left">Common Clothing</td><td class="right">1</td><td class="right">3</td><td class="left">&#xa0;</td>
-						</tr>
+						{{#each possession in model.gear}}
+							<tr>
+								<td>{{possession.name}}</td>
+								<td>{{possession.price}}</td>
+								<td>{{possession.weight}}</td>
+								<td>{{possession.notes}}</td>
+							</tr>
+						{{/each}}
 					</tbody>
 				</table>
 
@@ -240,9 +204,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="right">60</td>
-							<td class="right">150</td>
-							<td class="right">300</td>
+							<td class="right">{{load}}</td>
+							<td class="right">{{carry}}</td>
+							<td class="right">{{pushOrDrag}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -250,7 +214,7 @@
 		</div>
 		<div class="wealth">
 			<span class="title">Wealth</span>
-			<div>70 gp</div>
+			<div>{{mode.wealth}}</div>
 		</div>
 	</div>
 
@@ -258,49 +222,13 @@
 		<div class="skills">
 			<span class="title">Skills</span>
 			<div>
-					Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)
+					{{model.skills}}
 			</div>
 		</div>
-		{{char-traits}}
-		<div class="feats">
-			<span class="title">Feats</span>
-			<div></div>
-		</div>
-		<div class="spells">
-			<span class="title">Spells</span>
-			<div>
-				* Spell DC
-				8 + prof. bonus + Cha mod.
-				* Spell attack Modifier
-				prof. bonus + Cha mod.
-				* Cantrips known
-				4
-				* Spells known
-				4
-				* Spell Slots
-
-				| level |     1 | 2 |
-				| slots |     4 | 2 |
-			</div>
-		</div>
-		<div class="spells spellbook">
-			<span class="title">Spell list</span>
-			<div>
-				Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.
-
-				* Cantrips
-				Light, Message, Blade ward, Ray of frost
-				* Level 1
-				Burning hands, Thunderweave
-			</div>
-		</div>
-		<div class="short-desc">
-			<span class="title">Short Description</span>
-			<div>
-				<p>
-					As a dragonborn, you have dedicated your life to honor and the pursuit of excellence. You are driven, noble, but in contrast to regular dragonborn, you can have trouble containing the wilder parts of your dragon heritage. As a Sorceress, you realized that precisely this wilder power grants you strength, which you will use to achieve your goals.
-				</p>
-			</div>
-		</div>
+		{{free-block title="Features and traits" content=model.traits classNames="traits"}}
+		{{free-block title="Feats" content=model.feats classNames="feats"}}
+		{{free-block title="Spells" content=model.spells classNames="spells"}}
+		{{free-block title="Spellbook" content=model.spellbook classNames="spells spellbook"}}
+		{{free-block title="Short Description" content=model.description classNames="short-descr"}}
 	</div>
 </div>
