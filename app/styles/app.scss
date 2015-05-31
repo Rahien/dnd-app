@@ -1,0 +1,563 @@
+body > div {
+		width: 960px;
+		margin: 0 auto;
+		position: relative;
+}
+
+.character {
+		h1.title {
+				display: none;
+		}
+		table {
+				font-family: arial;
+				border: none;
+		}
+		table * {
+				border: none;
+		}
+		body {
+				font-family: 'Gentium Basic', serif;
+		}
+		span.section-number-3, span.section-number-2, span.section-number-1, span.section-number-4 {
+				display: none;
+		}
+		p {
+				margin: 0;
+		}
+		div#table-of-contents {
+				display: none;
+		}
+
+		.no-title > *:first-child {
+				display: none;
+		}
+
+		div#content {
+				width: 960px;
+				margin: 0 auto;
+				position:relative;
+		}
+
+		.image {
+				width: 400px;
+				height: 500px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				overflow: hidden;
+		}
+		.image p {
+				width: 100%;
+				height: 100%;
+		}
+		.image img {
+				width: 100%;
+		}
+		.level, .prof-bonus {
+				font-size: 50px;
+				position: absolute;
+				top: 0px;
+				left: 437px;
+				width: 80px;
+				height: 80px;
+				text-align: center;
+				overflow:hidden;
+		}
+		.level {
+				top: 28px;
+				z-index: 10;
+		}
+		.level > * {
+				position:relative;
+				top: 5px;
+		}
+
+		.prof-bonus {
+				border: solid 6px black;
+				border-radius: 100px;
+				z-index: 10000;
+				background-color: black;
+				top: 350px;
+				width: 120px;
+				height: 120px;
+				font-size: 45px;
+		}
+		.prof-bonus > *:first-child {
+				display: block !important;
+				position: absolute;
+				top: -1px;
+				margin: 0;
+				background-color: black;
+				color: white;
+				font-size: 13px;
+				width: 100%;
+				padding: 15px 10px;
+				box-sizing: border-box;
+				left: 0;
+				-moz-box-sizing: border-box;
+		}
+		.prof-bonus .value {
+				background-color: white;
+				z-index: 0;
+				padding-top: 13px;
+				margin-top: 10px;
+				padding-bottom: 40px;
+				display:block;
+		}
+
+		.level table, .level tr, .level td, .level tbody, .level th, .level colgroup, .prof-bonus table, .prof-bonus tr, .prof-bonus td, .prof-bonus tbody, .prof-bonus th, .prof-bonus colgroup, .stats table, .stats tr, .stats td, .stats tbody, .stats th, .stats colgroup {
+				border: none;
+				border-left: none;
+				border-right: none;
+				display:block;
+		}
+		.level table, .level tr, .level td, .level tbody, .level th, .level colgroup, .prof-bonus table, .prof-bonus tr, .prof-bonus td, .prof-bonus tbody, .prof-bonus th, .prof-bonus colgroup {
+				text-align:center;
+		}
+
+		.level table, .prof-bonus {
+				border-collapse: collapse;
+		}
+
+		.name, .class {
+				font-family: 'Cinzel Decorative', cursive;     
+		}
+		.name {
+				font-weight: bold;
+				font-size: 1.5em;
+				margin-bottom: 0.5em;
+		}
+		.class {
+				margin-bottom: 1em;
+		}
+		.stats {
+				width: 450px;
+				text-align: justify;
+		}
+		.stats span.label {
+				font-weight: bold;
+		}
+
+		.stats span.label:after {
+				content: ":";
+		}
+
+		.stats .prop {
+				display:inline-block;
+		}		
+
+		.stats .prop:first-child {
+				display: block;
+		}
+
+		.abilities {
+				position: absolute;
+				top: 510px;
+				width: 500px;
+				left: 230px;
+				font-size: 24px;
+				font-weight: bold;
+				font-family: arial;
+		}
+
+		.abilities table {
+				margin: 0 auto;
+				background-color: black;
+				border-color: black;
+				color: white;
+		}
+
+		.abilities table th, .abilities table td {
+				padding: 5px 0px;
+				text-align: center;
+		}
+		.abilities table tr {
+				display: block
+		}
+		.abilities table tr > * {
+				display:inline-block;
+				width: 60px;
+				margin: 5px;
+		}
+		.abilities table tr td, .abilities table tr td {
+				background-color: white;
+				color: black;
+		}
+		.abilities table tr:nth-child(2) td {
+				background-color: black;
+				color: white;
+				padding:0;
+				text-align:center;
+		}
+		.abilities table tr:nth-child(2) td:after {
+				content: "\25BC";
+				top: -15px;
+				left: -3px;
+				position: relative;
+		}
+		.abilities table tbody tr:nth-child(1), .abilities table tbody tr:nth-child(3) {
+				margin-bottom:10px;
+		}
+		.abilities tr:nth-child(2) {
+				height: 20px;
+		}
+
+		.abilities table tr:nth-child(3) td {
+				width: 38px;
+				margin-left: 16px;
+				margin-right: 16px;
+				border-radius: 100px;
+				border: solid 0px black;
+				font-weight: lighter;
+		}
+
+		.surv {
+				position:relative;
+				width: 520px;
+		}
+		.abilities th {
+				text-transform: uppercase;
+		}
+
+		.life, .defenses {
+				top: 595px;
+				background-color: white;
+				color: black;
+				border: solid 6px black;
+				display: inline-block;
+				position: absolute;
+
+		}
+
+		.life table, .defenses table {
+				width: 100%;
+		}
+		.initiative, .perception {
+				width: 171px; 
+				height: 60px;
+				position: absolute;
+				top: 510px;
+				z-index: 0;
+				border: solid black 6px;
+				text-align:center;
+				line-height: 60px;
+				right: 0px;
+		}
+
+		.perception:after, .initiative:after {
+				position: absolute;
+				bottom: 5px;
+				z-index: 100;
+				top: auto !important;
+		}
+
+		.initiative {
+				left: 0px;
+		}
+
+
+		.perception {
+				left: auto;
+				right: 0px;
+		}
+
+		.perception > *:first-child, .initiative > *:first-child {
+				display: block !important;
+				background-color: black;
+				color: white;
+				top: 0px;
+				position: relative;
+				margin: 0;
+				padding: 0 30px;
+				font-size: 19px;
+		}
+
+		.initiative > *:first-child {
+				text-align: right;
+				padding: 0 42px;
+				z-index: 100;
+		}
+		.notes > div {
+				height: 360px;
+		}
+		.title {
+				font-size:26px;
+				font-weight: bold;
+				display:block;
+		}
+		.notes .title {
+				margin: 1em 0;
+		}
+
+		.left-side, .right-side {
+				display:block;
+				width: 470px;
+				float: left;
+		}
+		.right-side {
+				position: relative;
+				right: -20px;
+		}
+		.right-side .title {
+				text-align: right;
+				padding-right: 50px;
+		}
+		.life {
+				left: auto;
+				right: 0px;
+		}
+		.defenses {
+				left: 0px;
+				width: 171px;
+		}
+		.life table td:first-child {
+				background-color: black;
+				color: white;
+				font-weight: bold;
+				width: 25px;
+				font-size: 16px !important;
+		}
+		.life table td {
+				width: 55px;
+		}
+
+		.life table, .defenses table {
+				font-family: 'Gentium Basic', serif;
+		}
+
+		.life *, .defenses * {
+				border: none;
+				text-align: center !important;
+		}
+
+		.life tr:nth-child(2), .defenses table tr:nth-child(even) {
+				font-size: 10px;
+		}
+		.life tr:nth-child(2) td, .defenses table tr:nth-child(even) td {
+				padding: 0 !important;
+				padding-bottom: 0 !important;
+				font-size: 10px !important;
+		}
+		.life table tr:first-child td {
+				padding-bottom: 0;
+				font-size: 22px;
+		}
+
+		.spells > .spell-slots > *:first-child {
+				float:none;
+		}
+
+		.spells > div > *, .feats > div > *, .traits > div > * {
+				font-size: 14px;
+		}
+
+		.left-side > div > *:first-child, .right-side > div > *:first-child {
+				color: white;
+				background-color: black;
+				margin: 0;
+				padding-left: 50px;
+		}
+		.left-side > div > *:first-child:after, .right-side > div > *:first-child:after, .life:after, .defenses:after, .perception:after, .initiative:after {
+				height: 50px;
+				width: 50px;
+				display: block;
+				position: absolute;
+				content: ".";
+				color: transparent;
+				background-image: url(/assets/images/charsheets/prof.png);
+				background-size: 100% 100%;
+				left: -20px;
+				top: -12px;
+		}
+		.life:after, .defenses:after {
+				left: -28px;
+				top: 18px;
+				right: -28px;
+		}
+		.life:after {
+				right: -28px;
+				left:  auto;
+				background-image: url(/assets/images/charsheets/heart.png) !important;
+		}
+		.defenses:after {
+				background-image: url(/assets/images/charsheets/shield.png) !important;
+		}
+		.initiative:after {
+				left: -22px;
+				right: auto;
+				background-image: url(/assets/images/charsheets/initiative.png) !important;
+		}
+		.perception:after {
+				left: auto;
+				right: -22px;
+				background-image: url(/assets/images/charsheets/perception.png) !important;
+		}
+
+		.right-side > div > *:first-child:after {
+				left: auto !important;
+				right: -20px !important;
+		}
+		div > div.wealth > *:first-child:after {
+				background-image: url(/assets/images/charsheets/gold.png);
+		}
+		div > div.spells > *:first-child:after {
+				background-image: url(/assets/images/charsheets/spells.png);
+		}
+		div > div.spells.spellbook > *:first-child:after {
+				background-image: url(/assets/images/charsheets/spellbook.png);
+		}
+		div > div.feats > *:first-child:after {
+				background-image: url(/assets/images/charsheets/feats.png);
+		}
+		div > div.short-desc > *:first-child:after {
+				background-image: url(/assets/images/charsheets/description.png);
+		}
+		div > div.traits > *:first-child:after {
+				background-image: url(/assets/images/charsheets/character.png);
+		}
+		div > div.attacks > *:first-child:after {
+				background-image: url(/assets/images/charsheets/attacks.png);
+		}
+		div > div.gear > *:first-child:after {
+				background-image: url(/assets/images/charsheets/wealth.png);
+		}
+		div > div.skills > *:first-child:after {
+				background-image: url(/assets/images/charsheets/skills.png);
+		}
+
+
+		.left-side > div, .right-side > div{
+				border: solid 3px black;
+				position:relative;
+				page-break-inside: avoid;
+		}
+
+		.left-side > div > *, .right-side > div > *{
+				padding: 5px;
+		}
+
+		.attacks table {
+				width: 100%;
+				font-family: 'Gentium', serif;
+				border: none;
+		}
+
+		.attacks table thead tr:first-child {
+				font-size: 12px;
+				text-transform: uppercase;
+		}
+
+		.attacks table * {
+				border: none;
+		}
+		.profs > div:nth-child(2) {
+				display: none;
+		}
+
+		.profs > div > *:first-child {
+				margin: 0;
+		}
+
+		.profs > div > *:first-child:after {
+				content: ":";
+		}
+		.gear table {
+				width:  100%;
+		}
+
+		.gear table th {
+				text-align: left;
+		}
+		.gear table:nth-child(2) {
+				margin-top: 1em;
+		}
+
+		.gear table:nth-child(2) td:after {
+				content: " lb.";
+		}
+		.defenses tr:nth-child(odd) td {
+				font-size: 22px;
+				padding-bottom: 0;
+		}
+
+		.perception p, .initiative p {
+				padding: 10px 60px;
+				background-color: white;
+				font-size: 24px;
+				padding: 5px;
+				width: 100%;
+				text-align: center;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+		}
+		.spells table td:first-child {
+				background-color: black;
+				color: white;
+		}
+
+		.spells table * {
+				border: solid 1px black;
+		}
+
+		.spells table {
+				width:  100%;
+		}
+		.name {
+				background-image: url('/assets/images/charsheets/title.png');
+				background-size: 100% 100%;
+				height: 117px;
+				width: 634px;
+				margin-left: -110px;
+		}
+		.name p {
+				position: relative;
+				top: 54px;
+				left: 126px;
+		}
+		.spells.spellbook p {
+				float: none;
+				margin-bottom: 0.3em;
+		}
+
+		.spells.spellbook p:after {
+				content: "";
+		}
+
+		.short-desc p {
+				font-style: italic;
+		}
+		.short-desc {
+				min-height: 200px;
+		}
+		.level td, .prof-bonus .value {
+				font-family: 'Cinzel Decorative', cursive;
+				font-weight: bold;
+				height: 100%;
+				line-height: 100%;
+		}
+		.gear table {
+				font-family: 'Gentium Basic', serif;
+				font-size: 14px;
+		}
+		.gear table td {
+				padding: 0 5px;
+		}
+
+		.traits, .feats, .spells, .skills, .profs, .gear, .wealth {
+				h1 {
+						display: block;
+						margin: 0;
+						font-size: 1em;
+				}
+
+				p {
+						display: block;
+						margin-bottom: 0.5em;
+				}
+
+				h1:after {
+						content: ":";
+						padding-right: 0.3em;
+				}
+		}
+}
