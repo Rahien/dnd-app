@@ -1,0 +1,28 @@
+<span class="title">Attacks</span>
+<div>
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<thead>
+			<tr>
+				<th>Name</th><th>Atck.</th><th>Dmg.</th><th>Def.</th><th>Rng.</th><th>Type</th><th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each attack in attacks}}
+				<tr>
+					{{content-editable value=attack.name tagName="td"}}
+					{{content-editable value=attack.attack tagName="td"}}
+					{{content-editable value=attack.damage tagName="td"}}
+					{{content-editable value=attack.def tagName="td"}}
+					{{content-editable value=attack.range tagName="td"}}
+					{{content-editable value=attack.type tagName="td"}}
+					<td class="delete" title="remove" {{action "deleteAttack" attack}}>x</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<div class="create" title="new attack" {{action "createAttack"}}>
+  +
+	</div>
+</div>
+
+

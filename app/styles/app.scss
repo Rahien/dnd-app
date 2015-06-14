@@ -69,7 +69,7 @@ body > div {
 		}
 		.level > * {
 				position:relative;
-				top: 5px;
+				top: 12px;
 		}
 
 		.prof-bonus {
@@ -99,7 +99,7 @@ body > div {
 		.prof-bonus .value {
 				background-color: white;
 				z-index: 0;
-				padding-top: 13px;
+				padding-top: 43px;
 				margin-top: 10px;
 				padding-bottom: 40px;
 				display:block;
@@ -119,7 +119,7 @@ body > div {
 				border-collapse: collapse;
 		}
 
-		.name, .class {
+		.name > *, .class > * {
 				font-family: 'Cinzel Decorative', cursive;     
 		}
 		.name {
@@ -133,21 +133,36 @@ body > div {
 		.stats {
 				width: 450px;
 				text-align: justify;
-		}
-		.stats span.label {
-				font-weight: bold;
-		}
+				span.label {
+						font-weight: bold;
+				}
 
-		.stats span.label:after {
-				content: ":";
+				span.label:after {
+						content: ":";
+				}
+
+				.prop {
+						display:inline-block;
+				}		
+
+				.prop:first-child {
+						display: block;
+				}
+				.create {
+						display:none;
+				}
+				.delete {
+						display:none;
+				}
+
 		}
-
-		.stats .prop {
-				display:inline-block;
-		}		
-
-		.stats .prop:first-child {
-				display: block;
+		.stats:hover {
+				.create {
+						display:blocks;
+				}
+				.delete {
+						display:inline;
+				}
 		}
 
 		.abilities {
@@ -202,10 +217,15 @@ body > div {
 				height: 20px;
 		}
 
+		.abilities table tr:nth-child(1) td {
+				margin-right: -2.5px;
+				margin-left: 5.5px;
+		}
+
 		.abilities table tr:nth-child(3) td {
 				width: 38px;
-				margin-left: 16px;
-				margin-right: 16px;
+				margin-left: 14.5px;
+				margin-right: 17px;
 				border-radius: 100px;
 				border: solid 0px black;
 				font-weight: lighter;
@@ -278,7 +298,7 @@ body > div {
 				z-index: 100;
 		}
 		.notes > div {
-				height: 360px;
+				height: 380px;
 		}
 		.title {
 				font-size:26px;
@@ -356,6 +376,8 @@ body > div {
 				background-color: black;
 				margin: 0;
 				padding-left: 50px;
+				font-size: 18px;
+				font-weight: bold;
 		}
 		.left-side > div > *:first-child:after, .right-side > div > *:first-child:after, .life:after, .defenses:after, .perception:after, .initiative:after {
 				height: 50px;
@@ -409,7 +431,7 @@ body > div {
 		div > div.feats > *:first-child:after {
 				background-image: url(/assets/images/charsheets/feats.png);
 		}
-		div > div.short-desc > *:first-child:after {
+		div > div.short-descr > *:first-child:after {
 				background-image: url(/assets/images/charsheets/description.png);
 		}
 		div > div.traits > *:first-child:after {
@@ -436,22 +458,35 @@ body > div {
 				padding: 5px;
 		}
 
-		.attacks table {
-				width: 100%;
-				font-family: 'Gentium', serif;
-				border: none;
-		}
+		.attacks {
+				table {
+						width: 100%;
+						font-family: 'Gentium', serif;
+						border: none;
+				}
 
-		.attacks table thead tr:first-child {
-				font-size: 12px;
-				text-transform: uppercase;
-		}
+				table thead tr:first-child {
+						font-size: 12px;
+						text-transform: uppercase;
+				}
 
-		.attacks table * {
-				border: none;
+				table * {
+						border: none;
+				}
+				td.delete {
+						display:none;
+				}
+				.create {
+						display:none;
+				}
 		}
-		.profs > div:nth-child(2) {
-				display: none;
+		.attacks:hover {
+				td.delete {
+						display:table-cell;
+				}
+				.create {
+						display:block;
+				}
 		}
 
 		.profs > div > *:first-child {
@@ -463,6 +498,21 @@ body > div {
 		}
 		.gear table {
 				width:  100%;
+		}
+
+		.gear:hover table:first-child td:last-child, .gear:hover table:first-child th:last-child {
+				display: table-cell;
+		}
+		.gear table:first-child td:last-child, .gear table:first-child th:last-child {
+				display: none;
+		}
+		.gear .create {
+				display:none;
+				width: 100%;
+				text-align:center;
+		}
+		.gear:hover .create {
+				display:block;
 		}
 
 		.gear table th {
@@ -509,10 +559,11 @@ body > div {
 				width: 634px;
 				margin-left: -110px;
 		}
-		.name p {
+		.name > * {
 				position: relative;
 				top: 54px;
 				left: 126px;
+				width: 415px;
 		}
 		.spells.spellbook p {
 				float: none;
@@ -523,13 +574,13 @@ body > div {
 				content: "";
 		}
 
-		.short-desc p {
+		.short-descr p {
 				font-style: italic;
 		}
-		.short-desc {
+		.short-descr {
 				min-height: 200px;
 		}
-		.level td, .prof-bonus .value {
+		.level, .prof-bonus .value {
 				font-family: 'Cinzel Decorative', cursive;
 				font-weight: bold;
 				height: 100%;
@@ -538,12 +589,22 @@ body > div {
 		.gear table {
 				font-family: 'Gentium Basic', serif;
 				font-size: 14px;
+
+				td:nth-child(1) input {
+						max-width: 15em;
+				}
+				td:nth-child(2) input, td:nth-child(3) input {
+						max-width: 4em;
+				}
+				td:nth-child(4) input {
+						max-width: 9em;
+				}				
 		}
 		.gear table td {
 				padding: 0 5px;
 		}
 
-		.traits, .feats, .spells, .skills, .profs, .gear, .wealth {
+		.traits, .feats, .spells, .skills, .profs, .gear, .wealth, .notes, .short-descr {
 				h1 {
 						display: block;
 						margin: 0;
@@ -565,6 +626,53 @@ body > div {
 						box-sizing: border-box;
 						margin: 5px;
 						min-height: 300px;
+				}
+		}
+		div > .editbutton {
+						display:none;
+		}
+		div:hover > .editbutton {
+						display:block
+		}
+
+		span.editbutton {
+				width: 0;
+				height: 0;
+				color: transparent;
+				margin: 0;
+				padding: 0 !important;
+		}
+		span.editbutton:after {
+				width: 40px;
+				height: 40px;
+				background-image: url("/assets/images/charsheets/description.png");
+				content: "";
+				position: absolute;
+				top: -8px;
+				right: 0px;
+				background-size: 100% 100%;
+				margin-right: -20px;
+		}
+		.right-side {
+				span.editbutton:after {
+						right: auto;
+						left: 0px;
+						margin-right: 0px;
+						margin-left: -20px;
+				}
+		}
+
+
+		input {
+				background-color: transparent;
+				border: none;
+		}		
+		.profs {
+				div span.title {
+						font-size: 14px;
+				}
+				div {
+						font-size: 14px;
 				}
 		}
 }

@@ -1,14 +1,14 @@
 <div class="character">
 	<div class="name">
-		<p>{{model.name}}</p>
+		{{content-editable value=model.name editable=true}}
 	</div>
 
 	<div class="class" id="text-2">
-		{{model.race}} {{model.class}} 
+		{{content-editable value=model.race tagName="span"}} {{content-editable value=model.class tagName="span"}} 
 	</div>
 	
 	<div class="level">
-		{{model.level}}
+		{{content-editable value=model.level}}
 	</div>
 	<div class="prof-bonus">
 		<span class="label">proficiency bonus</span>
@@ -20,31 +20,16 @@
 		</div>
 	</div>
 
-	<div class="stats">
-		<div class="prop">
-			<span class="label">Keywords</span>
-			<span class="value">{{model.keywords}}</span>
-		</div>
-		{{#each prop in stats}}
-			<div class="prop">
-				<span class="label">{{prop.label}}</span>
-				<span class="value">{{prop.value}}</span>
-			</div>
-		{{/each}}
-	</div>
-
-	<div class="notes">
-		<span class="title">Notes and effects</span>
-		<div>{{model.notes}}</div>
-	</div>
+	{{char-stats char=model}}
+	{{free-block title="Notes and effects" content=model.notes classNames="notes"}}
 
 	<div class="life">
 		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 			<tbody>
 				<tr>
 					<td class="left">HP</td>
-					<td class="left">{{model.hp.total}}</td>
-					<td class="left">{{model.hp.current}}</td>
+					{{content-editable value=model.hp.total tagName="td"}}
+					{{content-editable value=model.hp.current tagName="td"}}
 				</tr>
 
 				<tr>
@@ -59,8 +44,8 @@
 			<tbody>
 				<tr>
 					<td class="left">HD</td>
-					<td class="right">{{model.hd.total}}</td>
-					<td class="left">{{model.hd.current}}</td>
+					{{content-editable value=model.hd.total tagName="td"}}
+					{{content-editable value=model.hd.current tagName="td"}}
 				</tr>
 
 				<tr>
@@ -76,16 +61,16 @@
 		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 			<tbody>
 				<tr>
-					<td class="right">{{model.ac.armor}}</td>
+					{{content-editable value=model.ac.armor tagName="td"}}
 				</tr>
 				<tr>
-					<td class="right">Armor Class</td>
+					<td>Armor Class</td>
 				</tr>
 				<tr>
-					<td class="right">{{model.ac.noArmor}}</td>
+					{{content-editable value=model.ac.noArmor tagName="td"}}
 				</tr>
 				<tr>
-					<td class="right">AC - no armor</td>
+					<td>AC - no armor</td>
 				</tr>
 			</tbody>
 		</table>
@@ -100,7 +85,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{model.abilities.str}}</td><td>{{model.abilities.dex}}</td><td>{{model.abilities.con}}</td><td>{{model.abilities.int}}</td><td>{{model.abilities.wis}}</td><td>{{model.abilities.cha}}</td>
+					{{content-editable value=model.abilities.str tagName="td"}}
+					{{content-editable value=model.abilities.dex tagName="td"}}
+					{{content-editable value=model.abilities.con tagName="td"}}
+					{{content-editable value=model.abilities.int tagName="td"}}
+					{{content-editable value=model.abilities.wis tagName="td"}}
+					{{content-editable value=model.abilities.cha tagName="td"}}
 				</tr>
 
 				<tr>
@@ -115,116 +105,36 @@
 		
 	</div>
 
-	<div class="initiative">
-		{{model.initiative}}
-	</div>
-	<div class="perception">
-		{{model.perception}}
-	</div>
+	{{content-editable classNames="initiative" value=model.initiative}}
+	{{content-editable classNames="perception" value=model.perception}}
+
 	<div class="left-side">
-		<div class="attacks">
-			<span class="title">Attacks</span>
-			<div>
-				<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-					<thead>
-						<tr>
-							<th>Atck.</th><th>Dmg.</th><th>Def.</th><th>Rng.</th><th>Type</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each attack in model.attacks}}
-							<tr>
-								<td>{{attack.name}}</td>
-								<td>{{attack.attack}}</td>
-								<td>{{attack.damage}}</td>
-								<td>{{attack.def}}</td>
-								<td>{{attack.range}}</td>
-								<td>{{attack.type}}</td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
-		</div>
+		{{char-attacks char=model}}
 		<div class="profs">
 			<span class="title">Proficiencies</span>
 			<div>
 				<span class="title">Saves</span>
-				<div>
-					{{model.profs.saves}}
-				</div>
+				{{content-editable value=model.profs.saves}}
 			</div>
 			<div>
 				<span class="title">Armor</span>
-				<div>
-					{{model.profs.armor}}
-				</div>
+				{{content-editable value=model.profs.armor}}
 			</div>
 			<div>
 				<span class="title">Weapons</span>
-				<div>
-					{{model.profs.weapons}}
-				</div>
+				{{content-editable value=model.profs.weapons}}
 			</div>
 			<div>
 				<span class="title">Tools</span>
-				<div>
-					{{model.profs.tools}}
-				</div>
+				{{content-editable value=model.profs.tools}}
 			</div>
 		</div>
-		<div class="gear">
-			<span class="title">Gear</span>
-			<div>
-				<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-					<thead>
-						<tr>
-							<th>Possessions</th><th>Gp.</th><th>Wt.</th><th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each possession in model.gear}}
-							<tr>
-								<td>{{possession.name}}</td>
-								<td>{{possession.price}}</td>
-								<td>{{possession.weight}}</td>
-								<td>{{possession.notes}}</td>
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-
-				<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-					<thead>
-						<tr>
-							<th scope="col" class="right">ACTUAL LOAD</th>
-							<th scope="col" class="right">Carry</th>
-							<th scope="col" class="right">Push, Drag or Lift</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="right">{{load}}</td>
-							<td class="right">{{carry}}</td>
-							<td class="right">{{pushOrDrag}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="wealth">
-			<span class="title">Wealth</span>
-			<div>{{mode.wealth}}</div>
-		</div>
+		{{char-inventory char=model}}
+		{{free-block title="Wealth" content=model.wealth classNames="wealth"}}
 	</div>
 
 	<div class="right-side">
-		<div class="skills">
-			<span class="title">Skills</span>
-			<div>
-					{{model.skills}}
-			</div>
-		</div>
+		{{free-block title="Skills" content=model.skills classNames="skills"}}
 		{{free-block title="Features and traits" content=model.traits classNames="traits"}}
 		{{free-block title="Feats" content=model.feats classNames="feats"}}
 		{{free-block title="Spells" content=model.spells classNames="spells"}}

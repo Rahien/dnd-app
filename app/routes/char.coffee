@@ -11,15 +11,16 @@ CharRoute = Ember.Route.extend
       image: "/assets/images/sorceress.png"
       description: "As a dragonborn, you have dedicated your life to honor and the pursuit of excellence. You are driven, noble, but in contrast to regular dragonborn, you can have trouble containing the wilder parts of your dragon heritage. As a Sorceress, you realized that precisely this wilder power grants you strength, which you will use to achieve your goals."
       keywords: "massive magic damage, dragon-like, low armor, rage"
-      stats:
-        heigh: "6'4\""
-        weight: "260 lb."
-        size: "Medium"
-        speed: "30 ft."
-        vision: "normal"
-        deity: "Magic"
-        languages: "Common, Draconic, Demonic, Dwarven"
-        alignment: "Chaotic Neutral"
+      stats: [
+        { label: "heigh", value: "6'4\"" },
+        { label: "weight", value: "260 lb." },
+        { label: "size", value: "Medium" },
+        { label: "speed", value: "30 ft." },
+        { label: "vision", value: "normal" },
+        { label: "deity", value: "Magic" },
+        { label: "languages", value: "Common, Draconic, Demonic, Dwarven" },
+        { label: "alignment", value: "Chaotic Neutral" }
+      ]
       notes: ""
       hp:
         current: ""
@@ -44,7 +45,7 @@ CharRoute = Ember.Route.extend
           name: "Dagger"
           attack: "Dex"
           damage: "1d4"
-          defense: "AC"
+          def: "AC"
           range: ""
           type: "piercing"
         },
@@ -52,7 +53,7 @@ CharRoute = Ember.Route.extend
           name: "Dagger (thrown)"
           attack: "Dex"
           damage: "1d4"
-          defense: "AC"
+          def: "AC"
           range: "20/60"
           type: "piercing"
         },
@@ -60,7 +61,7 @@ CharRoute = Ember.Route.extend
           name: "Quarterstaff"
           attack: "Dex"
           damage: "1d6/1d8"
-          defense: "AC"
+          def: "AC"
           range: ""
           type: "bludg."
         },
@@ -68,7 +69,7 @@ CharRoute = Ember.Route.extend
           name: "Ray of frost"
           attack: "Spell"
           damage: "1d8"
-          defense: "DC"
+          def: "DC"
           range: "60"
           type: "cold"
         }
@@ -96,8 +97,8 @@ CharRoute = Ember.Route.extend
       wealth: "70 gp."
       skills: "Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)"
       feats: ""
-      spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack Modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n| slots |     4 | 2 |\n"
-      spellbook: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\nCantrips====Light, Message, Blade ward, Ray of frost\nLevel 1====Burning hands, Thunderweave"
+      spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack Modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
+      spellbook: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\nCantrips\n====\nLight, Message, Blade ward, Ray of frost\nLevel 1\n====\nBurning hands, Thunderweave"
         
         
         
