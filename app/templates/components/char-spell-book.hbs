@@ -1,0 +1,41 @@
+<span class="title">Spell List</span>
+{{#each group in spellGroups}}
+	<div class="spell-group">
+		{{content-editable classNames="title" value=group.title tagName="span"}}
+
+		{{#each spell in group.spells}}
+			<div class="spell">
+				{{content-editable classNames="title" value=spell.title tagName="span"}}
+				<div class="spell-level">
+					<span class="label">level</span>
+					{{content-editable value=spell.level}}
+				</div>
+				<div class="origin">
+					<span class="label">origin</span>
+					{{content-editable value=spell.origin}}
+				</div>
+				<div class="school">
+					<span class="label">school</span>
+					{{content-editable value=spell.school}}				
+				</div>
+				<div class="action">
+					<span class="label">action</span>
+					{{content-editable value=spell.action}}				
+				</div>
+				<div class="range">
+					<span class="label">range</span>
+					{{content-editable value=spell.range}}				
+				</div>
+				<div class="components">
+					<span class="label">components</span>
+					{{content-editable value=spell.components}}				
+				</div>
+				<div class="duration">
+					<span class="label">duration</span>
+					{{content-editable value=spell.duration}}
+				 </div>
+				 {{free-block title="description" content=spell.description classNames="description"}}
+			</div>
+		{{/each}}
+	</div>
+{{/each}}

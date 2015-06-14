@@ -99,8 +99,22 @@ CharRoute = Ember.Route.extend
       feats: ""
       spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack Modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
       spellbook: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\nCantrips\n====\nLight, Message, Blade ward, Ray of frost\nLevel 1\n====\nBurning hands, Thunderweave"
-        
-        
-        
-
+      spellGroups: [
+        {
+          title: "cantrips"
+          spells: [
+            {
+              title: "foobar"
+              level: 1
+              origin: "baz"
+              school: "bang"
+              action: "bing"
+              range: "touch"
+              components: "boz"
+              duration: "bonzo"
+              description: "wtf"
+            }
+          ]
+        }
+      ]
 `export default CharRoute`

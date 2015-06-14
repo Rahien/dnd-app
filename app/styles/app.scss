@@ -677,3 +677,114 @@ body > div {
 		}
 }
 
+.spell-detail {
+    display: block;
+    position: relative;
+}
+
+.spell {
+    position: relative;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    page-break-inside: avoid;
+    border: solid 1px black;
+    margin: 0.5em 0;
+    overflow: hidden;
+}
+
+.spell-detail .spell-group {
+    column-count: 2;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+}
+
+.spell > *:first-child {
+    font-size: 1.5em;
+    width: 100%;
+    padding: 0.1em 0.3em;
+    background-color: black;
+    color: white;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.3em !important;
+}
+
+.spell > *:first-child:after {
+    content: "";
+}
+
+.spell-level {
+    display: none;
+}
+
+.origin {
+    display: none;
+}
+
+.school > *:first-child {
+    display: none;
+}
+
+.school {
+    color: white;
+    padding: 0.1em 0.5em;
+    top: 2em;
+    position: absolute;
+    font-size: 12px !important;
+    font-style: italic;
+}
+
+.spell:nth-child(3) {
+    margin-top: 0;
+}
+
+.spell > *:first-child {
+    margin: 0;
+}
+
+.spell > div > *:first-child {
+    margin: 0;
+    float: left;
+    margin-right: 0.3em;
+    font-size: 14px;
+		font-weight: bold; 
+}
+
+.spell > div > *:first-child:after {
+    content: ": ";
+}
+.spell > * {
+    padding: 0 0.5em;
+}
+
+.spell .description {
+    margin-bottom: 0.3em;
+		position:relative;
+
+		span:first-child {
+				display:block;
+				float: none;
+		}
+}
+.spell-detail .spell-group > *:first-child {
+    font-size: 25px;
+    display:block;
+    float:none !important;
+    column-span: all;
+    -webkit-column-span: all;
+    -moz-column-span: all;
+}
+.spell:nth-child(3) > *:first-child {
+    margin-top: 0px;
+}
+
+.spell div > .editbutton {
+		position:absolute;
+		left: auto;
+		right: 0px;
+}
+.spell div > .editbutton:after {
+		width: 16px;
+		height: 16px;
+		top:0px;
+}
