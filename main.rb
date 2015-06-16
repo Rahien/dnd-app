@@ -7,7 +7,9 @@ require 'json'
 require 'pry'
 require 'bcrypt'
 
-couch = "http://localhost:5984"
+COUCH = "http://localhost:5984"
+CHARS = "chars"
+USERS = "users"
 
 helpers do
   def protected!
@@ -38,7 +40,7 @@ get '/dnd/char/:name' do
     headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
     halt 401, "Not authorized\n"
   end
-  "ok"
+  getCharacter(name).to_json
 end
 
 put '/dnd/char/:name' do
@@ -50,11 +52,31 @@ put '/dnd/char/:name' do
   end
 
   data = JSON.parse request.body.read
+  if saveCharacter(name,data)["error"]
+    halt 500, "Could not save character: #{result['reason']}\n"
+  else
+    "ok"
+  end
 end
 
 post '/dnd/chars' do
-  # TODO create character
+  protected!
   data = JSON.parse request.body.read
+  if not data["_id"].nil?
+    halt 400, "Don't include _id when posting!\n"
+  end
+  result = createCharacter(data)
+  if result["error"]
+    halt 500, "could not save character: #{result['reason']}\n"
+  else
+    id=result["id"]
+    res = addCharToUser(id)
+    if not res["error"].nil?
+      halt 500, "could not add character to user: #{res['reason']}\n"
+    else
+      id
+    end
+  end
 end
 
 post '/dnd/register' do
@@ -67,7 +89,7 @@ post '/dnd/register' do
   pwd = ENV["COUCH_PASS"]
 
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.put("http://localhost:5984/users/#{user}",
+  resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
                        :body => {:pwd => hash}.to_json,
                        :basic_auth => auth)
   JSON.parse(resp).to_json
@@ -81,7 +103,7 @@ end
 def pwdOk (name, password)
   pwd = ENV["COUCH_PASS"]
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.get("http://localhost:5984/users/#{name}",
+  resp = HTTParty.get("#{COUCH}/#{USERS}/#{name}",
                        :basic_auth => auth)
   resp = JSON.parse(resp)
   
@@ -93,7 +115,7 @@ def canAccessChar (name)
 
   pwd = ENV["COUCH_PASS"]
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.get("http://localhost:5984/users/#{user}",
+  resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                       :basic_auth => auth)
   resp = JSON.parse(resp)
   not resp["isAdmin"].nil? and resp["isAdmin"] or resp["chars"].include? name
@@ -104,14 +126,14 @@ def getCharacters
 
   pwd = ENV["COUCH_PASS"]
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.get("http://localhost:5984/users/#{user}",
+  resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                       :basic_auth => auth)
   resp = JSON.parse(resp)
 
   list = []
 
   if not resp["isAdmin"].nil? and resp["isAdmin"] 
-    resp = HTTParty.get("http://localhost:5984/test/_all_docs",
+    resp = HTTParty.get("#{COUCH}/#{CHARS}/_all_docs",
                         :query => { :include_docs => true },
                         :basic_auth => auth)
     list = JSON.parse(resp)
@@ -119,7 +141,7 @@ def getCharacters
       item["doc"]
     end
   elsif not resp["chars"].nil?
-    resp = HTTParty.post("http://localhost:5984/test/_all_docs",
+    resp = HTTParty.post("#{COUCH}/#{CHARS}/_all_docs",
                          :query => { :include_docs => true },                           
                          :body => { 
                            :keys => resp["chars"]                          
@@ -134,32 +156,65 @@ def getCharacters
   list  
 end
 
+def addCharToUser (id)
+  user = @auth.credentials[0]
+
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  userDesc = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
+                      :basic_auth => auth)
+  binding.pry
+  userDesc = JSON.parse(userDesc)
+  if userDesc['chars'].nil?
+    userDesc['chars'] = []
+  end
+  userDesc['chars'].push id
+  userDesc.delete "_id"
+
+  resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
+                      :headers => { 'Content-Type' => 'application/json' },
+                      :body => userDesc.to_json,
+                      :basic_auth => auth)
+  JSON.parse(resp)
+end
+
+
 def isAdmin(user)
   user = @auth.credentials[0]
 
   not resp["isAdmin"].nil? and resp["isAdmin"]
 end
 
-def getDocument (doc, include=true)
+def getCharacter (name, include=true)
   pwd = ENV["COUCH_PASS"]
 
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.get("http://localhost:5984/test/#{doc}",
+  resp = HTTParty.get("#{COUCH}/#{CHARS}/#{name}",
                       :basic_auth => auth)
   JSON.parse(resp)
 end
 
-def saveDocument (body)
-  existing = getDocument(doc, false)
+def saveCharacter (name, body)
+  existing = getCharacter(name, false)
   if not existing.nil?
     body["_rev"] = existing["_rev"]
   end
-  id = body["_id"]
 
   pwd = ENV["COUCH_PASS"]
   auth = {:username => 'admin', :password => pwd}
-  resp = HTTParty.put("http://localhost:5984/test/#{id}",
+  resp = HTTParty.put("#{COUCH}/#{CHARS}/#{name}",
                       :basic_auth => auth,
+                      :headers => { 'Content-Type' => 'application/json' },
                       :body => body.to_json)
-  JSON.parse(resp).to_json
+  JSON.parse(resp)
+end
+
+def createCharacter (body)
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  resp = HTTParty.post("#{COUCH}/#{CHARS}",
+                       :basic_auth => auth,
+                       :headers => { 'Content-Type' => 'application/json' },
+                       :body => body.to_json)
+  JSON.parse(resp)
 end
