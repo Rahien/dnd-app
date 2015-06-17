@@ -2,7 +2,10 @@
 	<div class="name">
 		{{content-editable value=model.name editable=true}}
 	</div>
-
+	<div class="controls">
+		<span class="save" title="save" {{action "save"}}>S</span>
+		<span class="delete" title="delete" {{action "delete"}}>X</span>
+	</div>
 	<div class="class" id="text-2">
 		{{content-editable value=model.race tagName="span"}} {{content-editable value=model.class tagName="span"}} 
 	</div>
@@ -107,7 +110,7 @@
 
 	{{content-editable classNames="initiative" value=model.initiative}}
 	{{content-editable classNames="perception" value=model.perception}}
-
+	
 	<div class="left-side">
 		{{char-attacks char=model}}
 		<div class="profs">

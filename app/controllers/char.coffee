@@ -22,4 +22,17 @@ CharController = Ember.Controller.extend
     value = @get "model.abilities.#{ability}"
     Math.floor((value-10)/2)
 
+  actions:
+    save: ->
+      model = @get 'model'
+      Ember.$.ajax "/dnd/api/char/#{model._id}",
+        method: "PUT"
+        data: model.serialize()
+        success: ->
+          alert 'saved'
+        error: ->
+          alert 'could not save'
+    delete: ->
+      console.log "delete"
+
 `export default CharController`

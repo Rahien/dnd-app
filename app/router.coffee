@@ -5,6 +5,6 @@ Router = Ember.Router.extend
   location: config.locationType
 
 Router.map ->
-  @route 'char'
+  @route 'char', path: "dnd/app/char"
 
 `export default Router`

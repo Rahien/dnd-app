@@ -2,6 +2,10 @@
 {{#each group in spellGroups}}
 	<div class="spell-group">
 		{{content-editable classNames="title" value=group.title tagName="span"}}
+		<div class="spell-group-controls">
+			<span class="up" {{action "groupUp" group}}>^</span>
+			<span class="down" {{action "groupDown" group}}>v</span>
+		</div>
 
 		{{#each spell in group.spells}}
 			<div class="spell">
@@ -26,16 +30,22 @@
 					<span class="label">range</span>
 					{{content-editable value=spell.range}}				
 				</div>
+				<div class="duration">
+					<span class="label">duration</span>
+					{{content-editable value=spell.duration}}
+				</div>
 				<div class="components">
 					<span class="label">components</span>
 					{{content-editable value=spell.components}}				
 				</div>
-				<div class="duration">
-					<span class="label">duration</span>
-					{{content-editable value=spell.duration}}
-				 </div>
 				 {{free-block title="description" content=spell.description classNames="description"}}
 			</div>
 		{{/each}}
+		<div class="add-spell" {{action "createSpell" group}} title="add spell">
+		+
+		</div>
 	</div>
 {{/each}}
+<div class="add-spell-group" {{action "createSpellGroup"}} title="add group">
++
+</div>

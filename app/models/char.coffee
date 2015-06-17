@@ -7,5 +7,8 @@ Char = Ember.Object.extend
   pushOrDrag: Ember.computed "abilities.str", ->
     str = @get 'abilities.str'
     str*30
+  serialize: ->
+    simplify = JSON.stringify(this)
+    JSON.parse(simplify)
 
 `export default Char`

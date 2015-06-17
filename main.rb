@@ -29,11 +29,15 @@ configure do
   set :allow_methods, [:get, :post, :options, :delete, :put]
 end
 
-get '/dnd/test' do
+get '/dnd/app/*' do
+  send_file File.expand_path('index.html', settings.public_folder)
+end
+
+get '/dnd/api/test' do
   "Still alive!"
 end
 
-get '/dnd/char/:name' do
+get '/dnd/api/char/:name' do
   protected!
   name = params[:name]
   if not canAccessChar(name)
@@ -43,7 +47,7 @@ get '/dnd/char/:name' do
   getCharacter(name).to_json
 end
 
-put '/dnd/char/:name' do
+put '/dnd/api/char/:name' do
   protected!
   name = params[:name]
   if not canAccessChar(name)
@@ -59,7 +63,7 @@ put '/dnd/char/:name' do
   end
 end
 
-post '/dnd/chars' do
+post '/dnd/api/chars' do
   protected!
   data = JSON.parse request.body.read
   if not data["_id"].nil?
@@ -79,7 +83,7 @@ post '/dnd/chars' do
   end
 end
 
-post '/dnd/register' do
+post '/dnd/api/register' do
   data = JSON.parse request.body.read
   user = data["user"]
   pass = data["password"]
@@ -95,7 +99,7 @@ post '/dnd/register' do
   JSON.parse(resp).to_json
 end
 
-get '/dnd/chars' do
+get '/dnd/api/chars' do
   protected!
   getCharacters().to_json
 end
