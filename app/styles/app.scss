@@ -576,6 +576,10 @@ body > div {
 		.spells table {
 				width:  100%;
 		}
+		.notes {
+		    position: relative;
+    		width: 450px;
+		}
 		.name {
 				background-image: url('/assets/images/charsheets/title.png');
 				background-size: 100% 100%;
@@ -873,4 +877,42 @@ body > div {
 
 .character:hover .controls {
 		display:block;
+}
+.login, .register {
+		margin: 0 auto;
+		text-align:center;
+
+		.invalid {
+				color: red;
+		}
+		input {
+				width: 200px;
+				text-align:left;
+		}
+		span {
+				width: 200px;
+				display: inline-block;
+				text-align:left;
+		}
+
+		> div {
+				margin: 5px;
+		}
+		.register {
+				display:inline-block;
+				width: 200px;
+				background-color:blue;
+				border-radius: 60px;
+				padding:5px;
+				color: white;
+				text-align: center;
+		}
+}
+
+.characters {
+		table {
+		    width:  100%;
+    		text-align: left;
+				margin: 1em 0;					
+		}
 }

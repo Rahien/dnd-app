@@ -8,7 +8,7 @@ CharSpellBookComponent = Ember.Component.extend
     
     Ember.ArrayProxy.create
       content: @get('char.spellGroups')
-  spells: Ember.computed 'char.spellGroups.@each.spells.@each', ->
+  spells: Ember.computed 'char.spellGroups.@each.spells', ->
     map = {}
     groups = @get('char.spellGroups')
     groups.map (group) ->
@@ -22,7 +22,7 @@ CharSpellBookComponent = Ember.Component.extend
         title: "Spells"
         spells: []
     createSpell: (group) ->
-      spells = @get 'spells'
+      spells = @get 'spells'      
       spells[group.title].addObject
         title: "spell"
         level: 1

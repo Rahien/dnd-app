@@ -27,12 +27,23 @@ CharController = Ember.Controller.extend
       model = @get 'model'
       Ember.$.ajax "/dnd/api/char/#{model._id}",
         method: "PUT"
-        data: model.serialize()
+        data: JSON.stringify(model.serialize())
+        contentType: "application/json; charset=utf-8"
+        username: @get 'user.username'
+        password: @get 'user.password'
         success: ->
           alert 'saved'
         error: ->
           alert 'could not save'
     delete: ->
-      console.log "delete"
+      model = @get 'model'
+      Ember.$.ajax "/dnd/api/char/#{model._id}",
+        method: "DELETE"
+        username: @get 'user.username'
+        password: @get 'user.password'
+        success: =>
+          @transitionToRoute 'chars'
+        error: ->
+          alert 'could not delete the character'
 
 `export default CharController`
