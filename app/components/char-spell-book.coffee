@@ -21,18 +21,30 @@ CharSpellBookComponent = Ember.Component.extend
       groups.addObject
         title: "Spells"
         spells: []
-    createSpell: (group) ->
+    addSpell: (group) ->
+      @set 'showModal', true
+      @set 'targetGroup', group
+    closeDialog: ->
+      @set 'showModal', false
+    selectSpell: (spell) ->
+      group = @get 'targetGroup'
+      @set 'showModal', false
+      spells = @get 'spells'
+      spells[group.title].addObject spell
+    createSpell: ->
+      group = @get 'targetGroup'
+      @set 'showModal', false
       spells = @get 'spells'      
       spells[group.title].addObject
-        title: "Ray of Frost"
-        level: 1
+        name: "New Spell"
+        level: 0
         origin: "Evocation Cantrip"
         school: "Evocation"
         action: "1 action"
         range: "60 feet"
         components: "V, S"
         duration: "Instantanious"
-        description: "A frigid beam of blue-white light streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, it takes 1d8 cold damage, and its speed is reduced by 10 feet until the start of your next turn. The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+        description: "Something magical happens!"
     groupUp: (group) ->
       groups = @get 'spellGroups'
       index = groups.indexOf group
@@ -43,5 +55,24 @@ CharSpellBookComponent = Ember.Component.extend
       index = groups.indexOf group
       groups.removeObject group
       groups.insertAt (Math.min(index+1,groups.get('length'))), group
+    groupRemove: (group) ->
+      groups = @get 'spellGroups'
+      groups.removeObject group
+    spellUp: (group, spell) ->
+      spells = @get 'spells'
+      s = spells[group.title]
+      index = s.indexOf spell
+      s.removeObject spell
+      s.insertAt (Math.max(index-1,0)), spell
+    spellDown: (group, spell) ->
+      spells = @get 'spells'
+      s = spells[group.title]
+      index = s.indexOf spell
+      s.removeObject spell
+      s.insertAt (Math.min(index+1,s.get('length'))), spell
+    spellRemove: (group, spell) ->
+      spells = @get 'spells'
+      s = spells[group.title]
+      s.removeObject spell
 
 `export default CharSpellBookComponent`

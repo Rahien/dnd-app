@@ -52,6 +52,17 @@ post '/dnd/api/reload-spells' do
   addAllSpells()
 end
 
+get '/dnd/api/spells/:class' do
+  protected!
+  className = params[:class]
+  getSpells(className).to_json
+end
+
+get '/dnd/api/spells' do
+  protected!
+  getSpells(nil).to_json
+end
+
 post '/dnd/api/image' do
   file = params[:file][:tempfile]
   type = params[:file][:type]
@@ -349,6 +360,25 @@ def createCharacter (body)
   JSON.parse(resp)
 end
 
+def getSpells (className)
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  resp = HTTParty.get("#{COUCH}/#{SPELLS}/_changes",
+                      :basic_auth => auth,
+                      :query => {
+                        :include_docs => true,
+                        :filter => "application/spells",
+                        :class => className,
+                      },
+                      :headers => { 'Content-Type' => 'application/json' })
+  resp = JSON.parse(resp)
+  list = []
+  resp['results'].map do |spell|
+    list.push spell['doc']
+  end
+  list
+end
+
 def addAllSpells
   rows = []
   CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true } ) do |row|
@@ -370,9 +400,25 @@ def addAllSpells
                        :basic_auth => auth,
                        :headers => { 'Content-Type' => 'application/json' },
                        :body => {:docs => rows}.to_json)
-  if resp.code == 200 or resp.code == 201
+
+  filter = addSpellFilter()
+  if (resp.code == 200 or resp.code == 201) and (filter == 200 or filter == 201)
     "ok"
   else
     "fail"
   end
+end
+
+def addSpellFilter
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
+                       :basic_auth => auth,
+                       :headers => { 'Content-Type' => 'application/json' },
+                       :body => {
+                        :filters => {
+                          :spells => "function(doc,req) { if(doc.class && (!req.query.class || doc.class.toLowerCase().indexOf(req.query.class.toLowerCase())>=0)){ return true; } else { return false; } }"
+                        }
+                      }.to_json)
+  resp.code
 end

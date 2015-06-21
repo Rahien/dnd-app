@@ -113,7 +113,7 @@ Char.getDefault = ->
         title: "cantrips"
         spells: [
           {
-            title: "Ray of Frost"
+            name: "Ray of Frost"
             level: 1
             origin: "Evocation Cantrip"
             school: "Evocation"

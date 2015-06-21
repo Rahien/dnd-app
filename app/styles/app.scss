@@ -5,6 +5,24 @@ body > div {
 }
 
 .character {
+		span.delete, td.delete span, .create, .up, .down, .remove {
+				background-color: black;   color: white;   border-radius: 200px;   
+				width: 14px;   
+				height: 14px;   
+				line-height: 14px;
+				display: inline-block;
+				text-align: center;
+				font-family: arial;
+				font-weight: bold;
+				font-size: 9px;
+				position: relative;
+				top: -2px;
+				padding: 0;
+				cursor: hand;
+				cursor: pointer;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+		}
 		.controls {
 				position: absolute;
 				top: 50px;
@@ -187,7 +205,7 @@ body > div {
 						display:blocks;
 				}
 				.delete {
-						display:inline;
+						display:inline-block;
 				}
 		}
 
@@ -288,6 +306,7 @@ body > div {
 				text-align:center;
 				line-height: 60px;
 				right: 0px;
+				font-size: 30px;
 		}
 
 		.perception:after, .initiative:after {
@@ -504,6 +523,11 @@ body > div {
 				}
 				.create {
 						display:none;
+						left: 50%;
+						width: 20px;
+						height: 20px;
+						line-height: 20px;
+						font-size: 14px;
 				}
 		}
 		.attacks:hover {
@@ -534,11 +558,15 @@ body > div {
 		}
 		.gear .create {
 				display:none;
-				width: 100%;
+				left: 50%;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				font-size: 14px;
 				text-align:center;
 		}
 		.gear:hover .create {
-				display:block;
+				display:inline-block;
 		}
 
 		.gear table th {
@@ -613,7 +641,7 @@ body > div {
 		.level, .prof-bonus .value {
 				font-family: 'Cinzel Decorative', cursive;
 				font-weight: bold;
-				height: 100%;
+				height: 80px;
 				line-height: 100%;
 		}
 		.gear table {
@@ -681,14 +709,14 @@ body > div {
 				top: -3px;
 				right: 0px;
 				background-size: 100% 100%;
-				margin-right: 15px;
+				margin-right: 1px;
 		}
 		.right-side {
 				span.editbutton:after {
 						right: auto;
 						left: 0px;
 						margin-right: 0px;
-						margin-left: 15px;
+						margin-left: 1px;
 				}
 		}
 
@@ -821,6 +849,26 @@ body > div {
 
 .spell-detail {
 
+		.spell-controls {
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: white;
+				display: none;
+				padding: 0;
+		}
+
+		.spell:hover .spell-controls {
+				display:block;
+		}
+		.spell > .spell-controls *:first-child {
+				font-weight: normal;
+				font-size: 9px;
+		}
+		.spell > .spell-controls *:first-child:after {
+				content: "";
+		}
+
 		.spell-group .spell-group-controls {
 				display: none;
 				position: absolute;
@@ -838,11 +886,21 @@ body > div {
 
 		.add-spell {
 				display: none;
-				text-align: center;
 				background-color: black;
 				color: white;
 				column-span: all;
 				-webkit-column-span: all;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 200px;
+				text-align: center;
+				font-weight: bold;
+				font-size: 20px !important;
+				margin: 0.5em;
+				left: 50%;
+				position: relative;
+				margin-left: -15px;
 		}
 
 		.spell-group:hover .add-spell {
@@ -852,9 +910,19 @@ body > div {
 		.add-spell-group {
 				display: none;
 				background-color: black;
-				color: white;			
+				color: white;
 				column-span: all;
 				-webkit-column-span: all;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-weight: bold;
+				font-size: 30px;
+				margin: 0.5em;
+				left: 50%;
+				position: relative;
+				margin-left: -20px;
 		}
 		.spell {
 				.editbutton {
@@ -873,7 +941,7 @@ body > div {
 
 }
 .spell-detail:hover .add-spell-group {
-		display: block;
+		display: inline-block;
 		text-align: center;
 }
 
@@ -917,4 +985,83 @@ body > div {
     		text-align: left;
 				margin: 1em 0;					
 		}
+}
+
+.ember-modal-dialog {
+  position: fixed;
+  background-color: white;
+  color: black;
+  overflow: hidden;
+  z-index: 1000000;
+  width: 960px;
+  padding: 10px;
+  box-shadow: black 5px 5px 10px;
+}
+
+#modal-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000000;
+}
+
+.ember-modal-overlay {
+    z-index: 999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+		right: 0;
+		bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.spell-select {
+		span.title {
+				display: block;
+				font-size: 20px;
+				margin-bottom: 0.5em;
+				font-weight: bold;
+		}
+		ul.results {
+				max-height: 150px;
+				overflow-y: scroll;
+				border: solid 1px gray;
+		}
+
+		span.label {
+				width: 200px;
+				display: inline-block;
+		}
+
+		input {
+				margin: 0;
+		}
+
+		input[type="checkbox"] {
+				height: 16px;
+				width: 16px;
+				margin-top: 6px;
+		}
+
+		.buttons > div {
+				display: inline-block;
+				margin: 0.5em;
+				padding: 10px;
+				border: solid 1px gray;
+				color: white;
+				background-color: black;
+				border-radius: 4px;
+				width: 150px;
+				text-align: center;
+				font-family: arial;
+				box-shadow: black 3px 3px 5px;
+				cursor: hand;
+				cursor: pointer;
+		}
+
+		.buttons {
+				text-align: center;
+		}
+
 }

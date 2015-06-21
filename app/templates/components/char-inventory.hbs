@@ -13,13 +13,13 @@
 						{{content-editable value=possession.price tagName="td"}}
 						{{content-editable value=possession.weight tagName="td"}}
 						{{content-editable value=possession.notes tagName="td"}}
-						<td {{action 'removeItem' possession}} title="remove item" class="remove">x</td>
+						<td{{action 'removeItem' possession}} title="remove item" class="delete"><span>x</span></td>
 				</tr>
 			{{/each}}
 		</tbody>
 	</table>
 
-	<div class="create" title="new item" {{action 'createItem'}}>+</div>
+	<span class="create" title="new item" {{action 'createItem'}}>+</span>
 
 	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 		<thead>

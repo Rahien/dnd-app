@@ -3,13 +3,19 @@
 	<div class="spell-group">
 		{{content-editable classNames="title" value=group.title tagName="span"}}
 		<div class="spell-group-controls">
-			<span class="up" {{action "groupUp" group}}>^</span>
-			<span class="down" {{action "groupDown" group}}>v</span>
+			<span class="up" title="move up" {{action "groupUp" group}}>▲</span>
+			<span class="down" title="move down" {{action "groupDown" group}}>▼</span>
+			<span class="remove" title="remove group" {{action "groupRemove" group}}>x</span>
 		</div>
 
 		{{#each spell in group.spells}}
 			<div class="spell">
-				{{content-editable classNames="title" value=spell.title tagName="span"}}
+				{{content-editable classNames="title" value=spell.name tagName="span"}}
+				<div class="spell-controls">
+					<span class="up" title="move up" {{action "spellUp" group spell}}>▲</span>
+					<span class="down" title="move down" {{action "spellDown" group spell}}>▼</span>
+					<span class="remove" title="remove spell" {{action "spellRemove" group spell}}>x</span>
+				</div>
 				<div class="spell-level">
 					<span class="label">level</span>
 					{{content-editable value=spell.level}}
@@ -38,10 +44,10 @@
 					<span class="label">components</span>
 					{{content-editable value=spell.components}}				
 				</div>
-				 {{free-block title="description" content=spell.description classNames="description"}}
+				{{free-block title="description" content=spell.description classNames="description"}}
 			</div>
 		{{/each}}
-		<div class="add-spell" {{action "createSpell" group}} title="add spell">
+		<div class="add-spell" {{action "addSpell" group}} title="add spell">
 		+
 		</div>
 	</div>
@@ -49,3 +55,9 @@
 <div class="add-spell-group" {{action "createSpellGroup"}} title="add group">
 +
 </div>
+
+{{#if showModal}}
+	{{#modal-dialog}}
+		{{select-spell char=char closeDialog="closeDialog" newSpell="createSpell" selectSpell="selectSpell"}}
+	{{/modal-dialog}}
+{{/if}}
