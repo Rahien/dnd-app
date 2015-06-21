@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require 'httparty'
+require 'httmultiparty'
 require 'sinatra'
 require 'sinatra/cross_origin'
 require 'json'
@@ -10,6 +10,7 @@ require 'bcrypt'
 COUCH = "http://localhost:5984"
 CHARS = "chars"
 USERS = "users"
+ATTACHMENTS = "attachments"
 
 helpers do
   def protected!
@@ -39,6 +40,19 @@ end
 
 get '/dnd/api/test' do
   "Still alive!"
+end
+
+post '/dnd/api/image' do
+  file = params[:file][:tempfile]
+  type = params[:file][:type]
+  createAttachment(file,type)
+end
+
+get '/dnd/api/image/:name' do
+  name = params[:name]
+  resp = getAttachment(name)
+  content_type resp.content_type
+  resp.body
 end
 
 get '/dnd/api/char/:name' do
@@ -226,6 +240,33 @@ def addCharToUser (id)
   JSON.parse(resp)
 end
 
+def createAttachment (file,type)
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+
+  resp = HTTParty.post("#{COUCH}/#{ATTACHMENTS}/",
+                      :headers => { 'Content-Type' => 'application/json' },
+                      :body => { 'isAttachment' => true }.to_json,
+                      :basic_auth => auth)
+  resp = JSON.parse(resp)
+  content = file.read
+
+  fileResp = HTTParty.put("#{COUCH}/#{ATTACHMENTS}/#{resp['id']}/attachment",
+                           :headers => { 'Content-Type' => type },
+                           :query => { :rev => resp['rev'] },
+                           :body => content,
+                           :basic_auth => auth)
+  fileResp = JSON.parse(fileResp)
+  fileResp['id']
+end
+
+def getAttachment (name)
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  resp = HTTParty.get("#{COUCH}/#{ATTACHMENTS}/#{name}/attachment",
+                      :basic_auth => auth)
+  resp
+end
 
 def isAdmin(user)
   user = @auth.credentials[0]

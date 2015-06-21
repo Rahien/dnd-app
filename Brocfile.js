@@ -5,6 +5,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var app = new EmberApp();
 
 app.import('bower_components/showdown-table/dist/showdown-table.js');
+app.import('bower_components/ember-uploader/dist/ember-uploader.named-amd.js');
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //

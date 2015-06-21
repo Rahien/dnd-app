@@ -45,5 +45,9 @@ CharController = Ember.Controller.extend
           @transitionToRoute 'chars'
         error: ->
           alert 'could not delete the character'
+    handleUpload: (result) ->
+      @set 'model.image', "/dnd/api/image/#{result}"
+    clickImage: ->
+      Ember.$('.character .image input').click()
 
 `export default CharController`

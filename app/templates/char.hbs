@@ -18,8 +18,9 @@
 		<span class="value">{{profBonus}}</span>
 	</div>
 	<div class="image">
+		{{file-upload url="/dnd/api/image" didUpload="handleUpload"}}
 		<div class="figure">
-			<img src="{{model.image}}"/>
+			<img src="{{model.image}}" {{action "clickImage" on="click"}}/>
 		</div>
 	</div>
 
