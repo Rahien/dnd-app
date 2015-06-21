@@ -10,6 +10,7 @@ require 'bcrypt'
 COUCH = "http://localhost:5984"
 CHARS = "chars"
 USERS = "users"
+SPELLS = "spells"
 ATTACHMENTS = "attachments"
 
 helpers do
@@ -40,6 +41,15 @@ end
 
 get '/dnd/api/test' do
   "Still alive!"
+end
+
+post '/dnd/api/reload-spells' do
+  protected!
+  # if not isAdmin
+  #   headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+  #   halt, 401, "Not authorized\n"
+  # end
+  addAllSpells()
 end
 
 post '/dnd/api/image' do
@@ -161,6 +171,17 @@ def canAccessChar (name)
                       :basic_auth => auth)
   resp = JSON.parse(resp)
   not resp["isAdmin"].nil? and resp["isAdmin"] or resp["chars"].include? name
+end
+
+def isAdmin
+  user = @auth.credentials[0]
+
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+  resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
+                      :basic_auth => auth)
+  resp = JSON.parse(resp)
+  not resp["isAdmin"].nil? and resp["isAdmin"]
 end
 
 def getCharacters
@@ -326,4 +347,32 @@ def createCharacter (body)
                        :headers => { 'Content-Type' => 'application/json' },
                        :body => body.to_json)
   JSON.parse(resp)
+end
+
+def addAllSpells
+  rows = []
+  CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true } ) do |row|
+    object = {}
+    row.headers.map do |header|
+      object[header] = row[header]
+    end
+    rows.push object
+  end    
+
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+
+  HTTParty.delete("#{COUCH}/#{SPELLS}",
+                         :basic_auth => auth)
+  HTTParty.put("#{COUCH}/#{SPELLS}",
+                      :basic_auth => auth)
+  resp = HTTParty.post("#{COUCH}/#{SPELLS}/_bulk_docs",
+                       :basic_auth => auth,
+                       :headers => { 'Content-Type' => 'application/json' },
+                       :body => {:docs => rows}.to_json)
+  if resp.code == 200 or resp.code == 201
+    "ok"
+  else
+    "fail"
+  end
 end
