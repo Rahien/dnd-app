@@ -1,10 +1,11 @@
-body > div {
+body > * > div {
 		width: 960px;
 		margin: 0 auto;
 		position: relative;
 }
 
 .character {
+		top: 50px;
 		span.delete, td.delete span, .create, .up, .down, .remove {
 				background-color: black;   color: white;   border-radius: 200px;   
 				width: 14px;   
@@ -968,15 +969,6 @@ body > div {
 		> div {
 				margin: 5px;
 		}
-		.register {
-				display:inline-block;
-				width: 200px;
-				background-color:blue;
-				border-radius: 60px;
-				padding:5px;
-				color: white;
-				text-align: center;
-		}
 }
 
 .characters {
@@ -1064,4 +1056,191 @@ body > div {
 				text-align: center;
 		}
 
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000000000000;
+    margin-top: -55px;
+		overflow:hidden;
+
+		.title {
+				font-family: Cinzel Decorative;
+				font-weight: bold;
+				font-size: 30px;
+				line-height: 40px;
+		}
+		.header-content {
+				background-color: black;
+				color: white;
+				text-align: center;
+				height: 40px;
+				overflow: hidden;
+				box-shadow: #444 0px 5px 10px;
+				width: 105%;
+				margin-left: -2.5%;
+		}
+
+		.header-wrap > * {
+				display: inline-block;
+		}
+
+		.header-waiter {
+				height: 50px;
+		}
+
+		.toggle .icon:after {
+				content: "\f070";
+		}
+		.functional > *, #buttons .button {
+				display: inline-block;
+				padding: 4px 10px;
+				margin: 5px 7px;
+				border: solid 2px white;
+				border-radius: 7px;
+				cursor: hand;
+				cursor: pointer;
+				span:first-child {
+						padding-right: 6px;
+				}
+		}
+
+		.header-wrap {
+				width: 960px;
+				margin: 0 auto;
+				position: relative;
+
+				#buttons {
+						position: absolute;
+						left: 0px;
+				}
+		}
+
+		.functional {
+				right: 0px;
+				position: absolute;
+		}
+
+		.functional > *:hover, #buttons .button:hover {
+				background-color: #1A1A1A;
+		}
+}
+
+.header:hover, .header.show {
+		margin: 0px;
+}
+.header.hide {
+		display:none;
+}
+.header.show {
+		.toggle .icon:after {
+				content: "\f06e";
+		}
+
+}
+
+.login, .register {
+    top: 130px;
+    padding: 20px;
+		border:solid black 5px;
+    border-radius: 10px;
+    width: 500px;
+		padding-bottom: 0px;
+
+		.label {
+				font-family: 'Cinzel Decorative', cursive;
+				font-style: italic;
+				font-weight: bold;
+				color: black;
+				font-size: 20px;
+		}
+
+		input {
+				font-family: Gentium Basic;
+				border: none;
+				outline: none;
+				border-bottom: solid 1px black;
+				font-size: 18px;
+		}
+
+		.invalid input {
+				border-bottom-color: red;
+		}
+
+		.actions > *, .register, .buttons .button {
+				display: inline-block;
+				padding: 5px;
+				margin: 5px 0;
+				border: solid black 3px;
+				border-radius: 7px;
+				width: 100px;
+				font-family: 'Gentium Basic', serif;
+				font-weight: bold;
+				cursor: hand;
+				cursor: pointer;
+		}
+
+		.actions > *:hover, .register:hover, .buttons .button:hover {
+				background-color:#EAEAEA;
+		}
+
+		.actions .or {
+				border: none;
+				font-weight: normal;
+				padding: 0;
+				width: 50px;
+				cursor: default;
+				background-color: transparent !important;
+		}
+
+		.actions {
+				margin-top: 25px;
+		}
+
+}
+
+.home {
+    top: 50px;
+		.characters {
+				font-family: Gentium Basic;
+				thead {
+						font-family: 'Cinzel Decorative';
+				}
+
+				thead th {
+						padding-bottom: 10px;
+				}
+				tbody tr {
+						cursor: hand;
+						cursor: pointer;
+				}
+				table th:last-child, table td:last-child {
+						text-align: right;
+				}
+		}
+		.new-char {
+				display: inline-block;
+				padding: 5px;
+				margin: 5px 0;
+				border: solid black 3px;
+				border-radius: 7px;
+				width: 130px;
+				font-family: 'Gentium Basic', serif;
+				font-weight: bold;
+				cursor: hand;
+				cursor: pointer;
+				text-align: center;
+		}
+		.new-char:hover {
+				background-color: #EAEAEA;
+		}
+
+}
+
+
+.register .label {
+		font-size: 18px;
 }

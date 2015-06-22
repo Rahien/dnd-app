@@ -1,6 +1,8 @@
 <div class="home">
-	Available Characters
 	<div class="characters">
+		{{#ember-wormhole to="buttons"}}
+			<span class="title">Characters</span>
+		{{/ember-wormhole}}
 		<table>
 			<thead>
 				<tr>
@@ -20,6 +22,6 @@
 		</table>
 	</div>
 	<div class="new-char" {{action "newCharacter"}}>
-		new character
+		New Character
 	</div>
 </div>

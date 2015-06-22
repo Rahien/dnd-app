@@ -21,5 +21,7 @@ LoginController = Ember.Controller.extend
         this.set 'attemptedTransition', null
       else
         this.transitionToRoute('chars')
+    register: ->
+      @transitionToRoute 'register'
 
 `export default LoginController`

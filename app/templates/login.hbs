@@ -1,6 +1,6 @@
 <div class="login">
-	<div class="user">
-		<span class="label {{if badUser "invalid"}}">user</span>
+	<div class="user {{if badUser "invalid"}}">
+		<span class="label">user</span>
 		{{input value=username action="login" on="enter"}}
 	</div>
 	<div class="password {{if badPwd "invalid"}}">
@@ -8,12 +8,14 @@
 		{{input type="password" value=password action="login" on="enter"}}
 	</div>
 	<div class="actions">
-		<div class="login" {{action "login"}}>
+		<div class="login-button" {{action "login"}}>
   		Log in
 		</div>
 		<div class="or">
 			or
 		</div>
-		{{#link-to "register"}}register{{/link-to}}
+		<div {{action "register"}}>
+			Register
+		</div>
 	</div>	
 </div>
