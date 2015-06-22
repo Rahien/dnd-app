@@ -1,11 +1,17 @@
+body {
+		margin: 0;
+}
 body > * > div {
 		width: 960px;
 		margin: 0 auto;
 		position: relative;
 }
 
+.wrapper {
+    margin-top: -30px;
+}
+
 .character {
-		top: 50px;
 		span.delete, td.delete span, .create, .up, .down, .remove {
 				background-color: black;   color: white;   border-radius: 200px;   
 				width: 14px;   
@@ -1059,13 +1065,17 @@ body > * > div {
 }
 
 .header {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000000000000;
     margin-top: -55px;
 		overflow:hidden;
+		-webkit-transition: margin-top 1s;
+		-o-transition: margin-top 1s;
+		-moz-transition: margin-top 1s;
+		transition: margin-top 1s;
+
 
 		.title {
 				font-family: Cinzel Decorative;
@@ -1149,6 +1159,7 @@ body > * > div {
     border-radius: 10px;
     width: 500px;
 		padding-bottom: 0px;
+		position:relative;
 
 		.label {
 				font-family: 'Cinzel Decorative', cursive;
@@ -1203,7 +1214,6 @@ body > * > div {
 }
 
 .home {
-    top: 50px;
 		.characters {
 				font-family: Gentium Basic;
 				thead {
