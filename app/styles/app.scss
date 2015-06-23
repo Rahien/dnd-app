@@ -758,7 +758,7 @@ body > * > div {
     overflow: hidden;
 }
 
-.spell-detail .spell-group {
+.spell-detail .spell-wrap {
     column-count: 2;
     -webkit-column-count: 2;
     -moz-column-count: 2;
@@ -892,6 +892,8 @@ body > * > div {
 		}
 
 		.add-spell {
+				cursor: hand;
+				cursor: pointer;
 				display: none;
 				background-color: black;
 				color: white;
@@ -915,6 +917,8 @@ body > * > div {
 		}
 
 		.add-spell-group {
+				cursor: hand;
+				cursor: pointer;
 				display: none;
 				background-color: black;
 				color: white;
