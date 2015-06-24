@@ -21,7 +21,7 @@ Char.getDefault = ->
     description: "As a dragonborn, you have dedicated your life to honor and the pursuit of excellence. You are driven, noble, but in contrast to regular dragonborn, you can have trouble containing the wilder parts of your dragon heritage. As a Sorceress, you realized that precisely this wilder power grants you strength, which you will use to achieve your goals."
     keywords: "massive magic damage, dragon-like, low armor, rage"
     stats: [
-      { label: "heigh", value: "6'4\"" },
+      { label: "height", value: "6'4\"" },
       { label: "weight", value: "260 lb." },
       { label: "size", value: "Medium" },
       { label: "speed", value: "30 ft." },
