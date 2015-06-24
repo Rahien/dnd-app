@@ -43,7 +43,7 @@ CharSpellBookComponent = Ember.Component.extend
         action: "1 action"
         range: "60 feet"
         components: "V, S"
-        duration: "Instantanious"
+        duration: "Instantaneous"
         description: "Something magical happens!"
     groupUp: (group) ->
       groups = @get 'spellGroups'
