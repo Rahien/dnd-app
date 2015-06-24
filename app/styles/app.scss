@@ -146,6 +146,7 @@ body > * > div {
 				box-sizing: border-box;
 				left: 0;
 				-moz-box-sizing: border-box;
+				padding-bottom: 5px;
 		}
 		.prof-bonus .value {
 				background-color: white;
@@ -820,6 +821,7 @@ body > * > div {
 }
 .spell > * {
     padding: 0 0.5em;
+		clear: both;
 }
 
 .spell .description {
