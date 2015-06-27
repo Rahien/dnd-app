@@ -12,7 +12,10 @@ RegisterController = Ember.Controller.extend
     pwd = @get 'password'
     pwd2 = @get 'passwordAgain'
     not (pwd == pwd2)
+  showInfo: false    
   actions:
+    toggleInfo: ->
+      @set 'showInfo', not @get('showInfo')
     register: ->
       if @get('badUser') or @get('badPwd') or @get('badPwd2')
         alert "please fix the errors above, you need a username and your passwords have to match"

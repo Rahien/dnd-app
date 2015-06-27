@@ -1257,6 +1257,53 @@ body > * > div {
 }
 
 
-.register .label {
-		font-size: 18px;
+.register {
+		.label {
+				font-size: 18px;
+		}
+		.info {
+				position: absolute;
+				top: 12px;
+				left: 516px;
+				width: 250px;
+		}
+
+		span.info-icon {
+				background-color: black;
+				color: white;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+				border-radius: 100px;
+				font-style: italic;
+				cursor: hand;
+				cursor: pointer;
+				display: block;
+				float: left;
+				border: solid 1px white;
+				margin-left: -10px;
+				margin-top: -10px;
+		}
+
+		.info-text {
+				z-index: 1000;
+				background-color: black;
+				padding: 5px;
+				border-radius: 5px;
+				border: solid 1px #444;
+				color: white;
+				text-align: justify;
+				font-size: 12px;
+				font-style: italic;
+				display:none;
+		}
+
+		.info-text.show {
+				display:block;
+		}
+
+		.register {
+				position:static;
+		}
 }
