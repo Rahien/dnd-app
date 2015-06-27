@@ -13,7 +13,7 @@ Char = Ember.Object.extend
 
 Char.getDefault = ->
   Char.create 
-    name: "Thavann Nirissh"
+    name: "Unnamed Hero"
     class: "Sorcerer"
     race: "Red Dragonborn"
     level: 3

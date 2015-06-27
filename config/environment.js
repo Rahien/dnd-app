@@ -2,6 +2,15 @@
 
 module.exports = function(environment) {
   var ENV = {
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' cdnjs.cloudflare.com",
+      'font-src': "'self' fonts.gstatic.com",
+      'connect-src': "'self'",
+      'img-src': "'self'",
+      'style-src': "'self' maxcdn.bootstrapcdn.com fonts.googleapis.com cdnjs.cloudflare.com",
+      'media-src': "'self'"
+    },
     modulePrefix: 'dnd5',
     environment: environment,
     baseURL: '/',

@@ -38,5 +38,8 @@
     "ember-export-application-global": "^1.0.2",
     "ember-marked": "0.0.5",
     "ember-modal-dialog": "0.7.2"
+  },
+  "dependencies": {
+    "ember-cli-content-security-policy": "^0.4.0"
   }
 }

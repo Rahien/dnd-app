@@ -6,7 +6,7 @@
 		{{#each player in model}}
 			<div class="player">
 				<span class="title">{{player.username}}</span>
-				<div class="field" {{action "toggleAdmin"}}>
+				<div class="field" {{action "toggleAdmin" player}}>
 					<span class="admin">admin</span>
 					<i class="fa {{if player.isAdmin 'fa-check-circle-o' 'fa-circle-o'}}"></i>
 				</div>
@@ -25,8 +25,8 @@
 									<td>{{char.class}}</td>
 									<td>{{char.level}}</td>
 									<td class='actions'>
-										<span class="edit" title="edit" {{action "editChar" player char}}>e</span>
-										<span class="remove" title="remove" {{action "removeChar" player char}}>x</span>
+										<i class="unlink fa fa-unlink" title="remove link" {{action "unlinkChar" player char bubbles=false}}></i>
+										<span class="remove" title="remove" {{action "removeChar" char bubbles=false}}>x</span>
 									</td>
 								</tr>
 							{{/each}}
@@ -34,10 +34,10 @@
 					</table>
 				</div>
 				<div class="controls">
-					<div class="new-char" {{action "linkCharacter"}}>
+					<div class="new-char" {{action "requestLink" player}}>
 						Link Character
 					</div>
-					<div class="remove-player" {{action "removePlayer"}}>
+					<div class="remove-player" {{action "removePlayer" player}}>
 						Remove player
 					</div>
 				</div>
@@ -45,3 +45,9 @@
 		{{/each}}
 	</div>
 </div>
+{{#if showModal}}
+	{{#modal-dialog}}
+		{{link-character player=linkingPlayer closeDialog="closeDialog" linkCharacter="linkCharacter"}}
+	{{/modal-dialog}}
+{{/if}}
+

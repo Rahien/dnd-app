@@ -7,6 +7,7 @@ require 'sinatra/base'
 require 'webrick'
 require 'webrick/https'
 require 'openssl'
+require 'pry'
 
 CERT_PATH = 'certificates/'
 
@@ -176,9 +177,70 @@ class MyServer < Sinatra::Base
 
     resp = ensureUser(user,pass)
     if JSON.parse(resp)["error"] == "conflict"
-      halt 500, "This user already exists"
+      halt 500, "This user already exists\n"
     end
     "ok"
+  end
+
+  delete '/dnd/api/player/:id' do
+    protected!
+    if not isAdmin
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
+
+    user = params[:id]
+    if user == @auth.credentials[0]
+      halt 403, "Cannot remove your own user\n"
+    end
+
+    auth = auth!
+    resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
+                      :basic_auth => auth)
+    if resp.code == 200
+      rev= JSON.parse(resp)["_rev"]
+      resp = HTTParty.delete("#{COUCH}/#{USERS}/#{user}",
+                             :query => { "rev" => rev },
+                             :basic_auth => auth)
+      if resp.code == 200
+        "ok"
+      else
+        halt 500, "Could not remove the provided player"
+      end
+    else
+      halt 500, "Could not fetch the provided player"
+    end
+  end
+
+  put '/dnd/api/player/:id/chars' do 
+    protected!
+    if not isAdmin
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
+
+    player = params[:id]
+    chars = JSON.parse request.body.read
+
+    auth = auth!
+    resp = HTTParty.get("#{COUCH}/#{USERS}/#{player}",
+                      :basic_auth => auth)
+
+
+    if resp.code == 200
+      user= JSON.parse(resp)
+      user['chars'] = chars
+      resp = HTTParty.put("#{COUCH}/#{USERS}/#{player}",
+                          :body => user.to_json,
+                          :basic_auth => auth)
+      if resp.code == 200 or resp.code == 201
+        "ok"
+      else
+        halt 500, "Could not update the list of characters for the player"
+      end
+    else
+      halt 500, "Could not fetch the provided player 'player'"
+    end
   end
 
   post '/dnd/api/setAdmin' do
@@ -186,10 +248,13 @@ class MyServer < Sinatra::Base
     user = data["username"]
     admin = data["admin"]
 
-    !protected
+    protected!
     if not isAdmin
       headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
       halt 401, "Not authorized\n"
+    end
+    if user == @auth.credentials[0] and not admin
+      halt 403, "Cannot toggle yourself to non admin user\n"
     end
     setAdmin(user,admin)
   end

@@ -1020,6 +1020,7 @@ body > * > div {
 		right: 0;
 		bottom: 0;
     background-color: rgba(0,0,0,0.1);
+		width: 100%;
 }
 
 .spell-select {
@@ -1087,7 +1088,7 @@ body > * > div {
 
 
 		.title {
-				font-family: Cinzel Decorative;
+				font-family: 'Cinzel Decorative', cursive;
 				font-weight: bold;
 				font-size: 30px;
 				line-height: 40px;
@@ -1221,32 +1222,32 @@ body > * > div {
 		}
 
 }
+.characters {
+		tr:hover td {
+				background-color: #EEE;
+		}
+		td {
+				padding: 5px 0;
+		}
+
+		font-family: Gentium Basic;
+		thead {
+				font-family: 'Cinzel Decorative';
+		}
+
+		thead th {
+				padding-bottom: 10px;
+		}
+		tbody tr {
+				cursor: hand;
+				cursor: pointer;
+		}
+		table th:last-child, table td:last-child {
+				text-align: right;
+		}
+}
 
 .home {
-		.characters {
-				tr:hover td {
-						background-color: #EEE;
-				}
-				td {
-						padding: 5px 0;
-				}
-
-				font-family: Gentium Basic;
-				thead {
-						font-family: 'Cinzel Decorative';
-				}
-
-				thead th {
-						padding-bottom: 10px;
-				}
-				tbody tr {
-						cursor: hand;
-						cursor: pointer;
-				}
-				table th:last-child, table td:last-child {
-						text-align: right;
-				}
-		}
 		.new-char, .remove-player {
 				display: inline-block;
 				padding: 5px;
@@ -1361,6 +1362,11 @@ body > * > div {
 						cursor: hand;
 						cursor: pointer;
 				}
+				.actions > .unlink {
+						top: 3px;
+						position: relative;
+						padding-right: 10px;
+				}
 
 		}
 
@@ -1419,4 +1425,41 @@ body > * > div {
 		.register {
 				position:static;
 		}
+}
+
+.link-character {
+		.title {
+				font-size: 20px;
+				font-family: 'Cinzel Decorative', cursive;
+				font-weight: bold;
+				left: -10px;
+				position: relative;
+				top: -10px;
+				width: 110%;
+				background-color: black;
+				color: white;
+				display: block;
+				padding: 10px;
+		}
+		.characters table {
+				margin-top: 0;
+		}
+		.cancel {
+				display: inline-block;
+				padding: 5px;
+				margin: 5px 0;
+				border: solid black 3px;
+				border-radius: 7px;
+				width: 130px;
+				font-family: 'Gentium Basic', serif;
+				font-weight: bold;
+				cursor: hand;
+				cursor: pointer;
+				text-align: center;
+		}
+		.cancel:hover {
+				background-color: #EAEAEA;
+		}
+
+    padding: 0;
 }

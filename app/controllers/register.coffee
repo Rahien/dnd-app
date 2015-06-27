@@ -28,12 +28,11 @@ RegisterController = Ember.Controller.extend SendMessage,
 
         Ember.$.ajax "/dnd/api/register",
           type: "POST"
-          dataType: "json"
           contentType: "application/json; charset=utf-8"
           data: JSON.stringify(data)
           success: (result) =>
-            @set 'user.username', 'username'
-            @set 'user.password', 'password'
+            @set 'user.username', @get('username')
+            @set 'user.password', @get('password')
             @transitionToRoute('chars')
           error: (error) =>
             @sendMessage 'error', 'Sorry could not register you at the server, please contact your administrator'

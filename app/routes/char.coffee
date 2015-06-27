@@ -16,7 +16,7 @@ CharRoute = AuthRoute.extend SendMessage,
         error: (error) ->
           if error.status == 401
             @transitionToRoute 'login'
-          else if typeof error == "string"
+          else
             @sendMessage 'error', "Sorry, could not fetch the character from the server, contact your administrator"
 
 `export default CharRoute`
