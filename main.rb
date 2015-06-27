@@ -1,16 +1,14 @@
 #!/usr/bin/ruby
 
-require 'httmultiparty'
+require 'httparty'
 require 'json'
-require 'pry'
 require 'bcrypt'
-
 require 'sinatra/base'
 require 'webrick'
 require 'webrick/https'
 require 'openssl'
 
-CERT_PATH = '/home/karel/certificates/'
+CERT_PATH = 'certificates/'
 
 webrick_options = {
         :Port               => 8443,
@@ -23,7 +21,8 @@ webrick_options = {
         :SSLCertName        => [ [ "CN",WEBrick::Utils::getservername ] ]
 }
 
-COUCH = "http://localhost:5984"
+COUCH = ENV["COUCH"]
+COUCH ||= "http://localhost:5984"
 CHARS = "chars"
 USERS = "users"
 SPELLS = "spells"

@@ -1,0 +1,2 @@
+COUCH=http://172.17.42.1:5984
+COUCH_PASS=secret
