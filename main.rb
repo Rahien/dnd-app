@@ -512,6 +512,23 @@ def ensureUser (user, pass)
                       :basic_auth => auth)
 end
 
+def ensureStores
+  ensureStore USERS
+  ensureStore SPELLS
+  ensureStore CHARS
+  ensureStore ATTACHMENTS
+end
+
+def ensureStore (store)
+  pwd = ENV["COUCH_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+
+  resp = HTTParty.put("#{COUCH}/#{store}",
+                      :body => {:pwd => hash}.to_json,
+                      :basic_auth => auth)
+end
+
+ensureStores()
 ensureUser(ENV["ADMIN"],ENV["PASS"])
 setAdmin(ENV["ADMIN"], true)
 
