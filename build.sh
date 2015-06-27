@@ -1,5 +1,8 @@
 #!/bin/bash
 dest="build"
+if [ ! -d "$dest" ]; then
+		mkdir "$dest"
+fi
 
 rm -fr "dist"
 rm -fr "$dest/main.rb"
@@ -8,7 +11,9 @@ rm -fr "$dest/spells.csv"
 rm -fr "$dest/public"
 rm -fr "$dest/environment"
 rm -fr "$dest/certificates"
+
 ember build
+
 cp main.rb "$dest/main.rb"
 cp Gemfile "$dest/Gemfile"
 cp environment "$dest/environment"
