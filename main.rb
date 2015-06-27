@@ -200,8 +200,7 @@ class MyServer < Sinatra::Base
   end
 
   def pwdOk (name, password)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{USERS}/#{name}",
                         :basic_auth => auth)
     resp = JSON.parse(resp)
@@ -212,8 +211,7 @@ class MyServer < Sinatra::Base
   def canAccessChar (name)
     user = @auth.credentials[0]
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                         :basic_auth => auth)
     resp = JSON.parse(resp)
@@ -223,8 +221,7 @@ class MyServer < Sinatra::Base
   def isAdmin
     user = @auth.credentials[0]
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                         :basic_auth => auth)
     resp = JSON.parse(resp)
@@ -232,8 +229,7 @@ class MyServer < Sinatra::Base
   end
 
   def getPlayers
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{USERS}/_all_docs",
                         :query => {:include_docs => true},
                         :basic_auth => auth)
@@ -247,8 +243,7 @@ class MyServer < Sinatra::Base
   end
 
   def getAllCharacters
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{CHARS}/_all_docs",
                         :query => { :include_docs => true },
                         :basic_auth => auth)
@@ -261,8 +256,7 @@ class MyServer < Sinatra::Base
   def getCharacters
     user = @auth.credentials[0]
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                         :basic_auth => auth)
     userResp = JSON.parse(resp)
@@ -280,8 +274,7 @@ class MyServer < Sinatra::Base
   def getUserChars(userResp)
     list = []
     if not userResp["chars"].nil?
-      pwd = ENV["COUCH_PASS"]
-      auth = {:username => 'admin', :password => pwd}
+      auth = auth!
       resp = HTTParty.post("#{COUCH}/#{CHARS}/_all_docs",
                            :query => { :include_docs => true },                           
                            :body => { 
@@ -310,8 +303,7 @@ class MyServer < Sinatra::Base
   end
 
   def updateUser (user)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.put("#{COUCH}/#{USERS}/#{user['_id']}",
                         :headers => { 'Content-Type' => 'application/json' },
                         :body => user.to_json,
@@ -321,8 +313,7 @@ class MyServer < Sinatra::Base
   def addCharToUser (id)
     user = @auth.credentials[0]
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     userDesc = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                             :basic_auth => auth)
     userDesc = JSON.parse(userDesc)
@@ -340,8 +331,7 @@ class MyServer < Sinatra::Base
   end
 
   def createAttachment (file,type)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
 
     resp = HTTParty.post("#{COUCH}/#{ATTACHMENTS}/",
                          :headers => { 'Content-Type' => 'application/json' },
@@ -360,17 +350,14 @@ class MyServer < Sinatra::Base
   end
 
   def getAttachment (name)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{ATTACHMENTS}/#{name}/attachment",
                         :basic_auth => auth)
     resp
   end
 
   def getCharacter (name, include=true)
-    pwd = ENV["COUCH_PASS"]
-
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{CHARS}/#{name}",
                         :basic_auth => auth)
     JSON.parse(resp)
@@ -382,8 +369,7 @@ class MyServer < Sinatra::Base
       body["_rev"] = existing["_rev"]
     end
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.put("#{COUCH}/#{CHARS}/#{name}",
                         :basic_auth => auth,
                         :headers => { 'Content-Type' => 'application/json' },
@@ -402,8 +388,7 @@ class MyServer < Sinatra::Base
 
     body = { :_id => name, :_rev => rev }
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.delete("#{COUCH}/#{CHARS}/#{name}",
                            :basic_auth => auth,
                            :query => { "rev" => rev },
@@ -414,8 +399,7 @@ class MyServer < Sinatra::Base
   
 
   def createCharacter (body)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.post("#{COUCH}/#{CHARS}",
                          :basic_auth => auth,
                          :headers => { 'Content-Type' => 'application/json' },
@@ -424,8 +408,7 @@ class MyServer < Sinatra::Base
   end
 
   def getSpells (className)
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{SPELLS}/_changes",
                         :basic_auth => auth,
                         :query => {
@@ -452,8 +435,7 @@ class MyServer < Sinatra::Base
       rows.push object
     end    
 
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
 
     HTTParty.delete("#{COUCH}/#{SPELLS}",
                     :basic_auth => auth)
@@ -473,8 +455,7 @@ class MyServer < Sinatra::Base
   end
 
   def addSpellFilter
-    pwd = ENV["COUCH_PASS"]
-    auth = {:username => 'admin', :password => pwd}
+    auth = auth!
     resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
                         :basic_auth => auth,
                         :headers => { 'Content-Type' => 'application/json' },
@@ -488,8 +469,7 @@ class MyServer < Sinatra::Base
 end
 
 def setAdmin (user, admin = true)
-  pwd = ENV["COUCH_PASS"]
-  auth = {:username => 'admin', :password => pwd}
+  auth = auth!
 
   resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
                       :basic_auth => auth)
@@ -501,12 +481,15 @@ def setAdmin (user, admin = true)
   "ok"
 end
 
+def auth!
+  pwd = ENV["COUCHDB_PASS"]
+  auth = {:username => 'admin', :password => pwd}
+end
+
 def ensureUser (user, pass) 
   hash = BCrypt::Password.create(pass)
   
-  pwd = ENV["COUCH_PASS"]
-  auth = {:username => 'admin', :password => pwd}
-
+  auth = auth!
   resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
                       :body => {:pwd => hash}.to_json,
                       :basic_auth => auth)
@@ -520,8 +503,7 @@ def ensureStores
 end
 
 def ensureStore (store)
-  pwd = ENV["COUCH_PASS"]
-  auth = {:username => 'admin', :password => pwd}
+  auth = auth!
 
   resp = HTTParty.put("#{COUCH}/#{store}",
                       :body => {:pwd => hash}.to_json,
