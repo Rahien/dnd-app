@@ -419,53 +419,14 @@ class MyServer < Sinatra::Base
                         :headers => { 'Content-Type' => 'application/json' })
     resp = JSON.parse(resp)
     list = []
-    resp['results'].map do |spell|
+    spells = resp['results'] or []
+
+    spells.map do |spell|
       list.push spell['doc']
     end
     list
   end
 
-  def addAllSpells
-    rows = []
-    CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true } ) do |row|
-      object = {}
-      row.headers.map do |header|
-        object[header] = row[header]
-      end
-      rows.push object
-    end    
-
-    auth = auth!
-
-    HTTParty.delete("#{COUCH}/#{SPELLS}",
-                    :basic_auth => auth)
-    HTTParty.put("#{COUCH}/#{SPELLS}",
-                 :basic_auth => auth)
-    resp = HTTParty.post("#{COUCH}/#{SPELLS}/_bulk_docs",
-                         :basic_auth => auth,
-                         :headers => { 'Content-Type' => 'application/json' },
-                         :body => {:docs => rows}.to_json)
-
-    filter = addSpellFilter()
-    if (resp.code == 200 or resp.code == 201) and (filter == 200 or filter == 201)
-      "ok"
-    else
-      "fail"
-    end
-  end
-
-  def addSpellFilter
-    auth = auth!
-    resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
-                        :basic_auth => auth,
-                        :headers => { 'Content-Type' => 'application/json' },
-                        :body => {
-                          :filters => {
-                            :spells => "function(doc,req) { if(doc.class && (!req.query.class || doc.class.toLowerCase().indexOf(req.query.class.toLowerCase())>=0)){ return true; } else { return false; } }"
-                          }
-                        }.to_json)
-    resp.code
-  end
 end
 
 def setAdmin (user, admin = true)
@@ -510,8 +471,51 @@ def ensureStore (store)
                       :basic_auth => auth)
 end
 
+def addAllSpells
+  rows = []
+  CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true } ) do |row|
+    object = {}
+    row.headers.map do |header|
+      object[header] = row[header]
+    end
+    rows.push object
+  end
+
+  auth = auth!
+
+  HTTParty.delete("#{COUCH}/#{SPELLS}",
+                  :basic_auth => auth)
+  HTTParty.put("#{COUCH}/#{SPELLS}",
+               :basic_auth => auth)
+  resp = HTTParty.post("#{COUCH}/#{SPELLS}/_bulk_docs",
+                       :basic_auth => auth,
+                       :headers => { 'Content-Type' => 'application/json' },
+                       :body => {:docs => rows}.to_json)
+
+  filter = addSpellFilter()
+  if (resp.code == 200 or resp.code == 201) and (filter == 200 or filter == 201)
+    "ok"
+  else
+    "fail"
+  end
+end
+
+def addSpellFilter
+  auth = auth!
+  resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
+                      :basic_auth => auth,
+                      :headers => { 'Content-Type' => 'application/json' },
+                      :body => {
+                        :filters => {
+                          :spells => "function(doc,req) { if(doc.class && (!req.query.class || doc.class.toLowerCase().indexOf(req.query.class.toLowerCase())>=0)){ return true; } else { return false; } }"
+                        }
+                      }.to_json)
+  resp.code
+end
+
 ensureStores()
 ensureUser(ENV["ADMIN"],ENV["PASS"])
+addAllSpells()
 setAdmin(ENV["ADMIN"], true)
 
 Rack::Handler::WEBrick.run MyServer, webrick_options

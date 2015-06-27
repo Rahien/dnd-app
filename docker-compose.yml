@@ -1,0 +1,16 @@
+dndWeb:
+  image: erikap/ruby-sinatra
+  ports:
+   - "8443:8443"
+  volumes:
+   - "/home/karel/source/dnd5/build:/usr/src/app"
+  env_file:
+   - ./environment
+  links:
+   - couchdb
+couchdb:
+  image: tutum/couchdb
+  ports:
+   - "5984:5984"
+  env_file:
+   - ./environment

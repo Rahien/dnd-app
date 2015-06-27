@@ -11,6 +11,7 @@ rm -fr "$dest/spells.csv"
 rm -fr "$dest/public"
 rm -fr "$dest/environment"
 rm -fr "$dest/certificates"
+rm -fr "$dest/docker-compose.yml"
 
 ember build
 
@@ -20,3 +21,4 @@ cp environment "$dest/environment"
 cp -r dist "$dest/public"
 cp -r certificates "$dest/certificates"
 cp spells.csv "$dest/spells.csv"
+cp docker-compose.yml "$dest/docker-compose.yml"

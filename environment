@@ -1,4 +1,5 @@
-COUCH=http://172.17.42.1:5984
+COUCH=http://couchdb:5984
 COUCHDB_PASS=secret
 ADMIN=admin
 PASS=secret
+MAIN_APP_FILE=main.rb
