@@ -8,10 +8,12 @@ body > * > div {
 }
 
 .wrapper {
-    margin-top: -30px;
+    padding-top: 60px;
 }
 
 .character {
+    position: relative;
+
 		span.delete, td.delete span, .create, .up, .down, .remove {
 				background-color: black;   color: white;   border-radius: 200px;   
 				width: 14px;   
@@ -1071,6 +1073,7 @@ body > * > div {
 }
 
 .header {
+		position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -1105,7 +1108,7 @@ body > * > div {
 		}
 
 		.header-waiter {
-				height: 50px;
+				height: 30px;
 		}
 
 		.toggle .icon:after {
