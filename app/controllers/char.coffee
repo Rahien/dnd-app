@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SendMessage from '../mixins/send-message'`
 
-CharController = Ember.Controller.extend
+CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
   profBonus: Ember.computed "model.level", ->
@@ -31,10 +32,10 @@ CharController = Ember.Controller.extend
         contentType: "application/json; charset=utf-8"
         username: @get 'user.username'
         password: @get 'user.password'
-        success: ->
-          alert 'saved'
-        error: ->
-          alert 'could not save'
+        success: =>
+          @sendMessage 'goodstuff', 'Saved character'
+        error: =>
+          @sendMessage 'error', 'Could not save character!'
     delete: ->
       model = @get 'model'
       Ember.$.ajax "/dnd/api/char/#{model._id}",
@@ -43,8 +44,8 @@ CharController = Ember.Controller.extend
         password: @get 'user.password'
         success: =>
           @transitionToRoute 'chars'
-        error: ->
-          alert 'could not delete the character'
+        error: =>
+          @sendMessage 'error', "Could not remove character!"
     toCharacters: ->
       @transitionToRoute 'chars'
     handleUpload: (result) ->

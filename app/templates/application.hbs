@@ -20,4 +20,12 @@
 <div class="wrapper {{hasMenu}}">
 	{{outlet}}
 </div>
-
+<div class="footer {{if hasMessages 'messages'}}">
+	{{#each message in messages}}
+		<div class="message-wrap {{message.type}}" {{action "removeMessage" message}} title="click to remove">
+			<div class="message">
+				{{message.message}}
+			</div>
+		</div>
+	{{/each}}
+</div>

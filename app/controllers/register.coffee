@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SendMessage from '../mixins/send-message'`
 
-RegisterController = Ember.Controller.extend
+RegisterController = Ember.Controller.extend SendMessage,
 
   badUser: Ember.computed 'username', ->
     user = @get 'username'
@@ -18,7 +19,8 @@ RegisterController = Ember.Controller.extend
       @set 'showInfo', not @get('showInfo')
     register: ->
       if @get('badUser') or @get('badPwd') or @get('badPwd2')
-        alert "please fix the errors above, you need a username and your passwords have to match"
+        @sendMessage "error", "please fix the errors above, you need a username and your passwords have to match",
+          autoClose: 5000
       else
         data =
           username: @get 'username'
@@ -29,9 +31,11 @@ RegisterController = Ember.Controller.extend
           dataType: "json"
           contentType: "application/json; charset=utf-8"
           data: JSON.stringify(data)
-          success: (result) ->
-            alert JSON.stringify(result)
-          error: (error) ->
-            alert JSON.stringify(error)
+          success: (result) =>
+            @set 'user.username', 'username'
+            @set 'user.password', 'password'
+            @transitionToRoute('chars')
+          error: (error) =>
+            @sendMessage 'error', 'Sorry could not register you at the server, please contact your administrator'
 
 `export default RegisterController`

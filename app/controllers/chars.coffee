@@ -1,7 +1,8 @@
 `import Ember from 'ember'`
 `import Char from '../models/char'`
+`import SendMessage from '../mixins/send-message'`
 
-CharsController = Ember.Controller.extend
+CharsController = Ember.Controller.extend SendMessage,
   actions:
     openCharacter: (character) ->
       @transitionToRoute 'char', character._id
@@ -16,9 +17,9 @@ CharsController = Ember.Controller.extend
         success: (result) =>
           @transitionToRoute 'char', result
         error: (error) =>
-          if typeof result == "string"
-            alert result
-          else
-            alert JSON.stringify(result)
+          if error.status == 401
+            @transitionToRoute 'login'
+          else if typeof error == "string"
+            @sendMessage 'error', "Sorry, could not fetch your characters from the server, contact your administrator"
 
 `export default CharsController`

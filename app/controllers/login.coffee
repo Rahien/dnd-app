@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SendMessage from '../mixins/send-message'`
 
-LoginController = Ember.Controller.extend
+LoginController = Ember.Controller.extend SendMessage,
   badUser: Ember.computed 'username', ->
     user = @get 'username'
     (not user) or user.length < 1
@@ -12,7 +13,8 @@ LoginController = Ember.Controller.extend
   actions:
     login: ->
       if @get('badUser') or @get('badPwd')
-        alert 'please fill in both a username and a password'
+        @sendMessage 'error', 'please fill in both a username and a password',
+          autoClose: 5000
         return
 
       previous = @get 'attemptedTransition'

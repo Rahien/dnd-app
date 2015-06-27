@@ -1224,6 +1224,13 @@ body > * > div {
 
 .home {
 		.characters {
+				tr:hover td {
+						background-color: #EEE;
+				}
+				td {
+						padding: 5px 0;
+				}
+
 				font-family: Gentium Basic;
 				thead {
 						font-family: 'Cinzel Decorative';
@@ -1240,7 +1247,7 @@ body > * > div {
 						text-align: right;
 				}
 		}
-		.new-char {
+		.new-char, .remove-player {
 				display: inline-block;
 				padding: 5px;
 				margin: 5px 0;
@@ -1253,10 +1260,113 @@ body > * > div {
 				cursor: pointer;
 				text-align: center;
 		}
+		.remove-player:hover {
+				background-color: pink;
+		}
 		.new-char:hover {
 				background-color: #EAEAEA;
 		}
 
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+		z-index: 1000001;
+
+		.message-wrap {
+				width: 100%;
+				cursor: pointer;
+				cursor: hand;
+				.message {
+						width: 960px;
+						margin: 0 auto;
+						padding: 10px;
+						text-align:center;
+				}
+		}
+		.error {
+				background-color:pink;
+				border-top: solid 2px red;
+		}
+		.goodstuff {
+				background-color:lightgreen;
+				border-top: solid 2px darkgreen;
+		}
+		.warning {
+				background-color:gold;
+				border-top: solid 2px brown;
+		}
+
+		span.close-message {
+				background-color: black;
+				font-family: arial;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				display: inline-block;
+				border-radius: 200px;
+				color: white;
+				font-size: 10px;
+				font-weight: bold;
+				text-align: center;
+				top: -2px;
+				position: relative;
+				cursor: hand;
+				cursor: pointer;
+				margin-left: 1em;
+		}
+
+}
+
+.admin {
+		.player {
+				padding: 10px 20px;
+				padding-top: 0;
+				border-top: solid;
+				position:relative;
+
+				.title {
+						font-family: 'Cinzel Decorative', cursive;     
+						font-weight: bold;
+						font-size: 24px;
+						color: white;
+						background-color: black;
+						display: block;
+						padding: 5px 20px 0px 10px;
+						margin-left: -20px;
+						width: 930px;
+						margin-bottom: 15px;
+				}
+				.field {
+						position: absolute;
+						top: 10px;
+						right: 10px;
+						color: white;
+						font-family: 'Gentium Basic', serif;
+						cursor: hand;
+						cursor: pointer;
+				}
+				.actions span {
+						width: 20px;
+						height: 20px;
+						font-style: italic;
+						color: white;
+						background-color: black;
+						display: inline-block;
+						text-align: center;
+						line-height: 20px;
+						border-radius: 100px;
+						cursor: hand;
+						cursor: pointer;
+				}
+
+		}
+
+		.player:nth-child(2) {
+				border-top: none;
+		}
 }
 
 

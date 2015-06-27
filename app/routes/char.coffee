@@ -1,8 +1,9 @@
 `import Ember from 'ember'`
 `import Char from '../models/char'`
 `import AuthRoute from '../utils/auth-route'`
+`import SendMessage from '../mixins/send-message'`
 
-CharRoute = AuthRoute.extend
+CharRoute = AuthRoute.extend SendMessage,
   model: (params) ->
     new Ember.RSVP.Promise (resolve,reject) =>
       Ember.$.ajax "/dnd/api/char/#{params.id}",
@@ -16,8 +17,6 @@ CharRoute = AuthRoute.extend
           if error.status == 401
             @transitionToRoute 'login'
           else if typeof error == "string"
-            alert(error)
-          else
-            alert(JSON.stringify(error))
+            @sendMessage 'error', "Sorry, could not fetch the character from the server, contact your administrator"
 
 `export default CharRoute`
