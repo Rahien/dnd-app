@@ -1,0 +1,3 @@
+Please put your server certificates in this folder. Required files:
+- server.crt
+- server.key
