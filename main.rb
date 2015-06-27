@@ -237,7 +237,10 @@ class MyServer < Sinatra::Base
     
     result = []
     users['rows'].map do |user|
-      result.push user['doc']
+      result.push( { :username => user['doc']['_id'],
+        :isAdmin => user['doc']['isAdmin'],
+        :chars => getUserChars(user['doc'])
+      })
     end
     result.to_json
   end
