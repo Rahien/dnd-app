@@ -8,11 +8,21 @@
 			<i class="fa fa-users"></i>
 		</div>
 		<div class="button save" {{action "save"}}>
-			<span>save character</span>
+			<span>save</span>
 			<i class="fa fa-cloud-upload"></i>
 		</div>
+		<div class="button download" {{action "download"}}>
+			<span>download</span>
+			<i class="fa fa-download"></i>
+		</div>
+		<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
+		<div class="button upload" {{action "upload"}}>
+			<span>from file</span>
+			<i class="fa fa-file-text-o"></i>
+		</div>
+		<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
 		<div class="button delete" {{action "delete"}}>
-			<span>remove character</span>
+			<span>remove</span>
 			<i class="fa fa-user-times"></i>
 		</div>
 	{{/ember-wormhole}}

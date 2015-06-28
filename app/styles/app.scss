@@ -1118,13 +1118,21 @@ body > * > div {
 		.functional > *, #buttons .button {
 				display: inline-block;
 				padding: 4px 10px;
-				margin: 5px 7px;
+				margin: 5px 2px;
 				border: solid 2px white;
 				border-radius: 7px;
 				cursor: hand;
 				cursor: pointer;
+				min-width: 90px;
+				font-size: 15px;
+
 				span:first-child {
 						padding-right: 6px;
+				}
+		}
+		#buttons {
+				a.downloadlocation, input.uploadInput {
+						display: none;
 				}
 		}
 
