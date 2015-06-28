@@ -19,7 +19,7 @@ CharInventoryComponent = Ember.Component.extend
       gear.removeObject item
     createItem: ->
       @get('gear').addObject
-        name: ""
+        name: "item name"
         price: 0
         weight: 0
         notes: ""
