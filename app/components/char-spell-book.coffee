@@ -45,6 +45,12 @@ CharSpellBookComponent = Ember.Component.extend
         components: "V, S"
         duration: "Instantaneous"
         description: "Something magical happens!"
+    sortSpells: (group) ->
+      spells = group.spells
+      @propertyWillChange 'spellGroups'
+      spells.sort (one, two) ->
+        if one.name < two.name then -1 else 1
+      @propertyDidChange 'spellGroups'
     groupUp: (group) ->
       groups = @get 'spellGroups'
       index = groups.indexOf group

@@ -3,6 +3,10 @@
 `import SendMessage from '../mixins/send-message'`
 
 CharsController = Ember.Controller.extend SendMessage,
+  characters: Ember.computed 'model', ->
+    chars = @get('model').concat([])
+    chars.sort (one,two) ->
+      if one.name < two.name then -1 else 1        
   actions:
     openCharacter: (character) ->
       @transitionToRoute 'char', character._id

@@ -3,7 +3,7 @@ dndWeb:
   ports:
    - "8443:8443"
   volumes:
-   - "/home/karel/source/dnd5/build:/usr/src/app"
+   - "/home/karel/source/dnd-app/build:/usr/src/app"
   env_file:
    - ./environment
   links:
