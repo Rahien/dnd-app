@@ -10,13 +10,16 @@ ContentEditableComponent = Ember.Component.extend
   	if editable then 'true' else undefined
 
   focusOut: ->
-    Ember.run.later =>
+    Ember.run.later this, (->
+      @updateLastValue()
       lastValue = @get 'lastValue'
       if lastValue and not Ember.isEmpty lastValue
       	@set 'value', lastValue
-
+    )
+  updateLastValue: ->
+    @set 'lastValue', (@$().text() or " ")
   keyUp: (event) ->
-  	@set 'lastValue', (@$().text() or " ")
-
+  	Ember.run.debounce this, @updateLastValue, 100
+    
 
 `export default ContentEditableComponent`

@@ -8,6 +8,10 @@ SelectSpellComponent = Ember.Component.extend
     @set 'searchString', ""
     @set 'useClass', true
     @fetchData()
+  didInsertElement: ->
+    @_super(arguments...)
+    Ember.run.later this, (->
+      @$().find(".search input").focus()), 500
   classObserver: Ember.observer 'useClass', ->
     @get 'useClass'
     @fetchData()
@@ -43,6 +47,10 @@ SelectSpellComponent = Ember.Component.extend
   actions:
     selectSpell: (spell) ->
       @sendAction "selectSpell", spell
+    selectFirst: ->
+      first = @get('results')[0]
+      if first
+        @sendAction "selectSpell", first
     newSpell: ->
       @sendAction "newSpell"
     closeDialog: ->

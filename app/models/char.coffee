@@ -48,7 +48,7 @@ Char.getDefault = ->
       wis: 12
       cha: 16
     initiative: 3
-    perception: 11
+    perception: 1
     attacks: [
       {
         name: "Dagger"
@@ -106,11 +106,11 @@ Char.getDefault = ->
     wealth: "70 gp."
     skills: "Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)"
     feats: ""
-    spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack difier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
+    spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
     spellbook: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\nCantrips\n====\nLight, Message, Blade ward, Ray of frost\nLevel 1\n====\nBurning hands, Thunderweave"
     spellGroups: [
       {
-        title: "cantrips"
+        title: "Cantrips"
         spells: [
           {
             name: "Ray of Frost"

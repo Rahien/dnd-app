@@ -5,6 +5,7 @@ CharStatsComponent = Ember.Component.extend
   stats: Ember.computed "char.stats", ->
     Ember.ArrayProxy.create
       content: @get('char.stats')
+  keywords: Ember.computed.alias "char.keywords"
   actions:
     deleteProp: (prop) ->
       @get('stats').removeObject(prop)

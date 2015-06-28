@@ -8,11 +8,11 @@ CharSpellBookComponent = Ember.Component.extend
     
     Ember.ArrayProxy.create
       content: @get('char.spellGroups')
-  spells: Ember.computed 'char.spellGroups.@each.spells', ->
+  spells: Ember.computed 'char.spellGroups.@each.spells', 'char.spellGroups.@each.title', ->
     map = {}
     groups = @get('char.spellGroups')
     groups.map (group) ->
-      map[group.title] = Ember.ArrayProxy.create
+      map[group.title.trim()] = Ember.ArrayProxy.create
         content: group.spells
     map
   actions:
@@ -30,12 +30,12 @@ CharSpellBookComponent = Ember.Component.extend
       group = @get 'targetGroup'
       @set 'showModal', false
       spells = @get 'spells'
-      spells[group.title].addObject spell
+      spells[group.title.trim()].addObject spell
     createSpell: ->
       group = @get 'targetGroup'
       @set 'showModal', false
       spells = @get 'spells'      
-      spells[group.title].addObject
+      spells[group.title.trim()].addObject
         name: "New Spell"
         level: 0
         origin: "Evocation Cantrip"
@@ -60,19 +60,19 @@ CharSpellBookComponent = Ember.Component.extend
       groups.removeObject group
     spellUp: (group, spell) ->
       spells = @get 'spells'
-      s = spells[group.title]
+      s = spells[group.title.trim()]
       index = s.indexOf spell
       s.removeObject spell
       s.insertAt (Math.max(index-1,0)), spell
     spellDown: (group, spell) ->
       spells = @get 'spells'
-      s = spells[group.title]
+      s = spells[group.title.trim()]
       index = s.indexOf spell
       s.removeObject spell
       s.insertAt (Math.min(index+1,s.get('length'))), spell
     spellRemove: (group, spell) ->
       spells = @get 'spells'
-      s = spells[group.title]
+      s = spells[group.title.trim()]
       s.removeObject spell
 
 `export default CharSpellBookComponent`
