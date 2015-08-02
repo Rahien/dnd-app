@@ -3,6 +3,7 @@
 	<div class="spell-group">
 		{{content-editable classNames="title" value=group.title tagName="span"}}
 		<div class="spell-group-controls">
+			<span class="sort fa fa-sort-alpha-asc" title="sort spells" {{action "sortSpells" group}}></span>
 			<span class="up" title="move up" {{action "groupUp" group}}>▲</span>
 			<span class="down" title="move down" {{action "groupDown" group}}>▼</span>
 			<span class="remove" title="remove group" {{action "groupRemove" group}}>x</span>
