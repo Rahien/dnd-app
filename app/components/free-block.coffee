@@ -2,6 +2,7 @@
 
 FreeBlockComponent = Ember.Component.extend
   title: "Block"
+  classNames: "free-block"
 
   init: ->
     @_super(arguments...)

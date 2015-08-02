@@ -1472,3 +1472,27 @@ body > * > div {
 
     padding: 0;
 }
+.free-block {
+		.buttons {
+				text-align: center;
+				padding: 0;
+				margin-top: -9px;
+		}
+		.button {
+				display: inline-block;
+				padding: 4px 10px;
+				margin: 5px 2px;
+				border: solid 3px black;
+				text-transform: capitalize;
+				font-style: italic;
+				font-weight: bold;
+				border-radius: 7px;
+				cursor: hand;
+				cursor: pointer;
+				min-width: 90px;
+				font-size: 15px;
+		}
+		.button:hover {
+				background-color:#EAEAEA;
+		}
+}

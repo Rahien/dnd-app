@@ -18,8 +18,7 @@ Char.getDefault = ->
     race: "Red Dragonborn"
     level: 3
     image: "/assets/images/sorceress.png"
-    description: "As a dragonborn, you have dedicated your life to honor and the pursuit of excellence. You are driven, noble, but in contrast to regular dragonborn, you can have trouble containing the wilder parts of your dragon heritage. As a Sorceress, you realized that precisely this wilder power grants you strength, which you will use to achieve your goals."
-    keywords: "massive magic damage, dragon-like, low armor, rage"
+    description: "Not much is known about this character yet, it has yet to write its own destiny."
     stats: [
       { label: "height", value: "6'4\"" },
       { label: "weight", value: "260 lb." },
