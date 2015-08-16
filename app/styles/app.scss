@@ -751,6 +751,13 @@ body > * > div {
     padding-bottom: 50px;
 }
 
+.spell-box {
+		padding: 0.6em 3px;
+		-webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    page-break-inside: avoid;
+}
 .spell {
     position: relative;
     -webkit-column-break-inside: avoid;
@@ -758,7 +765,6 @@ body > * > div {
     column-break-inside: avoid;
     page-break-inside: avoid;
     border: solid 1px black;
-    margin: 0.5em 0;
     overflow: hidden;
 }
 

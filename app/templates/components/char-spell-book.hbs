@@ -12,42 +12,44 @@
 		</div>
 		<div class="spell-wrap">
 			{{#each spell in group.spells}}
-				<div class="spell">
-					{{content-editable classNames="title" value=spell.name tagName="span"}}
-					<div class="spell-controls">
-						<span class="up" title="move up" {{action "spellUp" group spell}}>▲</span>
-						<span class="down" title="move down" {{action "spellDown" group spell}}>▼</span>
-						<span class="remove" title="remove spell" {{action "spellRemove" group spell}}>x</span>
+				<div class="spell-box">
+					<div class="spell">
+						{{content-editable classNames="title" value=spell.name tagName="span"}}
+						<div class="spell-controls">
+							<span class="up" title="move up" {{action "spellUp" group spell}}>▲</span>
+							<span class="down" title="move down" {{action "spellDown" group spell}}>▼</span>
+							<span class="remove" title="remove spell" {{action "spellRemove" group spell}}>x</span>
+						</div>
+						<div class="spell-level">
+							<span class="label">level</span>
+							{{content-editable value=spell.level}}
+						</div>
+						<div class="origin">
+							<span class="label">origin</span>
+							{{content-editable value=spell.origin}}
+						</div>
+						<div class="school">
+							<span class="label">school</span>
+							{{content-editable value=spell.school}}				
+						</div>
+						<div class="action">
+							<span class="label">action</span>
+							{{content-editable value=spell.action}}				
+						</div>
+						<div class="range">
+							<span class="label">range</span>
+							{{content-editable value=spell.range}}				
+						</div>
+						<div class="duration">
+							<span class="label">duration</span>
+							{{content-editable value=spell.duration}}
+						</div>
+						<div class="components">
+							<span class="label">components</span>
+							{{content-editable value=spell.components}}				
+						</div>
+						{{free-block title="description" content=spell.description classNames="description"}}
 					</div>
-					<div class="spell-level">
-						<span class="label">level</span>
-						{{content-editable value=spell.level}}
-					</div>
-					<div class="origin">
-						<span class="label">origin</span>
-						{{content-editable value=spell.origin}}
-					</div>
-					<div class="school">
-						<span class="label">school</span>
-						{{content-editable value=spell.school}}				
-					</div>
-					<div class="action">
-						<span class="label">action</span>
-						{{content-editable value=spell.action}}				
-					</div>
-					<div class="range">
-						<span class="label">range</span>
-						{{content-editable value=spell.range}}				
-					</div>
-					<div class="duration">
-						<span class="label">duration</span>
-						{{content-editable value=spell.duration}}
-					</div>
-					<div class="components">
-						<span class="label">components</span>
-						{{content-editable value=spell.components}}				
-					</div>
-					{{free-block title="description" content=spell.description classNames="description"}}
 				</div>
 			{{/each}}
 		</div>
