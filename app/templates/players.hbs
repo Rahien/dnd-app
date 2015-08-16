@@ -5,42 +5,51 @@
 		{{/ember-wormhole}}
 		{{#each player in model}}
 			<div class="player">
-				<span class="title">{{player.username}}</span>
-				<div class="field" {{action "toggleAdmin" player}}>
-					<span class="admin">admin</span>
-					<i class="fa {{if player.isAdmin 'fa-check-circle-o' 'fa-circle-o'}}"></i>
+				<div class="player-header" {{action "togglePlayer" player}}>
+					{{#if player.open}}
+						<i class="fa fa-caret-down"></i>
+					{{else}}
+						<i class="fa fa-caret-right"></i>
+					{{/if}}
+					<span class="title">{{player.username}}</span>
+					<div class="field" {{action "toggleAdmin" player bubbles=false}}>
+						<span class="admin">admin</span>
+						<i class="fa {{if player.isAdmin 'fa-check-circle-o' 'fa-circle-o'}}"></i>
+					</div>
 				</div>
-				<div class="characters">
-					<table border="0" cellspacing="0" cellpadding="0">
-						<thead>
-							<tr>
-								<th>Name</th><th>Race</th><th>Class</th><th>Level</th><th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{{#each char in player.chars}}
-								<tr {{action "openCharacter" char}}>
-									<td>{{char.name}}</td>
-									<td>{{char.race}}</td>
-									<td>{{char.class}}</td>
-									<td>{{char.level}}</td>
-									<td class='actions'>
-										<i class="unlink fa fa-unlink" title="remove link" {{action "unlinkChar" player char bubbles=false}}></i>
-										<span class="remove" title="remove" {{action "removeChar" char bubbles=false}}>x</span>
-									</td>
+				{{#if player.open}}
+					<div class="characters">
+						<table border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>Name</th><th>Race</th><th>Class</th><th>Level</th><th>Actions</th>
 								</tr>
-							{{/each}}
-						</tbody>
-					</table>
-				</div>
-				<div class="controls">
-					<div class="new-char" {{action "requestLink" player}}>
-						Link Character
+							</thead>
+							<tbody>
+								{{#each char in player.chars}}
+									<tr {{action "openCharacter" char}}>
+										<td>{{char.name}}</td>
+										<td>{{char.race}}</td>
+										<td>{{char.class}}</td>
+										<td>{{char.level}}</td>
+										<td class='actions'>
+											<i class="unlink fa fa-unlink" title="remove link" {{action "unlinkChar" player char bubbles=false}}></i>
+											<span class="remove" title="remove" {{action "removeChar" char bubbles=false}}>x</span>
+										</td>
+									</tr>
+								{{/each}}
+							</tbody>
+						</table>
 					</div>
-					<div class="remove-player" {{action "removePlayer" player}}>
-						Remove player
+					<div class="controls">
+						<div class="new-char" {{action "requestLink" player}}>
+							Link Character
+						</div>
+						<div class="remove-player" {{action "removePlayer" player}}>
+							Remove player
+						</div>
 					</div>
-				</div>
+				{{/if}}
 			</div>
 		{{/each}}
 	</div>

@@ -3,6 +3,8 @@
 `import SendMessage from '../mixins/send-message'`
 
 PlayersRoute = AuthRoute.extend SendMessage,
+  # map of open players, cannot keep it in the model because of reloads
+  openMap: {}
   model: ->
     new Ember.RSVP.Promise (resolve, reject) =>
       Ember.$.ajax "/dnd/api/players",
@@ -10,7 +12,9 @@ PlayersRoute = AuthRoute.extend SendMessage,
         dataType: "json"
         username: @get 'user.username'
         password: @get 'user.password'
-        success: (response) ->
+        success: (response) =>
+          (response or []).map (player) =>
+            Ember.set player, "open", @get("openMap.#{player.username}")
           resolve(response)
         error: (error) =>
           if error.status == 401
@@ -22,6 +26,10 @@ PlayersRoute = AuthRoute.extend SendMessage,
   actions:
     openCharacter: (char) ->
       @transitionTo 'char', char._id
+    togglePlayer: (player) ->
+      open = not Ember.get(player,'open')
+      Ember.set player, 'open', open
+      @set "openMap.#{player.username}", open
     linkCharacter: (player, char) ->
       characters = [char._id]
       player.chars.map (item) ->
