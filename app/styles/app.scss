@@ -1504,3 +1504,9 @@ body > * > div {
 				background-color:#EAEAEA;
 		}
 }
+
+@media print {
+		.header {
+				display:none;
+		}
+}
