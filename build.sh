@@ -5,20 +5,21 @@ if [ ! -d "$dest" ]; then
 fi
 
 rm -fr "dist"
-rm -fr "$dest/main.rb"
-rm -fr "$dest/Gemfile"
-rm -fr "$dest/spells.csv"
-rm -fr "$dest/public"
+rm -fr "$dest/web"
 rm -fr "$dest/environment"
-rm -fr "$dest/certificates"
 rm -fr "$dest/docker-compose.yml"
 
 ember build
 
-cp main.rb "$dest/main.rb"
-cp Gemfile "$dest/Gemfile"
+mkdir "$dest/web"
+cp main.rb "$dest/web/main.rb"
+cp Gemfile "$dest/web/Gemfile"
 cp environment "$dest/environment"
-cp -r dist "$dest/public"
-cp -r certificates "$dest/certificates"
-cp spells.csv "$dest/spells.csv"
+cp -r dist "$dest/web/public"
+cp -r certificates "$dest/web/certificates"
+cp spells.csv "$dest/web/spells.csv"
 cp docker-compose.yml "$dest/docker-compose.yml"
+
+if [ ! -d "$dest/couchdb" ]; then
+    mkdir "$dest/couchdb"
+fi
