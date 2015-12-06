@@ -292,6 +292,7 @@ class MyServer < Sinatra::Base
     chars = MONGOC[CHARS].find()
     list = []
     chars.each do |item| 
+      item["_id"] = item["_id"].to_str
       list.push item
     end
     list
