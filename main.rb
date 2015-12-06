@@ -7,6 +7,7 @@ require 'sinatra/base'
 require 'webrick'
 require 'webrick/https'
 require 'openssl'
+require 'mongo'
 
 CERT_PATH = 'certificates/'
 
