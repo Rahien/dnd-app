@@ -313,19 +313,27 @@ class MyServer < Sinatra::Base
 
   def getUserChars(user)
     chars = []
-    if not user["chars"].nil? and not user["chars"].length > 0
-      chars = MONGOC[CHARS].find( { _id: { "$in" => user["chars"] } } )
+    if not user["chars"].nil? and user["chars"].length > 0
+      ids = user["chars"].map do |id|
+        BSON::ObjectId(id)
+      end
+      chars = MONGOC[CHARS].find( { _id: { "$in" => ids } } )
 
       if chars.count != user["chars"].length
         userChars = []
         chars.each do |char|
-          userChars.push char["_id"]
+          userChars.push char["_id"].to_str
         end
         user["chars"] = userChars
         updateUser(user)
       end
     end
-    chars
+    result = []
+    chars.each do |char|
+      char["_id"] = char["_id"].to_str
+      result.push(char)
+    end
+    result
   end
 
   def updateUser (user)
