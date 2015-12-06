@@ -214,24 +214,15 @@ class MyServer < Sinatra::Base
     player = params[:id]
     chars = JSON.parse request.body.read
 
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{player}",
-                      :basic_auth => auth)
-
-
-    if resp.code == 200
-      user= JSON.parse(resp)
-      user['chars'] = chars
-      resp = HTTParty.put("#{COUCH}/#{USERS}/#{player}",
-                          :body => user.to_json,
-                          :basic_auth => auth)
-      if resp.code == 200 or resp.code == 201
-        ok
-      else
-        halt 500, "Could not update the list of characters for the player"
-      end
-    else
-      halt 500, "Could not fetch the provided player 'player'"
+    begin
+      MONGOC[USERS].find_one_and_update(
+        { name: player },
+        { '$set' => { chars: chars } },
+        return_document: :after
+      )
+      ok
+    rescue => e
+      halt 500, "Could not update the list of characters for the player: #{e}"
     end
   end
 
