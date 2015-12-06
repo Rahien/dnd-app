@@ -576,6 +576,14 @@ def addSpellFilter
   resp.code
 end
 
+def try(&block)
+  begin
+    yield
+  rescue
+    # give up
+  end
+end
+
 ensureStores()
 ADMIN = ENV["ADMIN"] || "admin"
 begin
