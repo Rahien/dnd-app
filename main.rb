@@ -363,25 +363,14 @@ class MyServer < Sinatra::Base
   end
 
   def createAttachment (file,type)
-    auth = auth!
-
     grid_file = Mongo::Grid::File.new(file.read, :filename => File.basename(file.path))
-    fileResp = MONGOC.database.fs(:fs_name => 'grid').insert_one(grid_file)
-    #TODO check
-    fileResp['id']
+    fileId = MONGOC.database.fs.insert_one(grid_file)
+    fileId.to_str
   end
 
   def getAttachment (name)
-    auth = auth!
-    #TODO check
-    MONGOC.database.fs.download_to_stream(name, io)
-  end
-
-  def getCharacter (name, include=true)
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{CHARS}/#{name}",
-                        :basic_auth => auth)
-    JSON.parse(resp)
+    result = MONGOC.database.fs.find_one(:_id => BSON::ObjectId(name))
+    result.data
   end
 
   def saveCharacter (name, body)
