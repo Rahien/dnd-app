@@ -176,7 +176,7 @@ class MyServer < Sinatra::Base
     pass = data["password"]
 
     begin
-      resp = ensureUser(user,pass)
+      ensureUser(user,pass)
     rescue
       halt 500, "This user already exists\n"
     end
