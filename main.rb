@@ -90,9 +90,7 @@ class MyServer < Sinatra::Base
 
   get '/dnd/api/image/:name' do
     name = params[:name]
-    resp = getAttachment(name)
-    content_type resp.content_type
-    resp.body
+    getAttachment(name)
   end
 
   get '/dnd/api/players' do
@@ -407,27 +405,16 @@ class MyServer < Sinatra::Base
   def createAttachment (file,type)
     auth = auth!
 
-    resp = HTTParty.post("#{COUCH}/#{ATTACHMENTS}/",
-                         :headers => { 'Content-Type' => 'application/json' },
-                         :body => { 'isAttachment' => true }.to_json,
-                         :basic_auth => auth)
-    resp = JSON.parse(resp)
-    content = file.read
-
-    fileResp = HTTParty.put("#{COUCH}/#{ATTACHMENTS}/#{resp['id']}/attachment",
-                            :headers => { 'Content-Type' => type },
-                            :query => { :rev => resp['rev'] },
-                            :body => content,
-                            :basic_auth => auth)
-    fileResp = JSON.parse(fileResp)
+    grid_file = Mongo::Grid::File.new(file.read, :filename => File.basename(file.path))
+    fileResp = MONGOC.database.fs(:fs_name => 'grid').insert_one(grid_file)
+    #TODO check
     fileResp['id']
   end
 
   def getAttachment (name)
     auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{ATTACHMENTS}/#{name}/attachment",
-                        :basic_auth => auth)
-    resp
+    #TODO check
+    MONGOC.database.fs.download_to_stream(name, io)
   end
 
   def getCharacter (name, include=true)
