@@ -22,12 +22,14 @@ webrick_options = {
         :SSLCertName        => [ [ "CN",WEBrick::Utils::getservername ] ]
 }
 
-COUCH = ENV["COUCH"]
-COUCH ||= "http://localhost:5984"
-CHARS = "chars"
-USERS = "users"
-SPELLS = "spells"
-ATTACHMENTS = "attachments"
+COUCH = ENV["COUCH"] || "http://localhost:5984"
+MONGO ||= "localhost:27017"
+CHARS = :chars
+USERS = :users
+SPELLS = :spells
+ATTACHMENTS = :attachments
+
+MONGOC = Mongo::Client.new([ MONGO ], :database => 'dnd')
 
 class MyServer < Sinatra::Base
 
