@@ -395,33 +395,15 @@ class MyServer < Sinatra::Base
   end
 
   def deleteCharacter (name)
-    existing = getCharacter(name, false)
-    rev = nil
-    if not existing.nil?
-      rev = existing["_rev"]
-    else
-      return ok
+    try do
+      MONGOC[CHARS].delete_one(_id: BSON::ObjectId(name) )
     end
-
-    body = { :_id => name, :_rev => rev }
-
-    auth = auth!
-    resp = HTTParty.delete("#{COUCH}/#{CHARS}/#{name}",
-                           :basic_auth => auth,
-                           :query => { "rev" => rev },
-                           :headers => { 'Content-Type' => 'application/json' })
-    JSON.parse(resp)
   end
 
-  
-
   def createCharacter (body)
-    auth = auth!
-    resp = HTTParty.post("#{COUCH}/#{CHARS}",
-                         :basic_auth => auth,
-                         :headers => { 'Content-Type' => 'application/json' },
-                         :body => body.to_json)
-    JSON.parse(resp)
+    result = MONGOC[CHARS].insert_one(body)
+    body['_id'] = result.inserted_id.to_str
+    body
   end
 
   def getSpells (className)
