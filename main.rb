@@ -248,7 +248,6 @@ class MyServer < Sinatra::Base
   end
 
   def pwdOk (name, password)
-    auth = auth!
     resp = MONGOC[USERS].find(name: name)
     if resp.count != 1
       return false
@@ -267,13 +266,11 @@ class MyServer < Sinatra::Base
   def isAdmin
     user = @auth.credentials[0]
 
-    auth = auth!
     resp = MONGOC[USERS].find(name: user).first()
     not resp["admin"].nil? and resp["admin"]
   end
 
   def getPlayers
-    auth = auth!
     users = MONGOC[USERS].find()
     
     result = []
@@ -407,7 +404,6 @@ class MyServer < Sinatra::Base
   end
 
   def getSpells (className)
-    auth = auth!
     resp = HTTParty.get("#{COUCH}/#{SPELLS}/_changes",
                         :basic_auth => auth,
                         :query => {
@@ -435,11 +431,6 @@ def setAdmin (user, admin = true)
     return_document: :after
   )
   ok
-end
-
-def auth!
-  pwd = ENV["COUCHDB_PASS"]
-  auth = {:username => 'admin', :password => pwd}
 end
 
 def ensureUser (user, pass) 
@@ -500,7 +491,6 @@ def ensureSpellsIndices
 end
 
 def addSpellFilter
-  auth = auth!
   resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
                       :basic_auth => auth,
                       :headers => { 'Content-Type' => 'application/json' },
