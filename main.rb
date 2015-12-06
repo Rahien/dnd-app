@@ -549,25 +549,24 @@ def addAllSpells
     row.headers.map do |header|
       object[header] = row[header]
     end
-    rows.push object
+    rows.push({ insert_one: object })
   end
 
-  auth = auth!
+  result = nil
+  begin
+    result = MONGOC[SPELLS].bulk_write(rows, ordered: false)
+  rescue => e
+    result = e.result
+  end
+  puts "inserted #{result['n']} new spells, did not replace #{rows.length - result['n']} existing ones."
+end
 
-  HTTParty.delete("#{COUCH}/#{SPELLS}",
-                  :basic_auth => auth)
-  HTTParty.put("#{COUCH}/#{SPELLS}",
-               :basic_auth => auth)
-  resp = HTTParty.post("#{COUCH}/#{SPELLS}/_bulk_docs",
-                       :basic_auth => auth,
-                       :headers => { 'Content-Type' => 'application/json' },
-                       :body => {:docs => rows}.to_json)
-
-  filter = addSpellFilter()
-  if (resp.code == 200 or resp.code == 201) and (filter == 200 or filter == 201)
-    "ok"
-  else
-    "fail"
+def ensureSpellsIndices
+  try do
+    MONGOC[SPELLS].indexes.create_many([
+      { key: { name: 1 }, unique: true, name: "spell_main_index"},
+      { key: { name: "text", description: "text"} , weights: { name: 10, description: 1 } , name: "spell_text_index" }
+    ])
   end
 end
 
