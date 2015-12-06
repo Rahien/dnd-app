@@ -431,7 +431,7 @@ end
 def setAdmin (user, admin = true)
   resp = MONGOC[USERS].find_one_and_update(
     { name: user },
-    { '$set' => { admin: true }},
+    { '$set' => { admin: admin }},
     return_document: :after
   )
   ok
