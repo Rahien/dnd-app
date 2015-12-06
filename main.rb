@@ -99,7 +99,7 @@ class MyServer < Sinatra::Base
       headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
       halt 401, "Not authorized\n"
     end
-    getPlayers()
+    getPlayers().to_json
   end
 
   get '/dnd/api/allchars' do
@@ -299,30 +299,25 @@ class MyServer < Sinatra::Base
 
   def getPlayers
     auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/_all_docs",
-                        :query => {:include_docs => true},
-                        :basic_auth => auth)
-    users = JSON.parse(resp)
+    users = MONGOC[USERS].find()
     
     result = []
-    users['rows'].map do |user|
-      result.push( { :username => user['doc']['_id'],
-        :isAdmin => user['doc']['isAdmin'],
-        :chars => getUserChars(user['doc'])
+    users.each do |user|
+      result.push( { :username => user['name'],
+        :isAdmin => user['admin'],
+        :chars => getUserChars(user)
       })
     end
     result.to_json
   end
 
   def getAllCharacters
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{CHARS}/_all_docs",
-                        :query => { :include_docs => true },
-                        :basic_auth => auth)
-    list = JSON.parse(resp)
-    list = list["rows"].map do |item| 
-      item["doc"]
+    chars = MONGOC[CHARS].find()
+    list = []
+    chars.each do |item| 
+      list.push item
     end
+    list
   end
 
   def getCharacters
