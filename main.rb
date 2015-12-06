@@ -370,11 +370,13 @@ class MyServer < Sinatra::Base
   end
 
   def updateUser (user)
-    auth = auth!
-    resp = HTTParty.put("#{COUCH}/#{USERS}/#{user['_id']}",
-                        :headers => { 'Content-Type' => 'application/json' },
-                        :body => user.to_json,
-                        :basic_auth => auth)
+    clone = user.clone()
+    clone.delete "_id"
+    result = MONGOC[USERS].find_one_and_replace(
+      { name: user["name"] },
+      { '$set' => clone },
+      return_document: :after
+    )
   end
 
   def addCharToUser (id)
