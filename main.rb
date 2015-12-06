@@ -64,7 +64,11 @@ class MyServer < Sinatra::Base
       headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
       halt 401, "Not authorized\n"
     end
+    MONGOC[SPELLS].drop
+    ensureStore SPELLS
+    ensureSpellsIndices()
     addAllSpells()
+    ok
   end
 
   get '/dnd/api/spells/:class' do
@@ -551,13 +555,14 @@ def addAllSpells
     rows.push({ insert_one: object })
   end
 
-  result = nil
+  inserted = 0
   begin
     result = MONGOC[SPELLS].bulk_write(rows, ordered: false)
+    inserted = result.inserted_count
   rescue => e
-    result = e.result
+    inserted = e.result['n']
   end
-  puts "inserted #{result['n']} new spells, did not replace #{rows.length - result['n']} existing ones."
+  puts "inserted #{inserted} new spells, did not replace #{rows.length - inserted} existing ones."
 end
 
 def ensureSpellsIndices
