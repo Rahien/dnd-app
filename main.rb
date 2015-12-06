@@ -349,21 +349,17 @@ class MyServer < Sinatra::Base
   def addCharToUser (id)
     user = @auth.credentials[0]
 
-    auth = auth!
-    userDesc = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                            :basic_auth => auth)
-    userDesc = JSON.parse(userDesc)
+    userDesc = MONGOC[USERS].find(name: user).first()
     if userDesc['chars'].nil?
       userDesc['chars'] = []
     end
     userDesc['chars'].push id
-    userDesc.delete "_id"
 
-    resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
-                        :headers => { 'Content-Type' => 'application/json' },
-                        :body => userDesc.to_json,
-                        :basic_auth => auth)
-    JSON.parse(resp)
+    MONGOC[USERS].find_one_and_update(
+      { name: user },
+      { '$set' => { chars: userDesc['chars'] } },
+      return_document: :after
+    )
   end
 
   def createAttachment (file,type)
