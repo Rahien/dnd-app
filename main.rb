@@ -269,11 +269,12 @@ class MyServer < Sinatra::Base
 
   def pwdOk (name, password)
     auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{name}",
-                        :basic_auth => auth)
-    resp = JSON.parse(resp)
-    
-    not resp["pwd"].nil? and BCrypt::Password.new(resp["pwd"]) == password
+    resp = MONGOC[USERS].find(name: name)
+    if resp.count != 1
+      return false
+    end
+    user = resp.first()
+    not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
   end
 
   def canAccessChar (name)
@@ -290,10 +291,8 @@ class MyServer < Sinatra::Base
     user = @auth.credentials[0]
 
     auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                        :basic_auth => auth)
-    resp = JSON.parse(resp)
-    not resp["isAdmin"].nil? and resp["isAdmin"]
+    resp = MONGOC[USERS].find(name: user).first()
+    not resp["admin"].nil? and resp["admin"]
   end
 
   def getPlayers
@@ -516,7 +515,7 @@ end
 
 def ensureUser (user, pass) 
   hash = BCrypt::Password.create(pass)
-  MONGOC[USERS].insert_one({ name: user, pass: hash })
+  MONGOC[USERS].insert_one({ name: user, pwd: hash })
 end
 
 def ensureStores
