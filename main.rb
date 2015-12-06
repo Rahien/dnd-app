@@ -526,12 +526,20 @@ def ensureStores
   ensureStore ATTACHMENTS
 end
 
-def ensureStore (store)
-  auth = auth!
+def ensureIndices
+  ensureUsersIndices()
+  ensureSpellsIndices()
+end
 
-  resp = HTTParty.put("#{COUCH}/#{store}",
-                      :body => {:pwd => hash}.to_json,
-                      :basic_auth => auth)
+def ensureUsersIndices
+  MONGOC[USERS].indexes.create_one({ name: 1 }, unique: true)
+end
+
+def ensureStore (store)
+  collection = MONGOC[store]
+  try do
+    collection.create()
+  end
 end
 
 def addAllSpells
@@ -585,6 +593,7 @@ def try(&block)
 end
 
 ensureStores()
+ensureIndices()
 ADMIN = ENV["ADMIN"] || "admin"
 begin
   ensureUser(ADMIN,ENV["PASS"] || "secret")
