@@ -338,35 +338,21 @@ class MyServer < Sinatra::Base
     list
   end
 
-  def getUserChars(userResp)
-    list = []
-    if not userResp["chars"].nil?
-      auth = auth!
-      resp = HTTParty.post("#{COUCH}/#{CHARS}/_all_docs",
-                           :query => { :include_docs => true },                           
-                           :body => { 
-                             :keys => userResp["chars"]                          
-                           }.to_json,
-                           :basic_auth => auth)
-      list = JSON.parse(resp)
-      newList = []
-      list["rows"].map do |item| 
-        if not item["doc"].nil? and not item["doc"]["name"].nil?
-          newList.push(item["doc"])
-        end
-      end
+  def getUserChars(user)
+    chars = []
+    if not user["chars"].nil? and not user["chars"].length > 0
+      chars = MONGOC[CHARS].find( { _id: { "$in" => user["chars"] } } )
 
-      list = newList
-
-      if list.length != userResp["chars"].length
-        userChars = list.map do |item|
-          item["_id"]
+      if chars.count != user["chars"].length
+        userChars = []
+        chars.each do |char|
+          userChars.push char["_id"]
         end
-        userResp["chars"] = userChars
-        updateUser(userResp)
+        user["chars"] = userChars
+        updateUser(user)
       end
     end
-    list
+    chars
   end
 
   def updateUser (user)
