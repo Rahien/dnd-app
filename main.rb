@@ -160,17 +160,13 @@ class MyServer < Sinatra::Base
     if not data["_id"].nil?
       halt 400, "Don't include _id when posting!\n"
     end
-    result = createCharacter(data)
-    if result["error"]
-      halt 500, "could not save character: #{result['reason']}\n"
-    else
-      id=result["id"]
-      res = addCharToUser(id)
-      if not res["error"].nil?
-        halt 500, "could not add character to user: #{res['reason']}\n"
-      else
-        id
-      end
+    begin
+      character = createCharacter(data)
+      id = character["_id"].to_str
+      addCharToUser(id)
+      id
+    rescue => e
+      halt 500, "could not save character: #{e}\n"
     end
   end
 
