@@ -300,15 +300,10 @@ class MyServer < Sinatra::Base
 
   def getCharacters
     user = @auth.credentials[0]
-
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                        :basic_auth => auth)
-    userResp = JSON.parse(resp)
-
+    userResp = MONGOC[USERS].find( name: user ).first()
     list = []
 
-    if not userResp["isAdmin"].nil? and userResp["isAdmin"] 
+    if not userResp["admin"].nil? and userResp["admin"]
       list = getAllCharacters()
     else
       list = getUserChars(userResp)
