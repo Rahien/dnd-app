@@ -13,7 +13,7 @@ CharRoute = AuthRoute.extend SendMessage,
         password: @get 'user.password'
         success: (result) ->
           resolve(Char.create(result))
-        error: (error) ->
+        error: (error) =>
           if error.status == 401
             @transitionToRoute 'login'
           else
