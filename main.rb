@@ -257,14 +257,11 @@ class MyServer < Sinatra::Base
     not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
   end
 
-  def canAccessChar (name)
+  def canAccessChar (id)
     user = @auth.credentials[0]
 
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                        :basic_auth => auth)
-    resp = JSON.parse(resp)
-    not resp["isAdmin"].nil? and resp["isAdmin"] or resp["chars"].include? name
+    resp = MONGOC[USERS].find(name: user).first()
+    (not resp["admin"].nil? and resp["admin"]) or resp["chars"].include? id
   end
 
   def isAdmin
