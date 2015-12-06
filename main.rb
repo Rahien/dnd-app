@@ -373,18 +373,25 @@ class MyServer < Sinatra::Base
     result.data
   end
 
-  def saveCharacter (name, body)
-    existing = getCharacter(name, false)
-    if not existing.nil?
-      body["_rev"] = existing["_rev"]
+  def getCharacter (id)
+    result = MONGOC[CHARS].find({_id: BSON::ObjectId(id) })
+    if result.count == 1
+      result = result.first
+      result["_id"] = result["_id"].to_str
+      result
+    else
+      nil
     end
+  end
 
-    auth = auth!
-    resp = HTTParty.put("#{COUCH}/#{CHARS}/#{name}",
-                        :basic_auth => auth,
-                        :headers => { 'Content-Type' => 'application/json' },
-                        :body => body.to_json)
-    JSON.parse(resp)
+  def saveCharacter (id, body)
+    mongo_id = BSON::ObjectId(id)
+    body['_id']= mongo_id
+    MONGOC[CHARS].find_one_and_replace(
+      { _id: mongo_id },
+      { '$set' => body },
+      return_document: :after
+    )
   end
 
   def deleteCharacter (name)
