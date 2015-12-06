@@ -130,12 +130,12 @@ class MyServer < Sinatra::Base
     end
 
     data = JSON.parse request.body.read
-    result = saveCharacter(name,data)
-    if result["error"]
-      halt 500, "Could not save character: #{result['reason']}\n"
-    else
-      ok
+    begin
+      saveCharacter(name,data)
+    rescue => e
+      halt 500, "Could not save character: #{e}"
     end
+    ok
   end
 
   delete '/dnd/api/char/:name' do
