@@ -78,7 +78,7 @@ PlayersRoute = AuthRoute.extend SendMessage,
         error: =>
           @sendMessage 'error', "Could not remove character!"
     removePlayer: (player) ->
-      Ember.$.ajax "/dnd/api/player/#{player.username}",
+      Ember.$.ajax "/dnd/api/player/#{player._id}",
         type: "DELETE"
         username: @get 'user.username'
         password: @get 'user.password'
