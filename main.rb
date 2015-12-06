@@ -278,12 +278,14 @@ class MyServer < Sinatra::Base
     
     result = []
     users.each do |user|
-      result.push( { :username => user['name'],
+      result.push( {
+        :_id => user['_id'].to_str,
+        :username => user['name'],
         :isAdmin => user['admin'],
         :chars => getUserChars(user)
       })
     end
-    result.to_json
+    result
   end
 
   def getAllCharacters
