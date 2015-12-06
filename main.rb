@@ -177,8 +177,9 @@ class MyServer < Sinatra::Base
     user = data["username"]
     pass = data["password"]
 
-    resp = ensureUser(user,pass)
-    if JSON.parse(resp)["error"] == "conflict"
+    begin
+      resp = ensureUser(user,pass)
+    rescue
       halt 500, "This user already exists\n"
     end
     "ok"
@@ -519,11 +520,7 @@ end
 
 def ensureUser (user, pass) 
   hash = BCrypt::Password.create(pass)
-  
-  auth = auth!
-  resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
-                      :body => {:pwd => hash}.to_json,
-                      :basic_auth => auth)
+  MONGOC[USERS].insert_one({ name: user, pass: hash })
 end
 
 def ensureStores
@@ -584,7 +581,12 @@ def addSpellFilter
 end
 
 ensureStores()
-ensureUser(ENV["ADMIN"],ENV["PASS"])
+ADMIN = ENV["ADMIN"] || "admin"
+begin
+  ensureUser(ADMIN,ENV["PASS"] || "secret")
+rescue
+  puts "admin user already exists"
+end
 addAllSpells()
 setAdmin(ENV["ADMIN"], true)
 
