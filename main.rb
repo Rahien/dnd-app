@@ -191,25 +191,16 @@ class MyServer < Sinatra::Base
     end
 
     user = params[:id]
-    if user == @auth.credentials[0]
+    found = MONGOC[USERS].find(_id: BSON::ObjectId(user))
+    if found.count == 1 and found.first()["name"] == @auth.credentials[0]
       halt 403, "Cannot remove your own user\n"
     end
 
-    auth = auth!
-    resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                      :basic_auth => auth)
-    if resp.code == 200
-      rev= JSON.parse(resp)["_rev"]
-      resp = HTTParty.delete("#{COUCH}/#{USERS}/#{user}",
-                             :query => { "rev" => rev },
-                             :basic_auth => auth)
-      if resp.code == 200
-        ok
-      else
-        halt 500, "Could not remove the provided player"
-      end
-    else
-      halt 500, "Could not fetch the provided player"
+    begin
+      MONGOC[USERS].delete_one( _id: BSON::ObjectId(user) )
+      ok
+    rescue
+      halt 500, "Could not remove the provided player"
     end
   end
 
