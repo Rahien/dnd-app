@@ -132,7 +132,7 @@ class MyServer < Sinatra::Base
     if result["error"]
       halt 500, "Could not save character: #{result['reason']}\n"
     else
-      "ok"
+      ok
     end
   end
 
@@ -148,7 +148,7 @@ class MyServer < Sinatra::Base
     if result["error"]
       halt 500, "Could not delete character: #{result['reason']}\n"
     else
-      "ok"
+      ok
     end
   end
 
@@ -182,7 +182,7 @@ class MyServer < Sinatra::Base
     rescue
       halt 500, "This user already exists\n"
     end
-    "ok"
+    ok
   end
 
   delete '/dnd/api/player/:id' do
@@ -206,7 +206,7 @@ class MyServer < Sinatra::Base
                              :query => { "rev" => rev },
                              :basic_auth => auth)
       if resp.code == 200
-        "ok"
+        ok
       else
         halt 500, "Could not remove the provided player"
       end
@@ -237,7 +237,7 @@ class MyServer < Sinatra::Base
                           :body => user.to_json,
                           :basic_auth => auth)
       if resp.code == 200 or resp.code == 201
-        "ok"
+        ok
       else
         halt 500, "Could not update the list of characters for the player"
       end
@@ -454,7 +454,7 @@ class MyServer < Sinatra::Base
     if not existing.nil?
       rev = existing["_rev"]
     else
-      return "ok"
+      return ok
     end
 
     body = { :_id => name, :_rev => rev }
@@ -506,7 +506,7 @@ def setAdmin (user, admin = true)
     { '$set' => { admin: true }},
     return_document: :after
   )
-  "ok"
+  ok
 end
 
 def auth!
@@ -589,6 +589,10 @@ def try(&block)
   rescue
     # give up
   end
+end
+
+def ok
+  { success: true }.to_json
 end
 
 ensureStores()
