@@ -501,15 +501,11 @@ class MyServer < Sinatra::Base
 end
 
 def setAdmin (user, admin = true)
-  auth = auth!
-
-  resp = HTTParty.get("#{COUCH}/#{USERS}/#{user}",
-                      :basic_auth => auth)
-  resp = JSON.parse(resp)
-  resp['isAdmin'] = admin
-  resp = HTTParty.put("#{COUCH}/#{USERS}/#{user}",
-                      :body => resp.to_json,
-                      :basic_auth => auth)
+  resp = MONGOC[USERS].find_one_and_update(
+    { name: user },
+    { '$set' => { admin: true }},
+    return_document: :after
+  )
   "ok"
 end
 
@@ -588,7 +584,7 @@ rescue
   puts "admin user already exists"
 end
 addAllSpells()
-setAdmin(ENV["ADMIN"], true)
+setAdmin(ADMIN, true)
 
 Rack::Handler::WEBrick.run MyServer, webrick_options
 
