@@ -146,11 +146,11 @@ class MyServer < Sinatra::Base
       halt 401, "Not authorized\n"
     end
 
-    result = deleteCharacter(name)
-    if result["error"]
-      halt 500, "Could not delete character: #{result['reason']}\n"
-    else
+    begin
+      result = deleteCharacter(name)
       ok
+    rescue => e
+      halt 500, "Could not delete character: #{e}\n"
     end
   end
 
