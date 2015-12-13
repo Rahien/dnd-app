@@ -7,43 +7,34 @@ SelectSpellComponent = Ember.Component.extend
     @set 'data', []
     @set 'searchString', ""
     @set 'useClass', true
-    @fetchData()
   didInsertElement: ->
     @_super(arguments...)
     Ember.run.later this, (->
       @$().find(".search input").focus()), 500
-  classObserver: Ember.observer 'useClass', ->
+  # timestamp of last fetch
+  searchWait: 3000
+  fetchResults: Ember.observer 'searchString', 'useClass', ->
+    @set 'shouldFetch', true
+    # notify interests
     @get 'useClass'
-    @fetchData()
-  fetchData: ->
+    search = @get 'searchString'
+
+    if search.length > 2
+      Ember.run.throttle this, @doFetch, 2000, false
+  doFetch: ->
     url = "/dnd/api/spells"
-    c = @get 'char.class'
+    params =
+      search: @get 'searchString'
     if @get 'useClass'
-      url += "/#{c}"
+      params.class = @get 'char.class'
+
     Ember.$.ajax url,
-      success: (result) =>
+      data: params
+      success: (result, status, xhr) =>
         @set 'data', JSON.parse(result)
       error: () =>
         @set 'data', []
-  results: Ember.computed 'data', 'searchString', ->
-    results = []
-    data = @get 'data'
-    search = @get('searchString').toLowerCase()
-    if Ember.isEmpty search
-      return results
-      
-    data?.map? (spell) ->
-      if spell.name.toLowerCase().indexOf(search) >= 0
-        results.push spell
-    results.sort (one,two) ->
-      if one.level == two.level
-        if one.name <= two.name
-          -1
-        else
-          1
-      else
-        one.level - two.level
-    results
+  results: Ember.computed.alias 'data'
   actions:
     selectSpell: (spell) ->
       @sendAction "selectSpell", spell

@@ -71,15 +71,11 @@ class MyServer < Sinatra::Base
     ok
   end
 
-  get '/dnd/api/spells/:class' do
-    protected!
-    className = params[:class]
-    getSpells(className).to_json
-  end
-
   get '/dnd/api/spells' do
     protected!
-    getSpells(nil).to_json
+    search = params[:search]
+    kind = params[:class]
+    getSpells(search, kind).to_json
   end
 
   post '/dnd/api/image' do
@@ -403,21 +399,23 @@ class MyServer < Sinatra::Base
     body
   end
 
-  def getSpells (className)
-    resp = HTTParty.get("#{COUCH}/#{SPELLS}/_changes",
-                        :basic_auth => auth,
-                        :query => {
-                          :include_docs => true,
-                          :filter => "application/spells",
-                          :class => className,
-                        },
-                        :headers => { 'Content-Type' => 'application/json' })
-    resp = JSON.parse(resp)
-    list = []
-    spells = resp['results'] or []
+  def getSpells (search, className)
+    params = {
+      '$text' => { '$search' => search }
+    }
+    if not className.nil?
+      params['class'] = className
+    end
 
-    spells.map do |spell|
-      list.push spell['doc']
+    resp = MONGOC[SPELLS].find( params )
+                         .projection( { score: { '$meta' => 'textScore' } } )
+                         .sort( { score: { '$meta' => 'textScore' } } )
+
+    list = []
+    resp.each do |spell|
+      spell.delete '_id'
+      spell.delete 'score'
+      list.push spell
     end
     list
   end
@@ -468,6 +466,9 @@ def addAllSpells
     row.headers.map do |header|
       object[header] = row[header]
     end
+    object["class"] = object["class"].split(",").map do |item|
+      item.strip()
+    end
     rows.push({ insert_one: object })
   end
 
@@ -485,21 +486,10 @@ def ensureSpellsIndices
   try do
     MONGOC[SPELLS].indexes.create_many([
       { key: { name: 1 }, unique: true, name: "spell_main_index"},
+      { key: { class: 1 }, name: "spell_class_index"},
       { key: { name: "text", description: "text"} , weights: { name: 10, description: 1 } , name: "spell_text_index" }
     ])
   end
-end
-
-def addSpellFilter
-  resp = HTTParty.put("#{COUCH}/#{SPELLS}/_design/application",
-                      :basic_auth => auth,
-                      :headers => { 'Content-Type' => 'application/json' },
-                      :body => {
-                        :filters => {
-                          :spells => "function(doc,req) { if(doc.class && (!req.query.class || doc.class.toLowerCase().indexOf(req.query.class.toLowerCase())>=0)){ return true; } else { return false; } }"
-                        }
-                      }.to_json)
-  resp.code
 end
 
 def try(&block)
