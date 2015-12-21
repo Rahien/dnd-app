@@ -17,7 +17,7 @@ CharsController = Ember.Controller.extend SendMessage,
         contentType: "application/json; charset=utf-8"
         data: JSON.stringify(def)
         success: (result) =>
-          @transitionToRoute 'char', result
+          @transitionToRoute 'char', result.id
         error: (error) =>
           @sendMessage 'error', "Sorry, could not fetch your characters from the server, contact your administrator.\nServer reply was:\n#{error.responseText}"
 

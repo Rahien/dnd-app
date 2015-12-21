@@ -13,6 +13,6 @@ FileUpload = EmberUploader.FileField.extend
 
     if !Ember.isEmpty files
       uploader.upload(files[0]).then (result) =>
-        @sendAction "didUpload", result
+        @sendAction "didUpload", result.id
 
 `export default FileUpload`

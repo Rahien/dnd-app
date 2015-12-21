@@ -34,6 +34,9 @@ TOKENTIMETOLIVE = ENV["TOKENTIME"] || 3600
 MONGOC = Mongo::Client.new([ MONGO ], :database => 'dnd')
 
 class MyServer < Sinatra::Base
+  before do
+    content_type 'application/json'
+  end
 
   helpers do
     def protected!
@@ -77,7 +80,8 @@ class MyServer < Sinatra::Base
   end
 
   get '/dnd/api/test' do
-    "Still alive!"
+    { ok: "Still alive!" }.to_json
+  end
 
   post '/token' do
     if params[:grant_type] == "password"
@@ -117,7 +121,8 @@ class MyServer < Sinatra::Base
   post '/dnd/api/image' do
     file = params[:file][:tempfile]
     type = params[:file][:type]
-    createAttachment(file,type)
+    id = createAttachment(file,type)
+    { id: id }.to_json
   end
 
   get '/dnd/api/image/:name' do
@@ -187,7 +192,7 @@ class MyServer < Sinatra::Base
       character = createCharacter(data)
       id = character["_id"].to_str
       addCharToUser(id)
-      id
+      { id: id }.to_json
     rescue => e
       halt 500, "could not save character: #{e}\n"
     end
