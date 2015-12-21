@@ -134,37 +134,23 @@
 	{{content-editable classNames="perception" value=model.perception}}
 	
 	<div class="left-side">
-		{{char-attacks char=model}}
-		<div class="profs">
-			<span class="title">Proficiencies</span>
-			<div>
-				<span class="title">Saves</span>
-				{{content-editable value=model.profs.saves}}
-			</div>
-			<div>
-				<span class="title">Armor</span>
-				{{content-editable value=model.profs.armor}}
-			</div>
-			<div>
-				<span class="title">Weapons</span>
-				{{content-editable value=model.profs.weapons}}
-			</div>
-			<div>
-				<span class="title">Tools</span>
-				{{content-editable value=model.profs.tools}}
-			</div>
-		</div>
-		{{char-inventory char=model}}
-		{{free-block title="Wealth" content=model.wealth classNames="wealth"}}
+		{{#each charBlocks.left as |block|}}
+			{{#if (eq block.kind "specced")}}
+				{{specced-block spec=block char=model classNames="char-block"}}
+			{{else}}
+				{{component block.kind char=model classNames="char-block"}}
+			{{/if}}
+		{{/each}}
 	</div>
 
 	<div class="right-side">
-		{{free-block title="Skills" content=model.skills classNames="skills"}}
-		{{free-block title="Features and traits" content=model.traits classNames="traits"}}
-		{{free-block title="Feats" content=model.feats classNames="feats"}}
-		{{free-block title="Spells" content=model.spells classNames="spells"}}
-		{{free-block title="Spellbook" content=model.spellbook classNames="spells spellbook"}}
-		{{free-block title="Short Description" content=model.description classNames="short-descr"}}
+		{{#each charBlocks.right as |block|}}
+			{{#if (eq block.kind "specced")}}
+				{{specced-block spec=block char=model classNames="char-block"}}
+			{{else}}
+				{{component block.kind char=model classNames="char-block"}}
+			{{/if}}
+		{{/each}}
 	</div>
 
 	{{char-spell-book char=model}}

@@ -5,6 +5,21 @@
 CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
+  charBlocks:
+    left: [
+      { kind: "char-attacks" },
+      { kind: "char-profs" },
+      { kind: "char-inventory" },
+      { kind: "specced", title: "Wealth", content: "wealth" }
+    ]
+    right: [
+      { kind: "specced", title: "Skills", content: "skills" },
+      { kind: "specced", title: "Features and Traits", content: "traits" },
+      { kind: "specced", title: "Feats", content: "feats" },
+      { kind: "specced", title: "Spells", content: "spells" },
+      { kind: "specced", title: "Spellbook", content: "spellbook" },
+      { kind: "specced", title: "Short Description", content: "description" }
+    ]
   profBonus: Ember.computed "model.level", ->
     level = @get 'model.level'
     Math.floor(level/4)+2

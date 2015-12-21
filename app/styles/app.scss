@@ -480,13 +480,13 @@ body > * > div {
 		div > div.spells > *:first-child:after {
 				background-image: url(/assets/images/charsheets/spells.png);
 		}
-		div > div.spells.spellbook > *:first-child:after {
+		div > div.spellbook > *:first-child:after {
 				background-image: url(/assets/images/charsheets/spellbook.png);
 		}
 		div > div.feats > *:first-child:after {
 				background-image: url(/assets/images/charsheets/feats.png);
 		}
-		div > div.short-descr > *:first-child:after {
+		div > div.description > *:first-child:after {
 				background-image: url(/assets/images/charsheets/description.png);
 		}
 		div > div.traits > *:first-child:after {
@@ -633,19 +633,19 @@ body > * > div {
 				left: 126px;
 				width: 415px;
 		}
-		.spells.spellbook p {
+		.spellbook p {
 				float: none;
 				margin-bottom: 0.3em;
 		}
 
-		.spells.spellbook p:after {
+		.spellbook p:after {
 				content: "";
 		}
 
-		.short-descr p {
+		.description p {
 				font-style: italic;
 		}
-		.short-descr {
+		.description {
 				min-height: 200px;
 		}
 		.level, .prof-bonus .value {
@@ -672,7 +672,7 @@ body > * > div {
 				padding: 0 5px;
 		}
 
-		.traits, .feats, .spells, .skills, .profs, .gear, .wealth, .notes, .short-descr {
+		.char-block {
 				h1 {
 						display: block;
 						margin: 0;
@@ -833,7 +833,7 @@ body > * > div {
 		clear: both;
 }
 
-.spell .description {
+.spell .descr {
     margin-bottom: 0.3em;
 		position:relative;
 
