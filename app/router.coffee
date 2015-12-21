@@ -11,4 +11,7 @@ Router.map ->
   @route 'register', path: "/dnd/app/register"
   @route 'players', path: "/dnd/app/players"
 
+  @route 'index', path: "*badPath"
+  @route 'index', path: "/"
+
 `export default Router`
