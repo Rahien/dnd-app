@@ -14,16 +14,11 @@ CharsController = Ember.Controller.extend SendMessage,
       def = Char.getDefault()
       Ember.$.ajax "/dnd/api/chars",
         type: "POST"
-        username: @get 'user.username'
-        password: @get 'user.password'
         contentType: "application/json; charset=utf-8"
         data: JSON.stringify(def)
         success: (result) =>
           @transitionToRoute 'char', result
         error: (error) =>
-          if error.status == 401
-            @transitionToRoute 'login'
-          else if typeof error == "string"
-            @sendMessage 'error', "Sorry, could not fetch your characters from the server, contact your administrator"
+          @sendMessage 'error', "Sorry, could not fetch your characters from the server, contact your administrator.\nServer reply was:\n#{error.responseText}"
 
 `export default CharsController`

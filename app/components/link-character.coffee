@@ -10,8 +10,6 @@ LinkCharacterComponent = Ember.Component.extend SendMessage,
   fetchCharacters: ->
     Ember.$.ajax "/dnd/api/allchars",
       type: "GET"
-      username: @get 'user.username'
-      password: @get 'user.password'
       dataType: 'json'
       success: (response) =>
         @set 'characters', response 

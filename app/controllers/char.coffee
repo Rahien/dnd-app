@@ -47,8 +47,6 @@ CharController = Ember.Controller.extend SendMessage,
       method: "PUT"
       data: JSON.stringify(model.serialize())
       contentType: "application/json; charset=utf-8"
-      username: @get 'user.username'
-      password: @get 'user.password'
       success: =>
         @sendMessage 'goodstuff', 'Saved character'
       error: =>
@@ -60,8 +58,6 @@ CharController = Ember.Controller.extend SendMessage,
       model = @get 'model'
       Ember.$.ajax "/dnd/api/char/#{model._id}",
         method: "DELETE"
-        username: @get 'user.username'
-        password: @get 'user.password'
         success: =>
           @transitionToRoute 'chars'
         error: =>

@@ -8,17 +8,9 @@ CharsRoute = AuthRoute.extend SendMessage,
       Ember.$.ajax "/dnd/api/chars",
         type: "GET"
         dataType: "json"
-        username: @get 'user.username'
-        password: @get 'user.password'
         success: (response) ->
           resolve(response)
         error: (error) =>
-          if error.status == 401
-            @sendMessage 'error', 'Access denied!',
-              autoClose: 5000
-            @transitionTo('login')
-          else
-            @sendMessage 'error', 'Sorry, could not get the list of characters from the server'
-            reject error
+          reject error
 
 `export default CharsRoute`

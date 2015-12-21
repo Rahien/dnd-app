@@ -27,7 +27,9 @@ MONGO ||= "localhost:27017"
 CHARS = :chars
 USERS = :users
 SPELLS = :spells
+TOKENS = :tokens
 ATTACHMENTS = :attachments
+TOKENTIMETOLIVE = ENV["TOKENTIME"] || 3600
 
 MONGOC = Mongo::Client.new([ MONGO ], :database => 'dnd')
 
@@ -35,14 +37,34 @@ class MyServer < Sinatra::Base
 
   helpers do
     def protected!
-      return if authorized?
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, {:error => "Not authorized"}.to_json
+      return if hasToken?
+      halt 400, {:error => "invalid_grant"}.to_json
     end
 
     def authorized?
       @auth ||=  Rack::Auth::Basic::Request.new(request.env)
       @auth.provided? and @auth.basic? and @auth.credentials and pwdOk(@auth.credentials[0], @auth.credentials[1])
+    end
+
+    def admin!
+      if not isAdmin
+        noAccess
+      end
+    end
+
+    def noAccess
+      halt 401, {error: "unauthorized_client",error_description: "The user is invalid or is not allowed to make this request."}.to_json
+    end
+
+    def hasToken?
+      token = (request.env["HTTP_AUTHORIZATION"] and request.env["HTTP_AUTHORIZATION"].partition(" ").last())
+      token = findToken token
+      if token
+        @auth = OpenStruct.new
+        @auth.credentials = [token[:user]]
+      else
+        false
+      end
     end
   end
 
@@ -56,14 +78,28 @@ class MyServer < Sinatra::Base
 
   get '/dnd/api/test' do
     "Still alive!"
+
+  post '/token' do
+    if params[:grant_type] == "password"
+      user = params[:username]
+      pwd = params[:password]
+
+      if pwdOk(user, pwd)
+        token = token! user
+        {
+          "access_token" => token,
+          "token_type" => "bearer",
+          "expires_in" => TOKENTIMETOLIVE
+        }.to_json
+      else
+        halt 401, "Not authorized\n"
+      end
+    end
   end
 
   post '/dnd/api/reload-spells' do
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
     MONGOC[SPELLS].drop
     ensureStore SPELLS
     ensureSpellsIndices()
@@ -91,19 +127,13 @@ class MyServer < Sinatra::Base
 
   get '/dnd/api/players' do
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
     getPlayers().to_json
   end
 
   get '/dnd/api/allchars' do
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
     getAllCharacters().to_json
   end
 
@@ -111,8 +141,7 @@ class MyServer < Sinatra::Base
     protected!
     name = params[:name]
     if not canAccessChar(name)
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
+      noAccess
     end
     getCharacter(name).to_json
   end
@@ -121,8 +150,7 @@ class MyServer < Sinatra::Base
     protected!
     name = params[:name]
     if not canAccessChar(name)
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
+      noAccess
     end
 
     data = JSON.parse request.body.read
@@ -138,8 +166,7 @@ class MyServer < Sinatra::Base
     protected!
     name = params[:name]
     if not canAccessChar(name)
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
+      noAccess
     end
 
     begin
@@ -181,10 +208,7 @@ class MyServer < Sinatra::Base
 
   delete '/dnd/api/player/:id' do
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
 
     user = params[:id]
     found = MONGOC[USERS].find(_id: BSON::ObjectId(user))
@@ -202,10 +226,7 @@ class MyServer < Sinatra::Base
 
   put '/dnd/api/player/:id/chars' do 
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
 
     player = params[:id]
     chars = JSON.parse request.body.read
@@ -228,10 +249,8 @@ class MyServer < Sinatra::Base
     admin = data["admin"]
 
     protected!
-    if not isAdmin
-      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-      halt 401, "Not authorized\n"
-    end
+    admin!
+
     if user == @auth.credentials[0] and not admin
       halt 403, "Cannot toggle yourself to non admin user\n"
     end
@@ -441,15 +460,27 @@ def ensureStores
   ensureStore SPELLS
   ensureStore CHARS
   ensureStore ATTACHMENTS
+  ensureStore TOKENS
 end
 
 def ensureIndices
   ensureUsersIndices()
   ensureSpellsIndices()
+  ensureTokenIndices()
 end
 
 def ensureUsersIndices
   MONGOC[USERS].indexes.create_one({ name: 1 }, unique: true)
+end
+
+def ensureTokenIndices
+  try do
+    MONGOC[TOKENS].indexes.create_many([
+      { key: { user: 1 }, unique: true, name: "tokens_main_index"},
+      { key: { token: 1 }, unique: true, name: "tokens_unique_index"},
+      { key: { token: 1, user: 1, created: 1 }, name: "tokens_index"}
+    ])
+  end
 end
 
 def ensureStore (store)
@@ -457,6 +488,29 @@ def ensureStore (store)
   try do
     collection.create()
   end
+end
+
+def findToken (token)
+  found = MONGOC[TOKENS].find(token: token).projection({ token: 1, user: 1, created: 1, _id: 1 })
+  if found.count == 1
+    token = found.first()
+    if ((Time.new).to_i) - token["created"] > TOKENTIMETOLIVE
+      MONGOC[TOKENS].delete_one( { _id: token["_id"] } )
+      return false
+    else
+      return { user: token["user"], token: token["token"] }
+    end
+  else
+    return false
+  end
+end
+
+def token! (user)
+  token = SecureRandom.uuid()
+  existing = MONGOC[TOKENS].delete_many(user: user)
+  puts "deleted #{existing} tokens..."
+  MONGOC[TOKENS].insert_one(user: user, token: token, created: (Time.new).to_i)
+  token
 end
 
 def addAllSpells

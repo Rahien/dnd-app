@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
 
 ApplicationController = Ember.Controller.extend
+  session: Ember.inject.service('session')
   init: ->
     @_super(arguments...)
     @set 'showMenu', true
@@ -20,6 +21,7 @@ ApplicationController = Ember.Controller.extend
     toggleMenu: ->
       @set 'showMenu', (not @get('showMenu'))
     logout: ->
+      @get('session').invalidate()
       @transitionToRoute 'login'
     removeMessage: (message) ->
       @removeMessage(message)

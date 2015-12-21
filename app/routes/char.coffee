@@ -9,14 +9,8 @@ CharRoute = AuthRoute.extend SendMessage,
       Ember.$.ajax "/dnd/api/char/#{params.id}",
         type: "GET"
         dataType: "json"
-        username: @get 'user.username'
-        password: @get 'user.password'
         success: (result) ->
           resolve(Char.create(result))
         error: (error) =>
-          if error.status == 401
-            @transitionToRoute 'login'
-          else
-            @sendMessage 'error', "Sorry, could not fetch the character from the server, contact your administrator"
-
+          reject error
 `export default CharRoute`
