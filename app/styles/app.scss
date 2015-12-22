@@ -275,6 +275,12 @@ body > * > div {
 				margin-right: -2.5px;
 				margin-left: 5.5px;
 		}
+		.notes textarea {
+				width: 100%;
+				height: 118px;
+				resize: none;
+				margin-bottom: 10px;
+		}
 
 		.abilities table tr:nth-child(3) td {
   		width: 38px;
@@ -319,6 +325,9 @@ body > * > div {
 				top: 92px;
 				background-color: white;
 		}
+		.perception {
+				width: 134px;
+		}
 
 		.perception:after, .initiative:after {
 				position: absolute;
@@ -353,8 +362,11 @@ body > * > div {
 				padding: 0 42px;
 				z-index: 100;
 		}
-		.notes > div {
+		.notes > div:nth-child(2) {
 				height: 170px;
+		}
+		.notes.editing > div:nth-child(2) {
+				display: none;
 		}
 		.char-kpis {
 				position:relative;
@@ -465,13 +477,13 @@ body > * > div {
 				background-image: url(/assets/images/charsheets/shield.png) !important;
 		}
 		.initiative:after {
-				left: -22px;
+				left: -28px;
 				right: auto;
 				background-image: url(/assets/images/charsheets/initiative.png) !important;
 		}
 		.perception:after {
 				left: auto;
-				right: -22px;
+				right: -28px;
 				background-image: url(/assets/images/charsheets/perception.png) !important;
 		}
 
@@ -1513,5 +1525,8 @@ body > * > div {
 @media print {
 		.header {
 				display:none;
+		}
+    .wrapper {
+				padding-top:10px;
 		}
 }

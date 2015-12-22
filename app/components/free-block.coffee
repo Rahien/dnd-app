@@ -3,6 +3,7 @@
 FreeBlockComponent = Ember.Component.extend
   title: "Block"
   classNames: "free-block"
+  classNameBindings: ["editing:editing"]
 
   init: ->
     @_super(arguments...)
