@@ -1,0 +1,85 @@
+<div class="life">
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<tbody>
+			<tr>
+				<td class="left">HP</td>
+				{{content-editable value=char.hp.total tagName="td"}}
+				{{content-editable value=char.hp.current tagName="td"}}
+			</tr>
+
+			<tr>
+				<td class="left"></td>
+				<td class="left">Total</td>
+				<td class="left">Rem.</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<tbody>
+			<tr>
+				<td class="left">HD</td>
+				{{content-editable value=char.hd.total tagName="td"}}
+				{{content-editable value=char.hd.current tagName="td"}}
+			</tr>
+
+			<tr>
+				<td class="left"></td>
+				<td class="right">Total</td>
+				<td class="left">Rem.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="defenses">
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<tbody>
+			<tr>
+				{{content-editable value=char.ac.armor tagName="td"}}
+			</tr>
+			<tr>
+				<td>Armor Class</td>
+			</tr>
+			<tr>
+				{{content-editable value=char.ac.noArmor tagName="td"}}
+			</tr>
+			<tr>
+				<td>AC - no armor</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="abilities">
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<thead>
+			<tr>
+				<th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{{content-editable value=char.abilities.str tagName="td"}}
+				{{content-editable value=char.abilities.dex tagName="td"}}
+				{{content-editable value=char.abilities.con tagName="td"}}
+				{{content-editable value=char.abilities.int tagName="td"}}
+				{{content-editable value=char.abilities.wis tagName="td"}}
+				{{content-editable value=char.abilities.cha tagName="td"}}
+			</tr>
+
+			<tr>
+				<td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+
+			<tr>
+				<td>{{strmod}}</td><td>{{dexmod}}</td><td>{{conmod}}</td><td>{{intmod}}</td><td>{{wismod}}</td><td>{{chamod}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</div>
+
+{{content-editable classNames="initiative" value=char.initiative}}
+{{content-editable classNames="perception" value=char.perception}}
+

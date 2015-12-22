@@ -23,21 +23,6 @@ CharController = Ember.Controller.extend SendMessage,
   profBonus: Ember.computed "model.level", ->
     level = @get 'model.level'
     Math.floor(level/4)+2
-  strmod: Ember.computed "model.abilities.str", ->
-    @mod("str")
-  dexmod: Ember.computed "model.abilities.dex", ->
-    @mod("dex")
-  conmod: Ember.computed "model.abilities.con", ->
-    @mod("con")
-  intmod: Ember.computed "model.abilities.int", ->
-    @mod("int")
-  wismod: Ember.computed "model.abilities.wis", ->
-    @mod("wis")
-  chamod: Ember.computed "model.abilities.cha", ->
-    @mod("cha")
-  mod: (ability) ->
-    value = @get "model.abilities.#{ability}"
-    Math.floor((value-10)/2)
   filename: Ember.computed "model.name", ->
     name = @get 'model.name'
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
