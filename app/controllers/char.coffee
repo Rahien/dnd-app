@@ -5,21 +5,26 @@
 CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
-  charBlocks: Ember.Object.create
-    left: Ember.ArrayProxy.create content: [
-      { kind: "char-attacks" },
-      { kind: "char-profs" },
-      { kind: "char-inventory" },
-      { kind: "specced", title: "Wealth", content: "wealth" }
-    ]
-    right: Ember.ArrayProxy.create content: [
-      { kind: "specced", title: "Skills", content: "skills" },
-      { kind: "specced", title: "Features and Traits", content: "traits" },
-      { kind: "specced", title: "Feats", content: "feats" },
-      { kind: "specced", title: "Spells", content: "spells" },
-      { kind: "specced", title: "Spellbook", content: "spellbook" },
-      { kind: "specced", title: "Short Description", content: "description" }
-    ]
+    @set 'charBlocks', Ember.Object.create
+      left: Ember.ArrayProxy.create content: [
+        { kind: "char-attacks" },
+        { kind: "char-profs" },
+        { kind: "char-inventory" },
+        { kind: "specced", title: "Wealth", content: "wealth" }
+      ]
+      right: Ember.ArrayProxy.create content: [
+        { kind: "specced", title: "Skills", content: "skills" },
+        { kind: "specced", title: "Features and Traits", content: "traits" },
+        { kind: "specced", title: "Feats", content: "feats" },
+        { kind: "specced", title: "Spells", content: "spells" },
+        { kind: "specced", title: "Spellbook", content: "spellbook" },
+        { kind: "specced", title: "Short Description", content: "description" }
+      ]
+    existing = @get 'model.charBlocks'
+    if existing
+      @set 'charBlocks.left', Ember.ArrayProxy.create content: @get('model.charBlocks.left')
+      @set 'charBlocks.right', Ember.ArrayProxy.create content: @get('model.charBlocks.right')
+
   profBonus: Ember.computed "model.level", ->
     level = @get 'model.level'
     Math.floor(level/4)+2
@@ -28,6 +33,7 @@ CharController = Ember.Controller.extend SendMessage,
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   doSave: ->
     model = @get 'model'
+    model.charBlocks = @get('charBlocks')
     Ember.$.ajax "/dnd/api/char/#{model._id}",
       method: "PUT"
       data: JSON.stringify(model.serialize())
