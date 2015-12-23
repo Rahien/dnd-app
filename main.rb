@@ -38,6 +38,8 @@ class MyServer < Sinatra::Base
     content_type 'application/json'
   end
 
+  set :protection, :except => [:json_csrf]
+
   helpers do
     def protected!
       return if hasToken?
