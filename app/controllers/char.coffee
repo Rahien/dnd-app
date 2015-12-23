@@ -5,25 +5,29 @@
 CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
-    @set 'charBlocks', Ember.Object.create
-      left: Ember.ArrayProxy.create content: [
-        { kind: "char-attacks" },
-        { kind: "char-profs" },
-        { kind: "char-inventory" },
-        { kind: "specced", title: "Wealth", content: "wealth" }
-      ]
-      right: Ember.ArrayProxy.create content: [
-        { kind: "specced", title: "Skills", content: "skills" },
-        { kind: "specced", title: "Features and Traits", content: "traits" },
-        { kind: "specced", title: "Feats", content: "feats" },
-        { kind: "specced", title: "Spells", content: "spells" },
-        { kind: "specced", title: "Spellbook", content: "spellbook" },
-        { kind: "specced", title: "Short Description", content: "description" }
-      ]
-    existing = @get 'model.charBlocks'
-    if existing
-      @set 'charBlocks.left', Ember.ArrayProxy.create content: @get('model.charBlocks.left')
-      @set 'charBlocks.right', Ember.ArrayProxy.create content: @get('model.charBlocks.right')
+  charBlocks: Ember.computed "model.charBlocks", ->
+    current = @get 'model.charBlocks'
+    if not current
+      current =
+        left: Ember.ArrayProxy.create content: [
+          { kind: "char-attacks" },
+          { kind: "char-profs" },
+          { kind: "char-inventory" },
+          { kind: "specced", title: "Wealth", content: "wealth" }
+        ]
+        right: Ember.ArrayProxy.create content: [
+          { kind: "specced", title: "Skills", content: "skills" },
+          { kind: "specced", title: "Features and Traits", content: "traits" },
+          { kind: "specced", title: "Feats", content: "feats" },
+          { kind: "specced", title: "Spells", content: "spells" },
+          { kind: "specced", title: "Spellbook", content: "spellbook" },
+          { kind: "specced", title: "Short Description", content: "description" }
+        ]
+       @set 'model.charBlocks', current
+    else if not @get('model.charBlocks.left.content')
+      @set 'model.charBlocks.left', Ember.ArrayProxy.create content: @get('model.charBlocks.left')
+      @set 'model.charBlocks.right', Ember.ArrayProxy.create content: @get('model.charBlocks.right')
+    current
 
   profBonus: Ember.computed "model.level", ->
     level = @get 'model.level'
@@ -33,10 +37,13 @@ CharController = Ember.Controller.extend SendMessage,
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   doSave: ->
     model = @get 'model'
-    model.charBlocks = @get('charBlocks')
+    serialized = model.serialize()
+    serialized.charBlocks =
+      left: @get('charBlocks.left.content')
+      right: @get('charBlocks.right.content')
     Ember.$.ajax "/dnd/api/char/#{model._id}",
       method: "PUT"
-      data: JSON.stringify(model.serialize())
+      data: JSON.stringify(serialized)
       contentType: "application/json; charset=utf-8"
       success: =>
         @sendMessage 'goodstuff', 'Saved character'
@@ -95,13 +102,13 @@ CharController = Ember.Controller.extend SendMessage,
       Ember.$('.character .image input').click()
     moveBlockUp: (block) ->
       blocks = @get 'charBlocks'
-      index = blocks.get('left').indexOf(block)
+      index = Ember.get(blocks,'left').indexOf(block)
       
       if index < 0
-        index = blocks.get('right').indexOf(block)
-        blocks = blocks.get('right')
+        index = Ember.get(blocks, 'right').indexOf(block)
+        blocks = Ember.get(blocks, 'right')
       else
-        blocks = blocks.get('left')
+        blocks = Ember.get(blocks, 'left')
 
       if index == 0
         return
@@ -110,13 +117,13 @@ CharController = Ember.Controller.extend SendMessage,
       
     moveBlockDown: (block) ->
       blocks = @get 'charBlocks'
-      index = blocks.get('left').indexOf(block)
+      index = Ember.get(blocks,'left').indexOf(block)
       
       if index < 0
-        index = blocks.get('right').indexOf(block)
-        blocks = blocks.get('right')
+        index = Ember.get(blocks,'right').indexOf(block)
+        blocks = Ember.get(blocks,'right')
       else
-        blocks = blocks.get('left')
+        blocks = Ember.get(blocks,'left')
 
       if index == blocks.get('length')-1
         return
@@ -138,13 +145,13 @@ CharController = Ember.Controller.extend SendMessage,
 
       if not target or not block
         return
-      index = blocks.get('left').indexOf(target)
+      index = Ember.get(blocks,'left').indexOf(target)
       
       if index < 0
-        index = blocks.get('right').indexOf(target)
-        blocks = blocks.get('right')
+        index = Ember.get(blocks,'right').indexOf(target)
+        blocks = Ember.get(blocks,'right')
       else
-        blocks = blocks.get('left')
+        blocks = Ember.get(blocks,'left')
 
       blocks.insertAt(index+1,block)
       
