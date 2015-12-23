@@ -52,23 +52,32 @@
 	
 	<div class="left-side">
 		{{#each charBlocks.left as |block|}}
-			{{#if (eq block.kind "specced")}}
-				{{specced-block spec=block char=model classNames="char-block"}}
-			{{else}}
-				{{component block.kind char=model classNames="char-block"}}
-			{{/if}}
+			{{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
+				{{#if (eq block.kind "specced")}}
+					{{specced-block spec=block char=model classNames="char-block"}}
+				{{else}}
+					{{component block.kind char=model classNames="char-block"}}
+				{{/if}}
+			{{/block-controls}}
 		{{/each}}
 	</div>
 
 	<div class="right-side">
 		{{#each charBlocks.right as |block|}}
-			{{#if (eq block.kind "specced")}}
-				{{specced-block spec=block char=model classNames="char-block"}}
-			{{else}}
-				{{component block.kind char=model classNames="char-block"}}
-			{{/if}}
+			{{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
+				{{#if (eq block.kind "specced")}}
+					{{specced-block spec=block char=model classNames="char-block"}}
+				{{else}}
+					{{component block.kind char=model classNames="char-block"}}
+				{{/if}}
+			{{/block-controls}}
 		{{/each}}
 	</div>
 
 	{{char-spell-book char=model}}
+	{{#if selectNewBlock}}
+		{{#modal-dialog}}
+			{{select-char-block char=model confirmBlock="confirmNewBlock"}}
+		{{/modal-dialog}}
+	{{/if}}
 </div>

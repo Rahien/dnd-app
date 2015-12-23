@@ -1,0 +1,15 @@
+<div class="title">
+	Select new block
+</div>
+<div class="info">
+	Please select the kind of block you would like to add. For a custom text block, also write a name for the property to describe and a title for the block.
+</div>
+{{view "select" content=blockTypes value=blockType}}
+{{#if showExtra}}
+	<span class="label">Title</span>{{input value=title}}
+	<span class="label">Data</span>{{input value=data class=dataClass}}
+{{/if}}
+<div class="buttons">
+	<div class="button {{if canConfirm 'enabled' 'disabled'}}" {{action "confirm"}}>confirm</div>
+	<div class="button" {{action "cancel"}}>cancel</div>
+</div>

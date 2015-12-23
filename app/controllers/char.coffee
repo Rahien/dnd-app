@@ -5,14 +5,14 @@
 CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
-  charBlocks:
-    left: [
+  charBlocks: Ember.Object.create
+    left: Ember.ArrayProxy.create content: [
       { kind: "char-attacks" },
       { kind: "char-profs" },
       { kind: "char-inventory" },
       { kind: "specced", title: "Wealth", content: "wealth" }
     ]
-    right: [
+    right: Ember.ArrayProxy.create content: [
       { kind: "specced", title: "Skills", content: "skills" },
       { kind: "specced", title: "Features and Traits", content: "traits" },
       { kind: "specced", title: "Feats", content: "feats" },
@@ -87,5 +87,60 @@ CharController = Ember.Controller.extend SendMessage,
       @set 'model.image', "/dnd/api/image/#{result}"
     clickImage: ->
       Ember.$('.character .image input').click()
+    moveBlockUp: (block) ->
+      blocks = @get 'charBlocks'
+      index = blocks.get('left').indexOf(block)
+      
+      if index < 0
+        index = blocks.get('right').indexOf(block)
+        blocks = blocks.get('right')
+      else
+        blocks = blocks.get('left')
+
+      if index == 0
+        return
+      blocks.removeAt(index)
+      blocks.insertAt(index-1,block)
+      
+    moveBlockDown: (block) ->
+      blocks = @get 'charBlocks'
+      index = blocks.get('left').indexOf(block)
+      
+      if index < 0
+        index = blocks.get('right').indexOf(block)
+        blocks = blocks.get('right')
+      else
+        blocks = blocks.get('left')
+
+      if index == blocks.get('length')-1
+        return
+      blocks.removeAt(index)
+      blocks.insertAt(index+1,block)
+      
+    removeBlock: (block) ->
+      @get('charBlocks.left').removeObject(block)
+      @get('charBlocks.right').removeObject(block)
+
+    addNewBlockBelow: (block) ->
+      @set 'targetBlock', block
+      @set 'selectNewBlock', true
+
+    confirmNewBlock: (block) ->
+      blocks = @get 'charBlocks'
+      target = @get 'targetBlock'
+      @set 'selectNewBlock', false
+
+      if not target or not block
+        return
+      index = blocks.get('left').indexOf(target)
+      
+      if index < 0
+        index = blocks.get('right').indexOf(target)
+        blocks = blocks.get('right')
+      else
+        blocks = blocks.get('left')
+
+      blocks.insertAt(index+1,block)
+      
 
 `export default CharController`
