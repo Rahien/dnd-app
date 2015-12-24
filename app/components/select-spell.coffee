@@ -31,7 +31,7 @@ SelectSpellComponent = Ember.Component.extend
     Ember.$.ajax url,
       data: params
       success: (result, status, xhr) =>
-        @set 'data', JSON.parse(result)
+        @set 'data', result
       error: () =>
         @set 'data', []
   results: Ember.computed.alias 'data'
