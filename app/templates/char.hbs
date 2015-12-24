@@ -74,7 +74,9 @@
 		{{/each}}
 	</div>
 
-	{{char-spell-book char=model}}
+	{{#if showSpells}}
+		{{char-spell-book char=model}}
+	{{/if}}
 	{{#if selectNewBlock}}
 		{{#modal-dialog}}
 			{{select-char-block char=model confirmBlock="confirmNewBlock"}}

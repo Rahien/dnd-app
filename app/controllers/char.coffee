@@ -5,6 +5,15 @@
 CharController = Ember.Controller.extend SendMessage,
   init: ->
     @_super(arguments...)
+  showSpells: Ember.computed "charBlocks.left.[]", "charBlocks.right.[]", ->
+    left = @get 'charBlocks.left'
+    right = @get 'charBlocks.right'
+
+    found = false
+    left.toArray().concat(right.toArray()).map (block) ->
+      if block.content == "spells" or block.content == "spellbook"
+        found = true
+    found
   charBlocks: Ember.computed "model.charBlocks", ->
     current = @get 'model.charBlocks'
     if not current
