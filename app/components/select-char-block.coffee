@@ -11,7 +11,6 @@ SelectCharBlockComponent = Ember.Component.extend
     traits: { kind: "specced", title: "Features and Traits", content: "traits" },
     feats: { kind: "specced", title: "Feats", content: "feats" },
     spells: { kind: "specced", title: "Spells", content: "spells" },
-    spellbook: { kind: "specced", title: "Spellbook", content: "spellbook" },
     description: { kind: "specced", title: "Short Description", content: "description" }
   blockTypes: Ember.computed "blockDescriptions", ->
     Object.keys(@get('blockDescriptions')).concat("custom")
@@ -19,7 +18,7 @@ SelectCharBlockComponent = Ember.Component.extend
   canConfirm: Ember.computed "blockType", "title", "illegalData", ->
     @get('blockType') != "custom" or (@get('title') and not @get('illegalData'))
   illegalData: Ember.computed "data", ->
-    illegal = [ "attacks", "profs", "inventory", "wealth", "skills", "traits", "feats", "spells", "spells", "spellbook", "description", "name", "race", "class", "level", "profBonus", "image", "spellGroups" ]
+    illegal = [ "attacks", "profs", "inventory", "wealth", "skills", "traits", "feats", "spells", "spells", "description", "name", "race", "class", "level", "profBonus", "image", "spellGroups" ]
     data = @get 'data'
     illegal.contains(data) or not data or data.indexOf(" ") >= 0 or data.indexOf(".") >= 0
   dataClass: Ember.computed "illegalData", ->

@@ -105,8 +105,7 @@ Char.getDefault = ->
     wealth: "70 gp."
     skills: "Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)"
     feats: ""
-    spells: "Spell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
-    spellbook: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\nCantrips\n====\nLight, Message, Blade ward, Ray of frost\nLevel 1\n====\nBurning hands, Thunderweave"
+    spells: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\n\nSpell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
     spellGroups: [
       {
         title: "Cantrips"

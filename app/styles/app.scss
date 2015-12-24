@@ -500,9 +500,6 @@ body > * > div {
 		div > div.spells .title:after {
 				background-image: url(/assets/images/charsheets/spells.png);
 		}
-		div > div.spellbook .title:after {
-				background-image: url(/assets/images/charsheets/spellbook.png);
-		}
 		div > div.feats .title:after {
 				background-image: url(/assets/images/charsheets/feats.png);
 		}
@@ -681,14 +678,6 @@ body > * > div {
 				top: 54px;
 				left: 126px;
 				width: 415px;
-		}
-		.spellbook p {
-				float: none;
-				margin-bottom: 0.3em;
-		}
-
-		.spellbook p:after {
-				content: "";
 		}
 
 		.description p {

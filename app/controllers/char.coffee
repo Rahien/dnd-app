@@ -11,7 +11,7 @@ CharController = Ember.Controller.extend SendMessage,
 
     found = false
     left.toArray().concat(right.toArray()).map (block) ->
-      if block.content == "spells" or block.content == "spellbook"
+      if block.content == "spells"
         found = true
     found
   charBlocks: Ember.computed "model.charBlocks", ->
@@ -29,7 +29,6 @@ CharController = Ember.Controller.extend SendMessage,
           { kind: "specced", title: "Features and Traits", content: "traits" },
           { kind: "specced", title: "Feats", content: "feats" },
           { kind: "specced", title: "Spells", content: "spells" },
-          { kind: "specced", title: "Spellbook", content: "spellbook" },
           { kind: "specced", title: "Short Description", content: "description" }
         ]
        @set 'model.charBlocks', current
