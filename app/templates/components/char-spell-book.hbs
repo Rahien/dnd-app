@@ -8,6 +8,7 @@
 			</span>
 			<span class="up" title="move up" {{action "groupUp" group}}>▲</span>
 			<span class="down" title="move down" {{action "groupDown" group}}>▼</span>
+			<span class="add-spell" {{action "addSpell" group}} title="add spell">+</span>
 			<span class="remove" title="remove group" {{action "groupRemove" group}}>x</span>
 		</div>
 		<div class="spell-wrap">
@@ -52,9 +53,6 @@
 					</div>
 				</div>
 			{{/each}}
-		</div>
-		<div class="add-spell" {{action "addSpell" group}} title="add spell">
-		+
 		</div>
 	</div>
 {{/each}}

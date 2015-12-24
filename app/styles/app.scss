@@ -16,7 +16,7 @@ body > * > div {
 .character {
     position: relative;
 
-		span.delete, td.delete span, .create, .up, .down, .sort, .remove {
+		span.delete, td.delete span, .create, .up, .down, .sort, .remove, .add-spell {
 				background-color: black;   color: white;   border-radius: 200px;   
 				width: 14px;   
 				height: 14px;   
@@ -781,6 +781,29 @@ body > * > div {
 						font-size: 14px;
 				}
 		}
+		.spell-detail {
+				margin-top: 1em;
+		}
+
+		.spell-detail > .title:first-child {
+				background-color: black;
+				color: white;
+				padding: 5px 40px;
+				margin: 0.5em 0;
+		}
+
+		.spell-detail > .title:after {
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				content: ".";
+				background-image: url(/assets/images/charsheets/spellbook.png);
+				background-size: 100% 100%;   
+				left: -16px;   
+				top: -6px;
+		}
 }
 
 .spell-detail {
@@ -882,6 +905,7 @@ body > * > div {
 }
 .spell-detail .spell-group > *:first-child {
     font-size: 25px;
+		padding: 8px;
     display:block;
     float:none !important;
     column-span: all;
@@ -936,53 +960,41 @@ body > * > div {
 				display: inline-block;
 		}
 
+		.spell-group-controls > *:hover {
+				background-color: $darkhighlight;
+		}
+		.spell-group-controls .add-spell {
+				padding-left: 1px;
+		}
+
 		.spell-group {
 				position: relative;
 		}
 
-		.add-spell {
-				cursor: hand;
-				cursor: pointer;
-				display: none;
-				background-color: black;
-				color: white;
-				column-span: all;
-				-webkit-column-span: all;
+		.add-spell-group {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				margin: 0;
+				margin-left: auto;
+				border: solid 1px white;
+				border-radius: 50px;
 				width: 30px;
 				height: 30px;
 				line-height: 30px;
-				border-radius: 200px;
-				text-align: center;
-				font-weight: bold;
-				font-size: 20px !important;
-				margin: 0.5em;
-				left: 50%;
-				position: relative;
-				margin-left: -15px;
-		}
-
-		.spell-group:hover .add-spell {
-				display: block;
-		}
-
-		.add-spell-group {
 				cursor: hand;
 				cursor: pointer;
-				display: none;
 				background-color: black;
 				color: white;
 				column-span: all;
 				-webkit-column-span: all;
-				width: 40px;
-				height: 40px;
-				line-height: 40px;
 				text-align: center;
 				font-weight: bold;
 				font-size: 30px;
-				margin: 0.5em;
-				left: 50%;
-				position: relative;
-				margin-left: -20px;
+				display:none;
+		}
+		.add-spell-group:hover {
+				background-color: $darkhighlight;
 		}
 		.spell {
 				.editbutton {
