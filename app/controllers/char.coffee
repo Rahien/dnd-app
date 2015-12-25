@@ -39,7 +39,7 @@ CharController = Ember.Controller.extend SendMessage,
 
   profBonus: Ember.computed "model.level", ->
     level = @get 'model.level'
-    Math.floor(level/4)+2
+    Math.floor((level-1)/4)+2
   filename: Ember.computed "model.name", ->
     name = @get 'model.name'
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
