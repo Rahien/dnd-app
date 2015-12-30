@@ -87,6 +87,7 @@ Char.getDefault = ->
       armor: "None"
       weapons: "Daggers, darts, slings, quarterstaffs, light crossbows"
       tools: "None"
+      skills: "Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)"
     traits: "Draconic Ancestry\n=================\nDamage resistance fire\nBreath Weapon\n===================\nSaving throw DC 8 + Con modifier + prof. bonus. 2d6 damage on fail and half damage on success. Increase at 6th, 11th, 16th level. Recharges after short rest.\nBackground - Sage, wizard's apprentice\n===================\nIf you don't know a piece of information, you will (most likely) know how to obtain such lore.\nSpellcasting focus\n===================\nYou can use an arcane focus as a spellcasting focus\nSorcery points\n===================\nmax 1 per level, create spell slot up to level 5, cost increases by 1 per level, two at level 3. You can also expend a spell slot and gain sorcery points up to that level.\nCareful spell\n===================\nProtect up to Cha modifier creatures from your own spell's effect. Costs one SP.\nBronze Dragon Ancestor\n===================\nDamage type: lightning. Additionally, prof. bonus is doubled when using Cha. interacting with dragons.\nDraconic Resilience\n===================\nOne extra HP per sorcerer level. AC = 13 + Dex when not wearing armor."
     gear: [
       {
@@ -103,7 +104,6 @@ Char.getDefault = ->
       }
     ]
     wealth: "70 gp."
-    skills: "Arcana (Int), Intimidation (Cha), Persuasion (Cha), History (Int)"
     feats: ""
     spells: "Does not need to prepare spells in advance, can swap spells on level up. Spell slots restored on long rest.\n\nSpell DC\n==========\n8 + prof. bonus + Cha mod.\nSpell attack modifier\n========\nprof. bonus + Cha mod.\nCantrips known\n====\n4\nSpells known\n====\n4\nSpell Slots\n======\n| level |     1 | 2 |\n|--|--|--|\n| slots |     4 | 2 |\n"
     spellGroups: [

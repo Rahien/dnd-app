@@ -25,7 +25,6 @@ CharController = Ember.Controller.extend SendMessage,
           { kind: "specced", title: "Wealth", content: "wealth" }
         ]
         right: Ember.ArrayProxy.create content: [
-          { kind: "specced", title: "Skills", content: "skills" },
           { kind: "specced", title: "Features and Traits", content: "traits" },
           { kind: "specced", title: "Feats", content: "feats" },
           { kind: "specced", title: "Spells", content: "spells" },
