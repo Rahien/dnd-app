@@ -1,5 +1,5 @@
-COUCH=http://couchdb:5984
-COUCHDB_PASS=secret
 ADMIN=admin
 PASS=secret
 MAIN_APP_FILE=main.rb
+TOKENTIME=3600
+MONGO=mongo:27017

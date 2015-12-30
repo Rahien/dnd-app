@@ -7,12 +7,12 @@ dndWeb:
   env_file:
    - ./environment
   links:
-   - couchdb
-couchdb:
-  image: tutum/couchdb
+   - mongo
+mongo:
+  image: mongo:3.0
   ports:
-   - "5984:5984"
+   - "27017:27017"
   env_file:
    - ./environment
   volumes:
-   - "./couchdb:/var/lib/couchdb"
+   - "./mongodb:/data/db"

@@ -22,14 +22,13 @@ webrick_options = {
         :SSLCertName        => [ [ "CN",WEBrick::Utils::getservername ] ]
 }
 
-COUCH = ENV["COUCH"] || "http://localhost:5984"
-MONGO ||= "localhost:27017"
+MONGO = ENV["MONGO"] || "localhost:27017"
 CHARS = :chars
 USERS = :users
 SPELLS = :spells
 TOKENS = :tokens
 ATTACHMENTS = :attachments
-TOKENTIMETOLIVE = ENV["TOKENTIME"] || 3600
+TOKENTIMETOLIVE = ENV["TOKENTIME"].to_i || 3600
 
 MONGOC = Mongo::Client.new([ MONGO ], :database => 'dnd')
 
@@ -73,11 +72,17 @@ class MyServer < Sinatra::Base
     end
   end
 
+  error 404 do
+    redirect to("/dnd/app")
+  end
+
   get '/dnd/app/*' do
+    content_type 'text/html'
     send_file File.expand_path('index.html', settings.public_folder)
   end
 
   get '/dnd/app' do
+    content_type 'text/html'
     send_file File.expand_path('index.html', settings.public_folder)
   end
 

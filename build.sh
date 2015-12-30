@@ -20,6 +20,8 @@ cp -r certificates "$dest/web/certificates"
 cp spells.csv "$dest/web/spells.csv"
 cp docker-compose.yml "$dest/docker-compose.yml"
 
-if [ ! -d "$dest/couchdb" ]; then
-    mkdir "$dest/couchdb"
+if [ ! -d "$dest/mongodb" ]; then
+    mkdir "$dest/mongodb"
 fi
+
+echo "Build completed, result stored in ./build folder. To start the project, move the ./build folder to the location of your choice, enter it and run 'docker-compose up'"
