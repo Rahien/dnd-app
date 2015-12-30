@@ -576,6 +576,8 @@ body > * > div {
 				}
 				td.delete {
 						display:none;
+						position: absolute;
+						right: -14px;
 				}
 				.create {
 						display:none;
@@ -611,6 +613,8 @@ body > * > div {
 		}
 		.gear table:first-child td:last-child, .gear table:first-child th:last-child {
 				display: none;
+				position: absolute;
+				right: -13px;
 		}
 		.gear .create {
 				display:none;
