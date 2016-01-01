@@ -9,6 +9,7 @@ Router.map ->
   @route 'char', path: "/dnd/app/char/:id"
   @route 'chars', path: "/dnd/app/chars"
   @route 'register', path: "/dnd/app/register"
+  @route 'settings', path: "/dnd/app/settings"
   @route 'players', path: "/dnd/app/players"
 
   @route 'index', path: "*badPath"
