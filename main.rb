@@ -143,6 +143,12 @@ class MyServer < Sinatra::Base
     getPlayers().to_json
   end
 
+  get '/dnd/api/settings' do
+    protected!
+    user = @auth.credentials[0]
+    getPlayer(user).to_json
+  end
+
   get '/dnd/api/allchars' do
     protected!
     admin!
@@ -236,6 +242,31 @@ class MyServer < Sinatra::Base
     end
   end
 
+  put '/dnd/api/player/:id' do
+    protected!
+    user = params[:id]
+    data = JSON.parse request.body.read
+    name = data["name"]
+    oldPwd = data["oldPwd"]
+    newPwd = data["newPwd"]
+    found = MONGOC[USERS].find(_id: BSON::ObjectId(user))
+    if not found.count == 1
+      halt 404, "User not found\n"
+    end
+
+    if not pwdOk(found.first()["name"], oldPwd)
+      halt 500, "No match with old username and password"
+    end
+
+    begin
+      hash = BCrypt::Password.create(newPwd)
+      MONGOC[USERS].update_one( { _id: BSON::ObjectId(user) } , { "$set" => { name: name, pwd: hash } } )
+      ok
+    rescue
+      halt 500, "Could not update the provided player"
+    end
+  end
+
   put '/dnd/api/player/:id/chars' do 
     protected!
     admin!
@@ -280,7 +311,11 @@ class MyServer < Sinatra::Base
       return false
     end
     user = resp.first()
-    not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
+    begin
+      not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
+    rescue
+      false
+    end
   end
 
   def canAccessChar (id)
@@ -302,14 +337,23 @@ class MyServer < Sinatra::Base
     
     result = []
     users.each do |user|
-      result.push( {
+      result.push( userResultToPlayer(user) )
+    end
+    result
+  end
+
+  def getPlayer (name)
+    user = MONGOC[USERS].find( name: name ).first()
+    userResultToPlayer(user)
+  end
+
+  def userResultToPlayer (user)
+    {
         :_id => user['_id'].to_str,
         :username => user['name'],
         :isAdmin => user['admin'],
         :chars => getUserChars(user)
-      })
-    end
-    result
+    }
   end
 
   def getAllCharacters
