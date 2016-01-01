@@ -16,8 +16,6 @@ SettingsController = Ember.Controller.extend SendMessage,
     pwd2 = @get 'newPasswordAgain'
     not (pwd == pwd2)
   actions:
-    back: ->
-      @transitionToRoute 'index'
     updateUser: ->
       if @get('badUser') or @get('badPwd') or @get('badPwd2') or @get('badOldPwd')
         @sendMessage "error", "please fix the errors above, you need a username and your passwords have to match",

@@ -18,6 +18,8 @@ ApplicationController = Ember.Controller.extend
   removeMessage: (message) ->
     @get('messages').removeObject message
   actions:
+    toHome: ->
+      @transitionToRoute 'index'
     toggleMenu: ->
       @set 'showMenu', (not @get('showMenu'))
     logout: ->

@@ -101,8 +101,6 @@ CharController = Ember.Controller.extend SendMessage,
     download: ->
       model = @get 'model'
       Ember.$('#buttons a.downloadlocation').attr("href", "data:text/json;charset=utf-8,#{encodeURIComponent(JSON.stringify(model))}")[0].click()
-    toCharacters: ->
-      @transitionToRoute 'chars'
     handleUpload: (result) ->
       @set 'model.image', "/dnd/api/image/#{result}"
     clickImage: ->
