@@ -31,7 +31,7 @@ RegisterController = Ember.Controller.extend SendMessage,
           contentType: "application/json; charset=utf-8"
           data: JSON.stringify(data)
           success: (result) =>
-            @transitionToRoute('chars')
+            @transitionToRoute('index')
           error: (error) =>
             @sendMessage 'error', 'Sorry could not register you at the server, please contact your administrator'
 

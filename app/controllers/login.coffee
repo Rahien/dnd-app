@@ -21,7 +21,7 @@ LoginController = Ember.Controller.extend SendMessage,
       previous.retry();
       this.set 'attemptedTransition', null
     else
-      this.transitionToRoute('chars')
+      this.transitionToRoute('index')
   actions:
     login: ->
       if @get('badUser') or @get('badPwd')
