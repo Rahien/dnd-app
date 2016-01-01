@@ -28,7 +28,7 @@ USERS = :users
 SPELLS = :spells
 TOKENS = :tokens
 ATTACHMENTS = :attachments
-TOKENTIMETOLIVE = ENV["TOKENTIME"].to_i || 3600
+TOKENTIMETOLIVE = (ENV["TOKENTIME"] || 3600).to_i
 
 MONGOC = Mongo::Client.new([ MONGO ], :database => 'dnd')
 
