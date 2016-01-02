@@ -33,7 +33,7 @@ SettingsController = Ember.Controller.extend SendMessage,
           success: (result) =>
             @transitionToRoute('index')
           error: (error) =>
-            @sendMessage 'error', 'Sorry could not update your player at the server, please contact your administrator'
+            @sendMessage 'error', "Sorry could not update your player at the server, the server responded: #{error.responseText}"
 
 
 
