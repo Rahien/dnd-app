@@ -3,25 +3,29 @@
 		{{#ember-wormhole to="buttons"}}
 			<span class="title">Characters</span>
 		{{/ember-wormhole}}
-		<table border="0" cellspacing="0" cellpadding="0">
-			<thead>
-				<tr>
-					<th>Name</th><th>Race</th><th>Class</th><th>Level</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#each char in characters}}
-					<tr {{action "openCharacter" char}}>
+		{{#if hasCharacters}}
+			<table border="0" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>Name</th><th>Race</th><th>Class</th><th>Level</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each char in characters}}
+						<tr {{action "openCharacter" char}}>
 							<td>{{char.name}}</td>
 							<td>{{char.race}}</td>
 							<td>{{char.class}}</td>
 							<td>{{char.level}}</td>
-					</tr>
-				{{/each}}
-			</tbody>
-		</table>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		{{else}}
+			No characters yet!
+		{{/if}}
 	</div>
-	<div class="new-char" {{action "newCharacter"}}>
+	<div class="tbutton" {{action "newCharacter"}}>
 		New Character
 	</div>
 </div>

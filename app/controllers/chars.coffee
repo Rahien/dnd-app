@@ -6,7 +6,8 @@ CharsController = Ember.Controller.extend SendMessage,
   characters: Ember.computed 'model', ->
     chars = @get('model').concat([])
     chars.sort (one,two) ->
-      if one.name < two.name then -1 else 1        
+      if one.name < two.name then -1 else 1
+  hasCharacters: Ember.computed.notEmpty 'characters'
   actions:
     openCharacter: (character) ->
       @transitionToRoute 'char', character._id
