@@ -24,6 +24,7 @@ webrick_options = {
 
 MONGO = ENV["MONGO"] || "localhost:27017"
 CHARS = :chars
+ADVENTURES = :adventures
 USERS = :users
 SPELLS = :spells
 TOKENS = :tokens
@@ -212,6 +213,26 @@ class MyServer < Sinatra::Base
     end
   end
 
+  post '/dnd/api/adventures' do
+    protected!
+    data = JSON.parse request.body.read
+    if not data["_id"].nil?
+      halt 400, "Don't include _id when posting!\n"
+    end
+    begin
+      adventure = createAdventure(data)
+      id = adventure["_id"].to_str
+      { id: id }.to_json
+    rescue => e
+      halt 500, "could not save adventure: #{e}\n"
+    end
+  end
+
+  get '/dnd/api/adventures' do
+    protected!
+    getAdventures().to_json
+  end
+
   post '/dnd/api/register' do
     data = JSON.parse request.body.read
     user = data["username"]
@@ -347,8 +368,8 @@ class MyServer < Sinatra::Base
     result
   end
 
-  def getPlayer (name)
-    user = MONGOC[USERS].find( name: name ).first()
+  def getPlayer (id)
+    user = MONGOC[USERS].find( _id: id ).first()
     userResultToPlayer(user)
   end
 
@@ -372,8 +393,8 @@ class MyServer < Sinatra::Base
   end
 
   def getCharacters
-    user = @auth.credentials[0]
-    userResp = MONGOC[USERS].find( name: user ).first()
+    user = @auth.userid
+    userResp = MONGOC[USERS].find( _id: user ).first()
     list = []
 
     if not userResp["admin"].nil? and userResp["admin"]
@@ -382,6 +403,17 @@ class MyServer < Sinatra::Base
       list = getUserChars(userResp)
     end
     list
+  end
+
+  def getAdventures
+    if isAdmin
+      getAllAdventures()
+    else
+      user = @auth.userid
+      userResp = MONGOC[USERS].find( _id: user ).first()
+      list = []
+      getUserAdventures(user)
+    end
   end
 
   def getUserChars(user)
@@ -409,6 +441,64 @@ class MyServer < Sinatra::Base
       result.push(char)
     end
     result
+  end
+
+  def getAllAdventures
+    advs = []
+    MONGOC[ADVENTURES].find().each do |adv|
+      adv["_id"] = adv["_id"].to_str
+      advs.push adv
+    end
+    addAdventureOwners(advs)
+    advs
+  end
+
+  def addAdventureOwners (adventures)
+    ownerIds = adventures.map do |adv|
+      BSON::ObjectId(adv["owner"])
+    end
+
+    owners = MONGOC[USERS].find( { _id: { "$in" => ownerIds } } )
+    ownerHash = {}
+    owners.each do |owner|
+      owner.delete "pwd"
+      owner["_id"] = owner["_id"].to_str
+      ownerHash[owner["_id"]] = owner
+    end
+
+    adventures.map do |adv|
+      adv["owner"] = ownerHash[adv["owner"].to_str]
+    end
+  end
+
+  def addAdventurePlayers (adventures)
+    chars = {}
+    adventures.map do |adv|
+      current= adv["chars"]
+      current.map do |char|
+        chars[char] = BSON::ObjectId(char)
+      end
+    end
+
+    adventureChars = MONGOC[CHARS].find( { _id: { "$in" => chars.values } } )
+
+    adventureChars.each do |char|
+      char["_id"] = char["_id"].to_str
+      chars[char["_id"]] = char
+    end
+
+    adventures.map do |adv|
+      newChars = []
+      adv["chars"].map do |id|
+        newChars.push(chars[id])
+      end
+      adv["chars"] = newChars
+    end
+  end
+
+  def getUserAdventures (user)
+    # TODO
+    adventures = []
   end
 
   def updateUser (user)
@@ -481,6 +571,14 @@ class MyServer < Sinatra::Base
     body
   end
 
+  def createAdventure (body)
+    body["owner"] = @auth.userid
+
+    result = MONGOC[ADVENTURES].insert_one(body)
+    body['_id'] = result.inserted_id.to_str
+    body
+  end
+
   def getSpells (search, className)
     params = {
       '$text' => { '$search' => search }
@@ -522,6 +620,7 @@ def ensureStores
   ensureStore USERS
   ensureStore SPELLS
   ensureStore CHARS
+  ensureStore ADVENTURES
   ensureStore ATTACHMENTS
   ensureStore TOKENS
 end
@@ -529,6 +628,7 @@ end
 def ensureIndices
   ensureUsersIndices()
   ensureCharacterIndices()
+  ensureAdventureIndices()
   ensureSpellsIndices()
   ensureTokenIndices()
 end
@@ -540,6 +640,11 @@ end
 def ensureCharacterIndices
   # covered query
   MONGOC[CHARS].indexes.create_one({ name: 1, level: 1, race: 1, class: 1 })
+end
+
+def ensureAdventureIndices
+  # covered query
+  MONGOC[ADVENTURES].indexes.create_one({ name: 1, date: 1 })
 end
 
 def ensureTokenIndices
