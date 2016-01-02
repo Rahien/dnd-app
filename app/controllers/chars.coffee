@@ -20,6 +20,6 @@ CharsController = Ember.Controller.extend SendMessage,
         success: (result) =>
           @transitionToRoute 'char', result.id
         error: (error) =>
-          @sendMessage 'error', "Sorry, could not fetch your characters from the server, contact your administrator.\nServer reply was:\n#{error.responseText}"
+          @sendMessage 'error', "Sorry, could not create the new character on the server, contact your administrator.\nServer reply was:\n#{error.responseText}"
 
 `export default CharsController`
