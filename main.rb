@@ -65,7 +65,7 @@ class MyServer < Sinatra::Base
       token = findToken token
       if token
         @auth = OpenStruct.new
-        @auth.credentials = [token[:user]]
+        @auth.userid = BSON::ObjectId(token[:user])
       else
         false
       end
@@ -95,8 +95,9 @@ class MyServer < Sinatra::Base
       user = params[:username]
       pwd = params[:password]
 
-      if pwdOk(user, pwd)
-        token = token! user
+      id = pwdOk(user, pwd)
+      if id
+        token = token! id
         {
           "access_token" => token,
           "token_type" => "bearer",
@@ -145,7 +146,7 @@ class MyServer < Sinatra::Base
 
   get '/dnd/api/settings' do
     protected!
-    user = @auth.credentials[0]
+    user = @auth.userid
     getPlayer(user).to_json
   end
 
@@ -203,9 +204,9 @@ class MyServer < Sinatra::Base
     end
     begin
       character = createCharacter(data)
-      id = character["_id"].to_str
+      id = character["_id"]
       addCharToUser(id)
-      { id: id }.to_json
+      { id: id.to_str }.to_json
     rescue => e
       halt 500, "could not save character: #{e}\n"
     end
@@ -230,7 +231,7 @@ class MyServer < Sinatra::Base
 
     user = params[:id]
     found = MONGOC[USERS].find(_id: BSON::ObjectId(user))
-    if found.count == 1 and found.first()["name"] == @auth.credentials[0]
+    if found.count == 1 and found.first()["_id"] == @auth.userid
       halt 403, "Cannot remove your own user\n"
     end
 
@@ -255,7 +256,7 @@ class MyServer < Sinatra::Base
     end
 
     if not pwdOk(found.first()["name"], oldPwd)
-      halt 500, "No match with old username and password"
+      halt 500, "No match with username and old password"
     end
 
     begin
@@ -271,12 +272,12 @@ class MyServer < Sinatra::Base
     protected!
     admin!
 
-    player = params[:id]
+    player = BSON::ObjectId(params[:id])
     chars = JSON.parse request.body.read
 
     begin
       MONGOC[USERS].find_one_and_update(
-        { name: player },
+        { _id: player },
         { '$set' => { chars: chars } },
         return_document: :after
       )
@@ -288,13 +289,13 @@ class MyServer < Sinatra::Base
 
   post '/dnd/api/setAdmin' do
     data = JSON.parse request.body.read
-    user = data["username"]
+    user = BSON::ObjectId(data["user"])
     admin = data["admin"]
 
     protected!
     admin!
 
-    if user == @auth.credentials[0] and not admin
+    if user == @auth.userid and not admin
       halt 403, "Cannot toggle yourself to non admin user\n"
     end
     setAdmin(user,admin)
@@ -312,23 +313,27 @@ class MyServer < Sinatra::Base
     end
     user = resp.first()
     begin
-      not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
+      if not user["pwd"].nil? and BCrypt::Password.new(user["pwd"]) == password
+        user["_id"].to_str
+      else
+        false
+      end
     rescue
       false
     end
   end
 
   def canAccessChar (id)
-    user = @auth.credentials[0]
+    user = @auth.userid
 
-    resp = MONGOC[USERS].find(name: user).first()
+    resp = MONGOC[USERS].find(_id: user).first()
     (not resp["admin"].nil? and resp["admin"]) or resp["chars"].include? id
   end
 
   def isAdmin
-    user = @auth.credentials[0]
+    user = @auth.userid
 
-    resp = MONGOC[USERS].find(name: user).first()
+    resp = MONGOC[USERS].find(_id: user).first()
     not resp["admin"].nil? and resp["admin"]
   end
 
@@ -417,16 +422,16 @@ class MyServer < Sinatra::Base
   end
 
   def addCharToUser (id)
-    user = @auth.credentials[0]
+    user = @auth.userid
 
-    userDesc = MONGOC[USERS].find(name: user).first()
+    userDesc = MONGOC[USERS].find( _id: user ).first()
     if userDesc['chars'].nil?
       userDesc['chars'] = []
     end
     userDesc['chars'].push id
 
     MONGOC[USERS].find_one_and_update(
-      { name: user },
+      { _id: user },
       { '$set' => { chars: userDesc['chars'] } },
       return_document: :after
     )
@@ -501,7 +506,7 @@ end
 
 def setAdmin (user, admin = true)
   resp = MONGOC[USERS].find_one_and_update(
-    { name: user },
+    { _id: user },
     { '$set' => { admin: admin }},
     return_document: :after
   )
@@ -626,12 +631,12 @@ ensureStores()
 ensureIndices()
 ADMIN = ENV["ADMIN"] || "admin"
 begin
-  ensureUser(ADMIN,ENV["PASS"] || "secret")
+  result = ensureUser(ADMIN,ENV["PASS"] || "secret")
+  setAdmin(result.inserted_id, true)
 rescue
   puts "admin user already exists"
 end
 addAllSpells()
-setAdmin(ADMIN, true)
 
 Rack::Handler::WEBrick.run MyServer, webrick_options
 

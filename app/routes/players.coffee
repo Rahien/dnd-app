@@ -12,7 +12,7 @@ PlayersRoute = AuthRoute.extend SendMessage,
         dataType: "json"
         success: (response) =>
           (response or []).map (player) =>
-            Ember.set player, "open", @get("openMap.#{player.username}")
+            Ember.set player, "open", @get("openMap.#{player._id}")
           resolve(response)
         error: (error) =>
           reject error
@@ -22,28 +22,28 @@ PlayersRoute = AuthRoute.extend SendMessage,
     togglePlayer: (player) ->
       open = not Ember.get(player,'open')
       Ember.set player, 'open', open
-      @set "openMap.#{player.username}", open
+      @set "openMap.#{player._id}", open
     linkCharacter: (player, char) ->
       characters = [char._id]
       player.chars.map (item) ->
         if item._id != char._id
           characters.push item._id
 
-      Ember.$.ajax "/dnd/api/player/#{player.username}/chars",
+      Ember.$.ajax "/dnd/api/player/#{player._id}/chars",
         type: "PUT"
         contentType: "application/json; charset=utf-8"
         data: JSON.stringify(characters)
         success: =>
           @refresh()
         error: (error) =>
-          @sendMessage 'error', "Could add character to  #{player.username}. #{error.responseText}"
+          @sendMessage 'error', "Could not add character to  #{player.username}. #{error.responseText}"
     unlinkChar: (player, char) ->
       characters = []
       player.chars.map (item) ->
         if item._id != char._id
           characters.push item._id
 
-      Ember.$.ajax "/dnd/api/player/#{player.username}/chars",
+      Ember.$.ajax "/dnd/api/player/#{player._id}/chars",
         type: "PUT"
         contentType: "application/json; charset=utf-8"
         data: JSON.stringify(characters)
@@ -70,7 +70,7 @@ PlayersRoute = AuthRoute.extend SendMessage,
         type: "POST"
         contentType: "application/json; charset=utf-8"
         data: JSON.stringify
-          username: player.username
+          user: player._id
           admin: not player.isAdmin
         success: =>
           @refresh()
