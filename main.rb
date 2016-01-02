@@ -386,6 +386,8 @@ class MyServer < Sinatra::Base
         BSON::ObjectId(id)
       end
       chars = MONGOC[CHARS].find( { _id: { "$in" => ids } } )
+                           .projection( { name: 1, class: 1, race: 1, level: 1 } )
+
 
       if chars.count != user["chars"].length
         userChars = []
@@ -521,12 +523,18 @@ end
 
 def ensureIndices
   ensureUsersIndices()
+  ensureCharacterIndices()
   ensureSpellsIndices()
   ensureTokenIndices()
 end
 
 def ensureUsersIndices
   MONGOC[USERS].indexes.create_one({ name: 1 }, unique: true)
+end
+
+def ensureCharacterIndices
+  # covered query
+  MONGOC[CHARS].indexes.create_one({ name: 1, level: 1, race: 1, class: 1 })
 end
 
 def ensureTokenIndices
