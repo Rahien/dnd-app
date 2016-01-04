@@ -3,7 +3,7 @@
 		{{#ember-wormhole to="buttons"}}
 			<span class="title">Players</span>
 		{{/ember-wormhole}}
-		{{#each player in model}}
+		{{#each model as |player|}}
 			<div class="player">
 				<div class="player-header" {{action "togglePlayer" player}}>
 					{{#if player.open}}
@@ -26,7 +26,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{{#each char in player.chars}}
+								{{#each player.chars as |char|}}
 									<tr {{action "openCharacter" char}}>
 										<td>{{char.name}}</td>
 										<td>{{char.race}}</td>

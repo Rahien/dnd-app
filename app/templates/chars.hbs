@@ -11,7 +11,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#each char in characters}}
+					{{#each characters as |char|}}
 						<tr {{action "openCharacter" char}}>
 							<td>{{char.name}}</td>
 							<td>{{char.race}}</td>

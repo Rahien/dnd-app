@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   var ENV = {
+   	intl: {
+	  	defaultLocale: 'en-us'
+		},
     contentSecurityPolicy: {
       'default-src': "'none'",
       'script-src': "'self' cdnjs.cloudflare.com",

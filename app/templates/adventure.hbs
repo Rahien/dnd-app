@@ -23,7 +23,7 @@
 		</div>
 	{{/ember-wormhole}}
 	<div class="meta">
-		Created by {{model.owner.name}} on {{time-format model.date 'MMM Do, YYYY'}}
+		Created by {{model.owner.name}} on {{format-date model.date day="numeric" month="long" year="numeric"}}
 	</div>
 	<div class="players">
 		{{#if hasPlayers}}

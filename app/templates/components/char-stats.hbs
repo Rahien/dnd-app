@@ -3,7 +3,7 @@
 	{{content-editable value=keywords classNames="value" tagName="span"}}
 
 </div>
-{{#each prop in stats}}
+{{#each stats as |prop|}}
 	<div class="prop">
 		{{content-editable value=prop.label classNames="label" tagName="span"}}
 		{{content-editable value=prop.value classNames="value" tagName="span"}}

@@ -25,7 +25,7 @@
 	{{outlet}}
 </div>
 <div class="footer {{if hasMessages 'messages'}}">
-	{{#each message in messages}}
+	{{#each messages as |message|}}
 		<div class="message-wrap {{message.type}}" {{action "removeMessage" message}} title="click to remove">
 			<div class="message">
 				{{message.message}}

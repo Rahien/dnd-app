@@ -1,15 +1,15 @@
 <div class="register">
 	<div class="user {{if badUser "invalid"}}">
 		<span class="label">username</span>
-		{{input value=username action="register" on="enter"}}
+		{{input value=username enter="register"}}
 	</div>
 	<div class="password {{if badPwd "invalid"}}">
 		<span class="label">password</span>
-		{{input type="password" value=password action="register" on="enter"}}
+		{{input type="password" value=password enter="register"}}
 	</div>
 	<div class="password-again {{if badPwd2 "invalid"}}">
 		<span class="label">Repeat password</span>
-		{{input type="password" value=passwordAgain action="register" on="enter"}}
+		{{input type="password" value=passwordAgain enter="register"}}
 	</div>
 	<div class="register" {{action "register"}}>
 		register

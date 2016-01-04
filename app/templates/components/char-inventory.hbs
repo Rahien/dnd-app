@@ -7,7 +7,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{{#each possession in gear}}
+			{{#each gear as |possession|}}
 				<tr>
 						{{content-editable value=possession.name tagName="td"}}
 						{{content-editable value=possession.price tagName="td"}}

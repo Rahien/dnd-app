@@ -1,5 +1,5 @@
 <span class="title">Spell List</span>
-{{#each group in spellGroups}}
+{{#each spellGroups as |group|}}
 	<div class="spell-group">
 		{{content-editable classNames="title" value=group.title tagName="span"}}
 		<div class="spell-group-controls">
@@ -12,7 +12,7 @@
 			<span class="remove" title="remove group" {{action "groupRemove" group}}>x</span>
 		</div>
 		<div class="spell-wrap">
-			{{#each spell in group.spells}}
+			{{#each group.spells as |spell|}}
 				<div class="spell-box">
 					<div class="spell">
 						{{content-editable classNames="title" value=spell.name tagName="span"}}

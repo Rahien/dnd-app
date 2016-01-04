@@ -11,10 +11,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#each adventure in model}}
+					{{#each model as |adventure|}}
 						<tr {{action "openAdventure" adventure}}>
 							<td>{{adventure.name}}</td>
-							<td>{{time-format adventure.date 'MMM Do, YYYY'}}</td>
+							<td>{{format-date adventure.date day="numeric" month="long" year="numeric"}}</td>
 						</tr>
 					{{/each}}
 				</tbody>

@@ -7,7 +7,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{{#each attack in attacks}}
+			{{#each attacks as |attack|}}
 				<tr>
 					{{content-editable value=attack.name tagName="td"}}
 					{{content-editable value=attack.attack tagName="td"}}

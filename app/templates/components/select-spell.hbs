@@ -1,14 +1,14 @@
 <span class="title">Select Spell</span>
 <div class="search">
 	<span class="label">Search</span>
-	{{input value=searchString action="selectFirst" on="enter"}}
+	{{input value=searchString enter="selectFirst"}}
 </div>
 <div class="options">
 	<span class="label">Restrict class?</span>
 	{{input type="checkbox" checked=useClass}}
 </div>
 <ul class="results">
-	{{#each result in results}}
+	{{#each results as |result|}}
 		<li {{action "selectSpell" result}}>{{result.name}}, level {{result.level}}</li>
 	{{/each}}	
 </ul>

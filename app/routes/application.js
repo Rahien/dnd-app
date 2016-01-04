@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 var LoginRoute = Ember.Route.extend({
+	intl: Ember.inject.service(),
+  beforeModel: function () {
+    this.get('intl').setLocale('en-us');
+	},
   actions: {
     showMessage: function (message) {
       var messages = this.get('controller.messages');
