@@ -383,7 +383,7 @@ class MyServer < Sinatra::Base
   end
 
   def getAllCharacters
-    chars = MONGOC[CHARS].find()
+    chars = MONGOC[CHARS].find().projection( { name: 1, class: 1, race: 1, level: 1 } )
     list = []
     chars.each do |item| 
       item["_id"] = item["_id"].to_str
