@@ -157,40 +157,40 @@ class MyServer < Sinatra::Base
     getAllCharacters().to_json
   end
 
-  get '/dnd/api/char/:name' do
+  get '/dnd/api/char/:id' do
     protected!
-    name = params[:name]
-    if not canAccessChar(name)
+    id = params[:id]
+    if not canAccessChar(id)
       noAccess
     end
-    getCharacter(name).to_json
+    getCharacter(id).to_json
   end
 
-  put '/dnd/api/char/:name' do
+  put '/dnd/api/char/:id' do
     protected!
-    name = params[:name]
-    if not canAccessChar(name)
+    id = params[:id]
+    if not canAccessChar(id)
       noAccess
     end
 
     data = JSON.parse request.body.read
     begin
-      saveCharacter(name,data)
+      saveCharacter(id,data)
     rescue => e
       halt 500, "Could not save character: #{e}"
     end
     ok
   end
 
-  delete '/dnd/api/char/:name' do
+  delete '/dnd/api/char/:id' do
     protected!
-    name = params[:name]
-    if not canAccessChar(name)
+    id = params[:id]
+    if not canAccessChar(id)
       noAccess
     end
 
     begin
-      result = deleteCharacter(name)
+      result = deleteCharacter(id)
       ok
     rescue => e
       halt 500, "Could not delete character: #{e}\n"
