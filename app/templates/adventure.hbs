@@ -1,1 +1,41 @@
-{{outlet}}
+<div class="adventure">
+	<div class="name">
+		{{content-editable value=model.name editable=true}}
+	</div>
+	{{#ember-wormhole to="buttons"}}
+		<div class="button save" {{action "save"}}>
+			<span>save</span>
+			<i class="fa fa-cloud-upload"></i>
+		</div>
+		<div class="button download" {{action "download"}}>
+			<span>download</span>
+			<i class="fa fa-download"></i>
+		</div>
+		<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
+		<div class="button upload" {{action "upload"}}>
+			<span>from file</span>
+			<i class="fa fa-file-text-o"></i>
+		</div>
+		<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
+		<div class="button delete" {{action "delete"}}>
+			<span>remove</span>
+			<i class="fa fa-trash"></i>
+		</div>
+	{{/ember-wormhole}}
+	<div class="meta">
+		Created by {{model.owner.name}} on {{time-format model.date 'MMM Do, YYYY'}}
+	</div>
+	<div class="players">
+		{{#if hasPlayers}}
+			{{compare-characters characters=model.chars unlinkCharacter="unlinkCharacter"}}
+		{{else}}
+			No players yet!
+		{{/if}}
+		<div class="tbutton" {{action "addPlayer"}}>Add player</div>
+	</div>
+</div>
+{{#if showModal}}
+	{{#modal-dialog}}
+		{{link-character target=model closeDialog="closeDialog" linkCharacter="linkCharacter"}}
+	{{/modal-dialog}}
+{{/if}}

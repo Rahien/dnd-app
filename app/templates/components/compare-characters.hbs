@@ -1,0 +1,19 @@
+<table border="0" cellspacing="0" cellpadding="0">
+	<thead>
+		<tr>
+			{{#each characters as |char|}}
+				<th>{{char.name}}</th>
+			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each characters as |char|}}
+			<tr {{action "unlinkCharacter" char}}>
+				{{#each properties as |prop|}}
+					<td>{{get char prop}}</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+	</tbody>
+</table>
+

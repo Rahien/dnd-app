@@ -11,6 +11,8 @@ AdventuresController = Ember.Controller.extend SendMessage,
       item.date = new Date(item.date)
   hasAdventures: Ember.computed.notEmpty "adventures"
   actions:
+    openAdventure: (adventure) ->
+      @transitionToRoute 'adventure', adventure._id
     newAdventure: ->
       def = Adventure.getDefault()
       Ember.$.ajax "/dnd/api/adventures",
@@ -21,6 +23,5 @@ AdventuresController = Ember.Controller.extend SendMessage,
           @transitionToRoute 'adventure', result.id
         error: (error) =>
           @sendMessage 'error', "Sorry, could not create the new adventure on the server, contact your administrator.\nServer reply was:\n#{error.responseText}"
-
 
 `export default AdventuresController`

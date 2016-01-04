@@ -9,7 +9,7 @@ AdventureRoute = AuthRoute.extend
         type: "GET"
         dataType: "json"
         success: (result) ->
-          resolve(Char.create(result))
+          resolve(Adventure.create(result))
         error: (error) =>
           reject error
 
