@@ -1731,4 +1731,50 @@ body > * > div {
 				color: #666;
 				font-style: italic;
 		}
+		span.tagname {
+				border: solid 3px white;
+				display: block;
+				margin: 3px;
+				padding: 3px;
+				border-radius: 5px;
+				border-top-right-radius: 100px;
+				border-bottom-right-radius: 100px;
+				color: white;
+				background-color: black;
+		}
+
+		table.comparison {
+				background-color: black;
+				thead {
+						background-color: white;
+				}
+		}
+
+		span.value {
+				display: inline-block;
+				margin: 3px;
+				background-color: white;
+				padding: 3px;
+				width: 92%;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				min-height: 90%;
+				vertical-align: middle;
+		}
+
+		td {
+				text-align: center;
+		}
+
+		th, td {
+				width: 100px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				max-width: 100px;
+		}
+
+		th {
+				vertical-align: bottom;
+				text-align: center;
+		}
 }

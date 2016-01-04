@@ -1,16 +1,18 @@
-<table border="0" cellspacing="0" cellpadding="0">
+<table border="0" cellspacing="0" cellpadding="0" class="comparison">
 	<thead>
 		<tr>
+			<th></th>
 			{{#each characters as |char|}}
-				<th>{{char.name}}</th>
+				<th  {{action "unlinkCharacter" char}}>{{char.name}}</th>
 			{{/each}}
 		</tr>
 	</thead>
 	<tbody>
-		{{#each characters as |char|}}
-			<tr {{action "unlinkCharacter" char}}>
-				{{#each properties as |prop|}}
-					<td>{{get char prop}}</td>
+		{{#each properties as |prop|}}
+			<tr>
+				<td><span class="tagname">{{prop.name}}</span></td>
+				{{#each characters as |char|}}
+					<td><span class="value">{{get char prop.value}}</span></td>
 				{{/each}}
 			</tr>
 		{{/each}}

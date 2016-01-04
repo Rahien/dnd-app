@@ -36,9 +36,9 @@ AdventureController = Ember.Controller.extend SendMessage,
     closeDialog: ->
       @set 'showModal', false
     linkCharacter: (target, character) ->
-      @fetchCharacter(character._id).then( =>
+      @fetchCharacter(character._id).then( (result) =>
         players = @get('model.chars').concat([])
-        players.push(character)
+        players.push(result)
         @updatePlayers(players)
         @set 'showModal', false
       ).catch (error) =>
