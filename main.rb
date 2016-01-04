@@ -233,6 +233,29 @@ class MyServer < Sinatra::Base
     getAdventures().to_json
   end
 
+  get '/dnd/api/adventure/:id' do
+    protected!
+    adventure = fetchAdventure(params[:id])
+    unless ownsAdventure?(adventure)
+      adventure.delete "dmnotes"
+    end
+    addAdventureOwners([adventure])
+    addAdventurePlayers([adventure])
+    adventure["_id"] = adventure["_id"].to_str
+    adventure.to_json
+  end
+
+  put '/dnd/api/adventure/:id' do
+    protected!
+    adventure = fetchAdventure(params[:id])
+    unless ownsAdventure?( adventure )
+      halt 401, "You don't have access to this adventure"
+    end
+    data = JSON.parse request.body.read
+    MONGOC[ADVENTURES].update_one( { _id: adventure["_id"] } , { "$set" => data } )
+    ok
+  end
+
   post '/dnd/api/register' do
     data = JSON.parse request.body.read
     user = data["username"]
@@ -351,6 +374,20 @@ class MyServer < Sinatra::Base
     (not resp["admin"].nil? and resp["admin"]) or resp["chars"].include? id
   end
 
+  def ownsAdventure? (adventure)
+    user = @auth.userid
+    (adventure["owner"] == user) or isAdmin
+  end
+
+  def fetchAdventure (id)
+    found = MONGOC[ADVENTURES].find(_id: BSON::ObjectId(params['id']))
+    if not found.count == 1
+      halt 404, "Adventure not found\n"
+    end
+
+    adventure = found.first()
+  end
+
   def isAdmin
     user = @auth.userid
 
@@ -406,14 +443,16 @@ class MyServer < Sinatra::Base
   end
 
   def getAdventures
+    adventures = nil
     if isAdmin
-      getAllAdventures()
+      adventures = getAllAdventures()
     else
       user = @auth.userid
-      userResp = MONGOC[USERS].find( _id: user ).first()
-      list = []
-      getUserAdventures(user)
+      adventures = getUserAdventures(user)
     end
+
+    addAdventureOwners(adventures)
+    adventures
   end
 
   def getUserChars(user)
@@ -449,7 +488,6 @@ class MyServer < Sinatra::Base
       adv["_id"] = adv["_id"].to_str
       advs.push adv
     end
-    addAdventureOwners(advs)
     advs
   end
 
@@ -474,7 +512,7 @@ class MyServer < Sinatra::Base
   def addAdventurePlayers (adventures)
     chars = {}
     adventures.map do |adv|
-      current= adv["chars"]
+      current = (adv["chars"] or [])
       current.map do |char|
         chars[char] = BSON::ObjectId(char)
       end
@@ -489,16 +527,22 @@ class MyServer < Sinatra::Base
 
     adventures.map do |adv|
       newChars = []
-      adv["chars"].map do |id|
+      (adv["chars"] or []).map do |id|
         newChars.push(chars[id])
       end
       adv["chars"] = newChars
     end
   end
 
-  def getUserAdventures (user)
-    # TODO
+  def getUserAdventures (userId)
     adventures = []
+    userResp = MONGOC[USERS].find( _id: user ).first()
+    chars = userResp["chars"]
+    result = MONGOC[ADVENTURES].find( { chars: { "$elemMatch" => { "$in" => chars } } } )
+    result.each do |adv|
+      adventures.push adv
+    end
+    adventures
   end
 
   def updateUser (user)
