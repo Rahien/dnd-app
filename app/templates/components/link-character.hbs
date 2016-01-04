@@ -9,7 +9,7 @@
 			</thead>
 			<tbody>
 				{{#each char in characters}}
-					<tr {{action "linkCharacter" player char}}>
+					<tr {{action "linkCharacter" target char}}>
 						<td>{{char.name}}</td>
 						<td>{{char.race}}</td>
 						<td>{{char.class}}</td>

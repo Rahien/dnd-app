@@ -19,6 +19,6 @@ LinkCharacterComponent = Ember.Component.extend SendMessage,
   actions:
     closeDialog: ->
       @sendAction "closeDialog"
-    linkCharacter: (player, character) ->
-      @sendAction "linkCharacter", player, character
+    linkCharacter: (target, character) ->
+      @sendAction "linkCharacter", target, character
 `export default LinkCharacterComponent`
