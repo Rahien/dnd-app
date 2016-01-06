@@ -247,10 +247,11 @@ class MyServer < Sinatra::Base
   put '/dnd/api/adventure/:id' do
     protected!
     adventure = fetchAdventure(params[:id])
-    unless ownsAdventure?( adventure )
-      halt 401, "You don't have access to this adventure"
+    unless ownsAdventure? adventure
+      halt 401, "You don't own this adventure"
     end
     data = JSON.parse request.body.read
+    data.delete("_id")
     MONGOC[ADVENTURES].update_one( { _id: adventure["_id"] } , { "$set" => data } )
     ok
   end
