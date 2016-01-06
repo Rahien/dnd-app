@@ -237,7 +237,7 @@ class MyServer < Sinatra::Base
     protected!
     adventure = fetchAdventure(params[:id])
     unless ownsAdventure?(adventure)
-      adventure.delete "dmnotes"
+      adventure.delete "dmNotes"
     end
     addAdventureOwners([adventure])
     adventure["_id"] = adventure["_id"].to_str
@@ -494,7 +494,7 @@ class MyServer < Sinatra::Base
 
   def getAllAdventures
     advs = []
-    MONGOC[ADVENTURES].find().each do |adv|
+    MONGOC[ADVENTURES].find().projection( name: 1, date: 1, owner: 1 ).each do |adv|
       adv["_id"] = adv["_id"].to_str
       advs.push adv
     end
@@ -521,10 +521,11 @@ class MyServer < Sinatra::Base
 
   def getUserAdventures (userId)
     adventures = []
-    userResp = MONGOC[USERS].find( _id: user ).first()
+    userResp = MONGOC[USERS].find( _id: userId ).first()
     chars = userResp["chars"]
-    result = MONGOC[ADVENTURES].find( { chars: { "$elemMatch" => { "$in" => chars } } } )
+    result = MONGOC[ADVENTURES].find( { chars: { "$elemMatch" => { "_id" => { "$in" => chars } } } } ).projection( name: 1, date: 1, owner: 1 )
     result.each do |adv|
+      adv["_id"] = adv["_id"].to_str
       adventures.push adv
     end
     adventures
@@ -673,7 +674,7 @@ end
 
 def ensureAdventureIndices
   # covered query
-  MONGOC[ADVENTURES].indexes.create_one({ name: 1, date: 1 })
+  MONGOC[ADVENTURES].indexes.create_one({ name: 1, date: 1, owner: 1 })
 end
 
 def ensureTokenIndices
