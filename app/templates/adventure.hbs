@@ -32,9 +32,9 @@
 		</div>
 		<div class="playerList">
 			{{#if hasPlayers}}
-				{{compare-characters characters=model.chars unlinkCharacter="unlinkCharacter"}}
+				{{compare-characters characters=model.chars unlinkCharacter="unlinkCharacter" showMessage="showMessage"}}
 			{{else}}
-				No players yet!
+				<div class="emptymessage">No players yet!</div>
 			{{/if}}
 		</div>
 	</div>

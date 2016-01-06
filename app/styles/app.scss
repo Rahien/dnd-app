@@ -1742,6 +1742,7 @@ body > * > div {
 				color: white;
 				background-color: black;
 				cursor: row-resize;
+				text-align: left;
 		}
 		span.tagname.selected {
 				background-color: $darkhighlight;
@@ -1806,17 +1807,24 @@ body > * > div {
 				i {
 						display: none;
 						position: absolute;
-						top: 10px;
-						width: 25px;
-						height: 25px;
+						top: 7px;
+						width: 22px;
+						height: 22px;
 						border: solid 1px white;
-						line-height: 25px;
-						font-size: 16px;
+						line-height: 22px;
+						font-size: 12px;
 						border-radius: 100px;
 						background-color: black;
-						left: 17px;
+						padding: 0;
+						left: 5px;
 						cursor: hand;
 						cursor: pointer;
+						box-sizing: border-box;
+						-moz-box-sizing: border-box;
+				}
+				i:nth-child(3) {
+						left: auto;
+						right: 5px;
 				}
 				i:hover {
 						background-color: $darkhighlight;
@@ -1903,7 +1911,6 @@ body > * > div {
 
 		.addPlayer {
 				border: solid 1px white;
-				padding: 3px;
 				display: none;
 				top: 5px;
 				left: 5px;
@@ -1925,5 +1932,14 @@ body > * > div {
 		}
 		.drawer:hover .addPlayer {
 				display: inline-block;
+		}
+		.emptymessage {
+				display: block;
+				background-color: black;
+				color: white;
+				margin: 0;
+				padding: 1em;
+				height: 250px;
+				line-height: 250px;
 		}
 }

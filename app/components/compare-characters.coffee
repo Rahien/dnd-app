@@ -1,26 +1,28 @@
 `import Ember from 'ember'`
 `import naturalSort from 'npm:javascript-natural-sort'`
+`import SendMessage from '../mixins/send-message'`
 
-CompareCharactersComponent = Ember.Component.extend
+CompareCharactersComponent = Ember.Component.extend SendMessage,
   init: ->
     @_super(arguments...)
     @createDefaultOrder()
   properties:
-    class: Ember.Object.create { value: "class", name: "class"}
-    race: Ember.Object.create  { value: "race", name: "race"}
-    level: Ember.Object.create { value: "level", name: "level" }
-    strength: Ember.Object.create { value: "abilities.str", name: "strength" }
-    dexterity: Ember.Object.create { value: "abilities.dex", name: "dexterity" }
-    constitution: Ember.Object.create { value: "abilities.con", name: "constitution" }
-    intelligence: Ember.Object.create { value: "abilities.int", name: "intelligence" }
-    wisdom: Ember.Object.create { value: "abilities.wis", name: "wisdom" }
-    charisma: Ember.Object.create { value: "abilities.cha", name: "charisma" }
-    initiative: Ember.Object.create { value: "initiative", name: "initiative" }
-    hp: Ember.Object.create { value: "hp.current", name: "HP" }
-    hpTot: Ember.Object.create { value: "hp.total", name: "HP total" }
-    hd: Ember.Object.create { value: "hd.total", name: "HD" }
-    ac: Ember.Object.create { value: "ac.armor", name: "AC"}
-    acNoArmor: Ember.Object.create { value: "ac.noArmor", name: "AC (no armor)"}
+    class: { value: "class", name: "class"}
+    race:  { value: "race", name: "race"}
+    level: { value: "level", name: "level" }
+    strength: { value: "abilities.str", name: "strength" }
+    dexterity: { value: "abilities.dex", name: "dexterity" }
+    constitution: { value: "abilities.con", name: "constitution" }
+    intelligence: { value: "abilities.int", name: "intelligence" }
+    wisdom: { value: "abilities.wis", name: "wisdom" }
+    charisma: { value: "abilities.cha", name: "charisma" }
+    initiative: { value: "initiative", name: "initiative" }
+    hp: { value: "hp.current", name: "HP" }
+    hpTot: { value: "hp.total", name: "HP total" }
+    hd: { value: "hd.total", name: "HD" }
+    ac: { value: "ac.armor", name: "AC"}
+    acNoArmor: { value: "ac.noArmor", name: "AC (no armor)"}
+    gold: { value: "gold", name: "gold"}
   createDefaultOrder: ->
     @set 'defaultOrder', Ember.ArrayProxy.create
       content: Object.keys(@get('properties')).sort(naturalSort)
@@ -52,9 +54,9 @@ CompareCharactersComponent = Ember.Component.extend
     currentOrder.removeObject(prop.id)
     if first != prop.id
       currentOrder.unshiftObject(prop.id)
-      prop.set('selected', true)
+      Ember.set(prop,'selected', true)
     else
-      prop.set('selected', false)
+      Ember.set(prop,'selected', false)
   naturalSortBy: (propertyPath) ->
     (left, right) ->
       naturalSort(Ember.get(left, propertyPath), Ember.get(right, propertyPath))
@@ -62,7 +64,7 @@ CompareCharactersComponent = Ember.Component.extend
     order = @get 'selectedOrder'
     properties = @get 'properties'
     sortValues = order.map (key) ->
-      properties[key].get('value')
+      Ember.get(properties[key], 'value')
     target = @get('characters').concat([])
     sorter = null
     index = 0
@@ -80,5 +82,15 @@ CompareCharactersComponent = Ember.Component.extend
       @sortOn prop
     unlinkCharacter: (char) ->
       @sendAction "unlinkCharacter", char
+    refreshCharacter: (char) ->
+      Ember.$.ajax "/dnd/api/char/#{char._id}",
+        type: "GET"
+        dataType: "json"
+        success: (result) =>
+          char.setProperties(result)
+          @sendMessage 'goodstuff', "refreshed Character"
+        error: (error) =>
+          @sendMessage 'error', "Could not refresh character: #{error.responseText}"
+
 
 `export default CompareCharactersComponent`

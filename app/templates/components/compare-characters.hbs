@@ -5,7 +5,8 @@
 			{{#each sortedCharacters as |char|}}
 				<th>
 					<span>{{char.name}}</span>
-					<i class="fa fa-user-times"{{action "unlinkCharacter" char}}></i>
+					<i class="fa fa-user-times" title="remove from adventure" {{action "unlinkCharacter" char}}></i>
+					<i class="fa fa-refresh" title="refresh character" {{action "refreshCharacter" char}}></i>
 				</th>
 			{{/each}}
 		</tr>
