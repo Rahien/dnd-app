@@ -240,7 +240,6 @@ class MyServer < Sinatra::Base
       adventure.delete "dmnotes"
     end
     addAdventureOwners([adventure])
-    addAdventurePlayers([adventure])
     adventure["_id"] = adventure["_id"].to_str
     adventure.to_json
   end
@@ -506,31 +505,6 @@ class MyServer < Sinatra::Base
 
     adventures.map do |adv|
       adv["owner"] = ownerHash[adv["owner"].to_str]
-    end
-  end
-
-  def addAdventurePlayers (adventures)
-    chars = {}
-    adventures.map do |adv|
-      current = (adv["chars"] or [])
-      current.map do |char|
-        chars[char] = BSON::ObjectId(char)
-      end
-    end
-
-    adventureChars = MONGOC[CHARS].find( { _id: { "$in" => chars.values } } )
-
-    adventureChars.each do |char|
-      char["_id"] = char["_id"].to_str
-      chars[char["_id"]] = char
-    end
-
-    adventures.map do |adv|
-      newChars = []
-      (adv["chars"] or []).map do |id|
-        newChars.push(chars[id])
-      end
-      adv["chars"] = newChars
     end
   end
 

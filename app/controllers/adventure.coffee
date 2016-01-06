@@ -12,11 +12,10 @@ AdventureController = Ember.Controller.extend SendMessage,
   updatePlayers: (newPlayers) ->
     newPlayers = @deduplicatePlayers newPlayers
     @set('model.chars', newPlayers)
-    playerIds = newPlayers.map (player) -> player._id
     Ember.$.ajax "/dnd/api/adventure/#{@get('model._id')}",
       type: "PUT"
       contentType: "application/json; charset=utf-8"
-      data: JSON.stringify({ chars: playerIds })
+      data: JSON.stringify({ chars: newPlayers })
       success: =>
         @sendMessage 'goodstuff', "Players updated"
       error: (error) =>
@@ -29,15 +28,31 @@ AdventureController = Ember.Controller.extend SendMessage,
         resolve(result)
       error: (error) =>
         reject(error)
-
+  doSave: ->
+    serialized = @get('model').serialize()
+    delete serialized._id
+    Ember.$.ajax "/dnd/api/adventure/#{@get('model._id')}",
+      type: "PUT"
+      contentType: "application/json; charset=utf-8"
+      data: JSON.stringify(serialized)
+      success: =>
+        @sendMessage 'goodstuff', "Adventure saved"
+      error: (error) =>
+        @sendMessage 'error', "Could not save adventure: #{error.responseText}"
   actions:
     addPlayer: ->
       @set 'showModal', true
     closeDialog: ->
       @set 'showModal', false
+    save: ->
+      @doSave()
     linkCharacter: (target, character) ->
       @fetchCharacter(character._id).then( (result) =>
         players = @get('model.chars').concat([])
+        # do not store all this here, it is just a mirror of the char
+        result.spellGroups = {}
+        result.gear = []
+        result = Char.create result
         players.push(result)
         @updatePlayers(players)
         @set 'showModal', false
