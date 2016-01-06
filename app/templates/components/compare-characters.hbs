@@ -1,7 +1,9 @@
 <table border="0" cellspacing="0" cellpadding="0" class="comparison">
 	<thead>
 		<tr>
-			<th></th>
+			<th>
+				<i class="fa fa-plus" title="compare new property" {{action "requestProperty"}}></i>
+			</th>
 			{{#each sortedCharacters as |char|}}
 				<th>
 					<span>{{char.name}}</span>
@@ -14,7 +16,9 @@
 	<tbody>
 		{{#each sortedProperties as |prop|}}
 			<tr>
-				<td><span class="tagname {{if prop.selected 'selected'}}" {{action "sortOn" prop}}>{{prop.name}}</span></td>
+				<td><span class="tagname {{if prop.selected 'selected'}}" {{action "sortOn" prop}}>{{prop.name}}</span>
+					<i class="fa fa-times" title="remove from comparison" {{action "removeProperty" prop}}></i>
+				</td>
 				{{#each sortedCharacters as |char|}}
 					<td class="value">{{input value=(mut (get char prop.value))}}</td>
 				{{/each}}
@@ -22,4 +26,8 @@
 		{{/each}}
 	</tbody>
 </table>
-
+{{#if showModal}}
+	{{#modal-dialog}}
+		{{select-property properties=availableProperties closeDialog="closeDialog" addProperty="addProperty"}}
+	{{/modal-dialog}}
+{{/if}}

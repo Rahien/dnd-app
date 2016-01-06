@@ -37,9 +37,6 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
       @set 'model.charBlocks.right', Ember.ArrayProxy.create content: @get('model.charBlocks.right')
     current
 
-  profBonus: Ember.computed "model.level", ->
-    level = @get 'model.level'
-    Math.floor((level-1)/4)+2
   filename: Ember.computed "model.name", ->
     name = @get 'model.name'
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();

@@ -18,7 +18,7 @@ AdventuresController = Ember.Controller.extend SendMessage,
       Ember.$.ajax "/dnd/api/adventures",
         type: "POST"
         contentType: "application/json; charset=utf-8"
-        data: JSON.stringify(def)
+        data: JSON.stringify(def.serialize())
         success: (result) =>
           @transitionToRoute 'adventure', result.id
         error: (error) =>

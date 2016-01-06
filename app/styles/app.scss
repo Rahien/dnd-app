@@ -1731,6 +1731,29 @@ body > * > div {
 				color: #666;
 				font-style: italic;
 		}
+		td {
+				position: relative;
+				i {
+						display:none;
+						position: absolute;
+						top: 6px;
+						color: white;
+						border: solid 1px white;
+						border-radius: 100px;
+						width: 15px;
+						height: 15px;
+						line-height: 15px;
+						right: 5px;
+						cursor: hand;
+						cursor:pointer;
+				}
+				i.fa.fa-times:hover {
+						background-color: $darkhighlight;
+				}
+		}
+		td:hover i {
+				display: block;
+		}
 		span.tagname {
 				border: solid 3px white;
 				display: block;
@@ -1744,6 +1767,7 @@ body > * > div {
 				cursor: row-resize;
 				text-align: left;
 		}
+
 		span.tagname.selected {
 				background-color: $darkhighlight;
 		}
@@ -1923,6 +1947,7 @@ body > * > div {
 				font-weight: bold;
 				box-sizing: border-box;
 				-moz-box-sizing: border-box;
+				background-color: black;
 				padding: 0;
 				cursor: hand;
 				cursor: pointer;

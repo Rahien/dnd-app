@@ -8,6 +8,7 @@ require 'webrick'
 require 'webrick/https'
 require 'openssl'
 require 'mongo'
+require 'pry'
 
 CERT_PATH = 'certificates/'
 

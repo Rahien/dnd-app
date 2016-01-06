@@ -55,6 +55,7 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
       false
     addPlayer: ->
       @set 'showModal', true
+      false
     closeDialog: ->
       @set 'showModal', false
     delete: ->
