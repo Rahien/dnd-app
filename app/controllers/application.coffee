@@ -22,6 +22,7 @@ ApplicationController = Ember.Controller.extend
       @transitionToRoute 'index'
     toggleMenu: ->
       @set 'showMenu', (not @get('showMenu'))
+      false
     logout: ->
       @get('session').invalidate()
       @transitionToRoute 'login'

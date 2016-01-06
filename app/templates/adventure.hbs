@@ -25,13 +25,24 @@
 	<div class="meta">
 		Created by {{model.owner.name}} on {{format-date model.date day="numeric" month="long" year="numeric"}}
 	</div>
-	<div class="players">
-		{{#if hasPlayers}}
-			{{compare-characters characters=model.chars unlinkCharacter="unlinkCharacter"}}
-		{{else}}
-			No players yet!
-		{{/if}}
-		<div class="tbutton" {{action "addPlayer"}}>Add player</div>
+	<div class="players {{if showPlayers 'open'}}">
+		<div class="drawer" {{action "togglePlayers"}}>
+			<span>Players</span>
+			<div class="addPlayer" {{action "addPlayer"}}><i class="fa fa-user-plus"></i></div>
+		</div>
+		<div class="playerList">
+			{{#if hasPlayers}}
+				{{compare-characters characters=model.chars unlinkCharacter="unlinkCharacter"}}
+			{{else}}
+				No players yet!
+			{{/if}}
+		</div>
+	</div>
+	<div class="content">
+		{{free-block title="Adventure description" content=model.description classNames="description" placeholder="No description yet"}}
+		{{#unless noDmNotes}}
+			{{free-block title="DM Notes" content=model.dmNotes classNames="dmNotes" placeholder="No notes yet"}}
+		{{/unless}}
 	</div>
 </div>
 {{#if showModal}}

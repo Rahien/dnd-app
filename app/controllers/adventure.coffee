@@ -15,6 +15,8 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
       result[player._id] = player
     Object.keys(result).map (id) ->
       result[id]
+  noDmNotes: Ember.computed.none 'model.dmNotes'
+  showPlayers: false
   updatePlayers: (newPlayers) ->
     newPlayers = @deduplicatePlayers newPlayers
     @set('model.chars', newPlayers)
@@ -48,6 +50,9 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   modelFromObject: (object) ->
     Adventure.create object
   actions:
+    togglePlayers: ->
+      @set 'showPlayers', not @get('showPlayers')
+      false
     addPlayer: ->
       @set 'showModal', true
     closeDialog: ->

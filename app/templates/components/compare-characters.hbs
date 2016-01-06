@@ -3,7 +3,10 @@
 		<tr>
 			<th></th>
 			{{#each sortedCharacters as |char|}}
-				<th  {{action "unlinkCharacter" char}}>{{char.name}}</th>
+				<th>
+					<span>{{char.name}}</span>
+					<i class="fa fa-user-times"{{action "unlinkCharacter" char}}></i>
+				</th>
 			{{/each}}
 		</tr>
 	</thead>
