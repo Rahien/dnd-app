@@ -2,17 +2,17 @@
 	<thead>
 		<tr>
 			<th></th>
-			{{#each characters as |char|}}
+			{{#each sortedCharacters as |char|}}
 				<th  {{action "unlinkCharacter" char}}>{{char.name}}</th>
 			{{/each}}
 		</tr>
 	</thead>
 	<tbody>
-		{{#each properties as |prop|}}
+		{{#each sortedProperties as |prop|}}
 			<tr>
-				<td><span class="tagname">{{prop.name}}</span></td>
-				{{#each characters as |char|}}
-					<td><span class="value">{{get char prop.value}}</span></td>
+				<td><span class="tagname {{if prop.selected 'selected'}}" {{action "sortOn" prop}}>{{prop.name}}</span></td>
+				{{#each sortedCharacters as |char|}}
+					<td class="value">{{input value=(mut (get char prop.value))}}</td>
 				{{/each}}
 			</tr>
 		{{/each}}

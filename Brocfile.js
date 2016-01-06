@@ -6,6 +6,8 @@ var app = new EmberApp();
 
 app.import('bower_components/showdown-table/dist/showdown-table.js');
 app.import('bower_components/ember-uploader/dist/ember-uploader.named-amd.js');
+app.import('bower_components/ember-uploader/dist/ember-uploader.named-amd.js');
+app.import('bower_components/thenBy/thenBy.min.js');
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //

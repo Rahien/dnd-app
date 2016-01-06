@@ -14,7 +14,8 @@
     "qunit": "~1.18.0",
     "showdown-table": "~0.0.2",
     "ember-uploader": "0.3.8",
-    "ember-cli-moment-shim": "0.0.3"
+    "ember-cli-moment-shim": "0.0.3",
+    "thenBy": "https://github.com/Teun/thenBy.js.git#master"
   },
   "resolutions": {
     "ember": "2.2.0"

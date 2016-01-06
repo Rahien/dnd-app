@@ -1,4 +1,4 @@
-$darkhighlight: #1A1A1A;
+$darkhighlight: #353535;
 $lighthighlight: #EAEAEA;
 body {
 		margin: 0;
@@ -1742,9 +1742,13 @@ body > * > div {
 				color: white;
 				background-color: black;
 		}
+		span.tagname.selected {
+				background-color: $darkhighlight;
+		}
 
 		table.comparison {
 				background-color: black;
+				font-size: 10px;
 				thead {
 						background-color: white;
 				}
@@ -1760,17 +1764,39 @@ body > * > div {
 				-moz-box-sizing: border-box;
 				min-height: 90%;
 				vertical-align: middle;
+				overflow: hidden;
+				text-overflow: ellipsis;
 		}
 
 		td {
 				text-align: center;
+				border: solid 3px black;
+				background-color: white;
+				input {
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						outline: none;
+						text-align: center;
+						font-size: 10px;
+				}
+		}
+
+		td:first-child {
+				background-color: black;
+				border: none;
 		}
 
 		th, td {
-				width: 100px;
+				width: 50px;
 				text-overflow: ellipsis;
 				overflow: hidden;
+				max-width: 50px;
+		}
+		th:first-child, td:first-child {
 				max-width: 100px;
+				width: 100px;
 		}
 
 		th {
