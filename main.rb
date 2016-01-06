@@ -255,6 +255,16 @@ class MyServer < Sinatra::Base
     ok
   end
 
+  delete '/dnd/api/adventure/:id' do
+    protected!
+    adventure = fetchAdventure(params[:id])
+    unless ownsAdventure? adventure
+      halt 401, "You don't own this adventure"
+    end
+    MONGOC[ADVENTURES].delete_one( _id: adventure["_id"] )
+    ok
+  end
+
   post '/dnd/api/register' do
     data = JSON.parse request.body.read
     user = data["username"]

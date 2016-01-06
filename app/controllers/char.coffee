@@ -1,8 +1,9 @@
 `import Ember from 'ember'`
 `import SendMessage from '../mixins/send-message'`
+`import SaveLoad from '../mixins/save-load-model'`
 `import Char from '../models/char'`
 
-CharController = Ember.Controller.extend SendMessage,
+CharController = Ember.Controller.extend SendMessage, SaveLoad,
   init: ->
     @_super(arguments...)
   showSpells: Ember.computed "charBlocks.left.[]", "charBlocks.right.[]", ->
@@ -56,51 +57,11 @@ CharController = Ember.Controller.extend SendMessage,
         @sendMessage 'goodstuff', 'Saved character'
       error: =>
         @sendMessage 'error', 'Could not save character!'
+  modelFromObject: (object) ->
+    Char.create object
   actions:
     save: ->
       @doSave()
-    delete: ->
-      model = @get 'model'
-      Ember.$.ajax "/dnd/api/char/#{model._id}",
-        method: "DELETE"
-        success: =>
-          @transitionToRoute 'chars'
-        error: =>
-          @sendMessage 'error', "Could not remove character!"
-    upload: ->
-      Ember.$('#buttons input.uploadInput').click()
-    doUpload: ->
-      input = Ember.$('#buttons input.uploadInput')[0]
-      file = input.files[0]
-      onError = =>
-        @sendMessage 'error', "Sorry, could not read the file"
-      if file
-        reader = new FileReader()
-        reader.readAsText(file, "UTF-8")
-        reader.onload = (evt) =>
-          try
-            object = JSON.parse(evt.target.result)
-            model = @get 'model'
-            id = model._id
-            rev = model._rev
-            object._id = id
-            object._rev = rev
-            @set 'model', Char.create(object)
-            
-            @doSave()
-          catch e
-            onError()
-        reader.onerror = onError
-        try
-          input.value = ''
-          if input.value
-            input.type = "text"
-            input.type = "file"
-        catch e
-          "tried our best to clear the input"
-    download: ->
-      model = @get 'model'
-      Ember.$('#buttons a.downloadlocation').attr("href", "data:text/json;charset=utf-8,#{encodeURIComponent(JSON.stringify(model))}")[0].click()
     handleUpload: (result) ->
       @set 'model.image', "/dnd/api/image/#{result}"
     clickImage: ->

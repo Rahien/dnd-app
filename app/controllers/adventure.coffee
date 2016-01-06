@@ -1,8 +1,14 @@
 `import Ember from 'ember'`
 `import SendMessage from '../mixins/send-message'`
+`import SaveLoad from '../mixins/save-load-model'`
+`import Char from '../models/char'`
+`import Adventure from '../models/adventure'`
 
-AdventureController = Ember.Controller.extend SendMessage,
+AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   hasPlayers: Ember.computed.notEmpty "model.chars"
+  filename: Ember.computed "model.name", ->
+    name = @get 'model.name'
+    name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   deduplicatePlayers: (players) ->
     result = {}
     players.map (player) ->
@@ -39,11 +45,22 @@ AdventureController = Ember.Controller.extend SendMessage,
         @sendMessage 'goodstuff', "Adventure saved"
       error: (error) =>
         @sendMessage 'error', "Could not save adventure: #{error.responseText}"
+  modelFromObject: (object) ->
+    Adventure.create object
   actions:
     addPlayer: ->
       @set 'showModal', true
     closeDialog: ->
       @set 'showModal', false
+    delete: ->
+      Ember.$.ajax "/dnd/api/adventure/#{@get('model._id')}",
+        type: "DELETE"
+        contentType: "application/json; charset=utf-8"
+        success: =>
+          @sendMessage 'goodstuff', "Adventure removed"
+          @transitionToRoute 'adventures'
+        error: (error) =>
+          @sendMessage 'error', "Could not remove adventure: #{error.responseText}"
     save: ->
       @doSave()
     linkCharacter: (target, character) ->
