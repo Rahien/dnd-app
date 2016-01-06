@@ -4,7 +4,7 @@
 <div class="info">
 	Please select the kind of block you would like to add. For a custom text block, also write a name for the property to describe and a title for the block.
 </div>
-<select onchange={{action (mut blockType) value="blockType"}}>
+<select onchange={{action (mut blockType) value="target.value"}}>
 	{{#each blockTypes as |type|}}
     <option value={{type}} selected={{eq blockType type}}>{{type}}</option>
 	{{/each}}
