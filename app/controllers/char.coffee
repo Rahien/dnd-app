@@ -6,6 +6,11 @@
 CharController = Ember.Controller.extend SendMessage, SaveLoad,
   init: ->
     @_super(arguments...)
+    # yes i know i should use components and get rid of controllers. will do later
+    self = this
+    Ember.run.schedule "afterRender",this, ->
+      Ember.$('img').on 'error', ->
+        self.set 'model.image', "/assets/images/charimage.png"
   showSpells: Ember.computed "charBlocks.left.[]", "charBlocks.right.[]", ->
     left = @get 'charBlocks.left'
     right = @get 'charBlocks.right'

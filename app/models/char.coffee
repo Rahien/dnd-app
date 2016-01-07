@@ -69,7 +69,7 @@ Char.getDefault = ->
     class: "Sorcerer"
     race: "Red Dragonborn"
     level: 3
-    image: "/assets/images/sorceress.png"
+    image: "/assets/images/charimage.png"
     description: "Not much is known about this character yet, it has yet to write its own destiny."
     stats: [
       { label: "height", value: "6'4\"" },
