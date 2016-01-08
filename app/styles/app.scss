@@ -13,27 +13,38 @@ body > * > div {
     padding-top: 60px;
 }
 
+.round-button {
+		background-color: black;   color: white;   border-radius: 200px;   
+		width: 25px;   
+		height: 25px;   
+		line-height: 25px;
+		display: inline-block;
+		text-align: center;
+		font-family: arial;
+		font-weight: bold;
+		font-size: 16px;
+		position: relative;
+		top: -2px;
+		padding: 0;
+		cursor: hand;
+		cursor: pointer;
+		.fa-sort-down {
+				top: -3px;
+				position: relative;
+		}
+
+		.fa-sort-up {
+				position: relative;
+				top: 4px;
+		}
+}
+.round-button:hover {
+		background-color: $darkhighlight;
+}
+
 .character {
     position: relative;
 
-		span.delete, td.delete span, .create, .up, .down, .sort, .remove, .add-spell {
-				background-color: black;   color: white;   border-radius: 200px;   
-				width: 14px;   
-				height: 14px;   
-				line-height: 14px;
-				display: inline-block;
-				text-align: center;
-				font-family: arial;
-				font-weight: bold;
-				font-size: 9px;
-				position: relative;
-				top: -2px;
-				padding: 0;
-				cursor: hand;
-				cursor: pointer;
-				box-sizing: border-box;
-				-moz-box-sizing: border-box;
-		}
 		.controls {
 				position: absolute;
 				top: 50px;
@@ -209,24 +220,26 @@ body > * > div {
 				.prop {
 						display:inline-block;
 				}		
+				.prop:hover {
+						.delete {
+								display:inline-block;
+						}
+				}
+				.create {
+						margin: 10px 0;
+				}
 
 				.prop:first-child {
 						display: block;
 				}
-				.create {
-						display:none;
-				}
-				.delete {
-						display:none;
+				.round-button {
+						display: none;
 				}
 
 		}
 		.stats:hover {
 				.create {
 						display:block;
-				}
-				.delete {
-						display:inline-block;
 				}
 		}
 
@@ -533,8 +546,8 @@ body > * > div {
 
 		.block-controls {
 				position: absolute;
-				top: 7px;
-				right: 6px;
+				top: 3px;
+				right: 3px;
 				display:none;
 		}
 		
@@ -545,16 +558,11 @@ body > * > div {
 
 		.right-side .block-controls {
 				right: auto;
-				left: 6px;
+				left: 3px;
 		}
 
 		.block-controls > * {
 				border: solid 1px white;
-				width: 16px !important;
-				height: 16px !important;
-				text-align: center;
-				vertical-align: middle;
-				line-height: 16px;
 		}
 
 		.block-controls > *:hover {
@@ -588,22 +596,20 @@ body > * > div {
 				}
 				td.delete {
 						display:none;
+						right: -20px;
 						position: absolute;
-						right: -14px;
 				}
 				.create {
 						display:none;
 						left: 50%;
-						width: 20px;
-						height: 20px;
-						line-height: 20px;
-						font-size: 14px;
 				}
 		}
-		.attacks:hover {
+		.attacks tr:hover {
 				td.delete {
 						display:table-cell;
 				}
+		}
+		.attacks:hover {
 				.create {
 						display:block;
 				}
@@ -622,22 +628,17 @@ body > * > div {
 				width:  100%;
 		}
 
-		.gear:hover table:first-child td:last-child, .gear:hover table:first-child th:last-child {
+		.gear table:first-child tr:hover td:last-child {
 				display: table-cell;
 		}
 		.gear table:first-child td:last-child, .gear table:first-child th:last-child {
 				display: none;
 				position: absolute;
-				right: -13px;
+				right: -18px;
 		}
 		.gear .create {
 				display:none;
 				left: 50%;
-				width: 20px;
-				height: 20px;
-				line-height: 20px;
-				font-size: 14px;
-				text-align:center;
 		}
 		.gear:hover .create {
 				display:inline-block;
@@ -801,6 +802,18 @@ body > * > div {
 		}
 		.spell-detail {
 				margin-top: 1em;
+				.add-spell-group.round-button {
+						position: absolute;
+						display:none;
+						right: 5px;
+						top: 8px;
+						border: solid 1px white;
+				}
+		}
+		.spell-detail:hover {
+				.add-spell-group.round-button {
+						display: block;
+				}
 		}
 
 		.spell-detail > .title:first-child {
@@ -950,22 +963,21 @@ body > * > div {
 
 		.spell-controls {
 				position: absolute;
-				top: 0;
-				right: 0;
+				top: 8px;
+				right: 5px;
 				color: white;
 				display: none;
 				padding: 0;
+				.round-button {
+						border: solid 1px white;
+				}
+				*:first-child:after {
+						content: "" !important;
+				}
 		}
 
 		.spell:hover .spell-controls {
 				display:block;
-		}
-		.spell > .spell-controls *:first-child {
-				font-weight: normal;
-				font-size: 9px;
-		}
-		.spell > .spell-controls *:first-child:after {
-				content: "";
 		}
 
 		.spell-group .spell-group-controls {
@@ -990,28 +1002,6 @@ body > * > div {
 				position: relative;
 		}
 
-		.add-spell-group {
-				position: absolute;
-				top: 5px;
-				right: 5px;
-				margin: 0;
-				margin-left: auto;
-				border: solid 1px white;
-				border-radius: 50px;
-				width: 30px;
-				height: 30px;
-				line-height: 30px;
-				cursor: hand;
-				cursor: pointer;
-				background-color: black;
-				color: white;
-				column-span: all;
-				-webkit-column-span: all;
-				text-align: center;
-				font-weight: bold;
-				font-size: 30px;
-				display:none;
-		}
 		.add-spell-group:hover {
 				background-color: $darkhighlight;
 		}
@@ -1742,25 +1732,19 @@ body > * > div {
 		}
 		td {
 				position: relative;
-				i {
+				.round-button {
 						display:none;
 						position: absolute;
-						top: 6px;
-						color: white;
-						border: solid 1px white;
-						border-radius: 100px;
-						width: 15px;
-						height: 15px;
-						line-height: 15px;
-						right: 5px;
-						cursor: hand;
-						cursor:pointer;
-				}
-				i.fa.fa-times:hover {
-						background-color: $darkhighlight;
+						top: 3px;
+						right: 3px;
+						border: solid 2px white;
+						width: 19px;
+						height: 19px;
+						line-height: 19px;
+						font-size: 14px;
 				}
 		}
-		td:hover i {
+		td:hover .round-button {
 				display: block;
 		}
 		span.tagname {
@@ -1837,33 +1821,23 @@ body > * > div {
 				color: white;
 				padding: 10px 0;
 				position: relative;
-				i {
+				.round-button:nth-child(2) {
+						right: auto;
+						left: 3px;
+				}
+				.round-button {
 						display: none;
 						position: absolute;
-						top: 7px;
-						width: 22px;
-						height: 22px;
-						border: solid 1px white;
-						line-height: 22px;
-						font-size: 12px;
-						border-radius: 100px;
-						background-color: black;
-						padding: 0;
-						left: 5px;
-						cursor: hand;
-						cursor: pointer;
-						box-sizing: border-box;
-						-moz-box-sizing: border-box;
-				}
-				i:nth-child(3) {
-						left: auto;
-						right: 5px;
-				}
-				i:hover {
-						background-color: $darkhighlight;
+						top: 2px;
+						right: 3px;
+						border: solid 2px white;
+						width: 20px;
+						height: 20px;
+						line-height: 20px;
+						font-size: 14px;
 				}
 		}
-		th:hover i {
+		th:hover .round-button {
 				display: block;
 		}
 
@@ -1943,24 +1917,12 @@ body > * > div {
 		}
 
 		.addPlayer {
+				top: 7px;
+				left: 8px;
 				border: solid 1px white;
 				display: none;
-				top: 5px;
-				left: 5px;
-				position: absolute;
-				border-radius: 130px;
-				width: 25px;
-				height: 25px;
-				line-height: 25px;
-				text-align: center;
-				font-weight: bold;
-				box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				background-color: black;
-				padding: 0;
-				cursor: hand;
-				cursor: pointer;
 		}
+
 		.addPlayer:hover {
 				background-color: $darkhighlight;
 		}

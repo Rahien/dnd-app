@@ -3,13 +3,21 @@
 	<div class="spell-group">
 		{{content-editable classNames="title" value=group.title tagName="span"}}
 		<div class="spell-group-controls">
-			<span class="sort" title="sort spells" {{action "sortSpells" group}}>
+			<span class="round-button sort" title="sort spells" {{action "sortSpells" group}}>
 				<i class="fa fa-sort-alpha-asc"></i>
 			</span>
-			<span class="up" title="move up" {{action "groupUp" group}}>▲</span>
-			<span class="down" title="move down" {{action "groupDown" group}}>▼</span>
-			<span class="add-spell" {{action "addSpell" group}} title="add spell">+</span>
-			<span class="remove" title="remove group" {{action "groupRemove" group}}>x</span>
+			<span class="round-button up" title="move up" {{action "groupUp" group}}>
+				<i class="fa fa-sort-up"></i>
+			</span>
+			<span class="round-button down" title="move down" {{action "groupDown" group}}>
+				<i class="fa fa-sort-down"></i>
+			</span>
+			<span class="round-button add-spell" {{action "addSpell" group}} title="add spell">
+				<i class="fa fa-plus"></i>
+			</span>
+			<span class="round-button remove" title="remove group" {{action "groupRemove" group}}>
+				<i class="fa fa-times"></i>
+			</span>
 		</div>
 		<div class="spell-wrap">
 			{{#each group.spells as |spell|}}
@@ -17,9 +25,15 @@
 					<div class="spell">
 						{{content-editable classNames="title" value=spell.name tagName="span"}}
 						<div class="spell-controls">
-							<span class="up" title="move up" {{action "spellUp" group spell}}>▲</span>
-							<span class="down" title="move down" {{action "spellDown" group spell}}>▼</span>
-							<span class="remove" title="remove spell" {{action "spellRemove" group spell}}>x</span>
+							<span class="round-button up" title="move up" {{action "spellUp" group spell}}>
+								<i class="fa fa-sort-up"></i>
+							</span>
+							<span class="round-button down" title="move down" {{action "spellDown" group spell}}>
+								<i class="fa fa-sort-down"></i>
+							</span>
+							<span class="round-button remove" title="remove spell" {{action "spellRemove" group spell}}>
+								<i class="fa fa-times"></i>
+							</span>
 						</div>
 						<div class="spell-level">
 							<span class="label">level</span>
@@ -56,8 +70,8 @@
 		</div>
 	</div>
 {{/each}}
-<div class="add-spell-group" {{action "createSpellGroup"}} title="add group">
-+
+<div class="round-button add-spell-group" {{action "createSpellGroup"}} title="add group">
+	<i class="fa fa-plus"></i>
 </div>
 
 {{#if showModal}}

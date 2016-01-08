@@ -2,13 +2,19 @@
 	<thead>
 		<tr>
 			<th>
-				<i class="fa fa-plus" title="compare new property" {{action "requestProperty"}}></i>
+				<span class="round-button" title="compare new property" {{action "requestProperty"}}>
+					<i class="fa fa-plus"></i>
+				</span>				
 			</th>
 			{{#each sortedCharacters as |char|}}
 				<th>
 					<span>{{char.name}}</span>
-					<i class="fa fa-user-times" title="remove from adventure" {{action "unlinkCharacter" char}}></i>
-					<i class="fa fa-refresh" title="refresh character" {{action "refreshCharacter" char}}></i>
+					<span class="round-button" title="remove from adventure" {{action "unlinkCharacter" char}}>
+						<i class="fa fa-user-times"></i>
+					</span>
+					<span class="round-button" title="refresh character" {{action "refreshCharacter" char}}>
+						<i class="fa fa-refresh"></i>
+					</span>
 				</th>
 			{{/each}}
 		</tr>
@@ -16,8 +22,11 @@
 	<tbody>
 		{{#each sortedProperties as |prop|}}
 			<tr>
-				<td><span class="tagname {{if prop.selected 'selected'}}" {{action "sortOn" prop}}>{{prop.name}}</span>
-					<i class="fa fa-times" title="remove from comparison" {{action "removeProperty" prop}}></i>
+				<td>
+					<span class="tagname {{if prop.selected 'selected'}}" {{action "sortOn" prop}}>{{prop.name}}</span>
+					<span class="round-button" title="remove from comparison" {{action "removeProperty" prop}}>
+						<i class="fa fa-times" ></i>
+					</span>
 				</td>
 				{{#each sortedCharacters as |char|}}
 					<td class="value">{{input value=(mut (get char prop.value))}}</td>

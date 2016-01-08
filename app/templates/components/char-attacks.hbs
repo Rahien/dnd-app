@@ -15,13 +15,15 @@
 					{{content-editable value=attack.def tagName="td"}}
 					{{content-editable value=attack.range tagName="td"}}
 					{{content-editable value=attack.type tagName="td"}}
-					<td class="delete" title="remove" {{action "deleteAttack" attack}}><span>x</span></td>
+					<td class="delete" title="remove" {{action "deleteAttack" attack}}>
+						<span class="round-button"><i class="fa fa-times"></i></span>
+					</td>
 				</tr>
 			{{/each}}
 		</tbody>
 	</table>
-	<div class="create" title="new attack" {{action "createAttack"}}>
-  +
+	<div class="round-button create" title="new attack" {{action "createAttack"}}>
+		<i class="fa fa-plus"></i>
 	</div>
 </div>
 
