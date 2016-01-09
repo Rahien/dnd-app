@@ -14,10 +14,15 @@ ApplicationController = Ember.Controller.extend
       return "hide"
     if @get('showMenu')
       "show"
+  homeShow: Ember.computed 'currentRouteName', ->
+    @get('currentRouteName') != "index"
+  showButtons: false
   hasMessages: Ember.computed.notEmpty 'messages'
   removeMessage: (message) ->
     @get('messages').removeObject message
   actions:
+    showButtons: ->
+      @set 'showButtons', not @get('showButtons')
     toHome: ->
       @transitionToRoute 'index'
     toggleMenu: ->

@@ -15,7 +15,8 @@ body {
 .open-button {
 		display: none;
     margin-top: 8px;
-    font-size: 24px;
+		font-size: 42px;
+		margin-bottom: 8px;
 }
 .wrapper {
     padding-top: 60px;
@@ -1270,7 +1271,7 @@ body {
 }
 
 .login, .register {
-    top: 130px;
+    margin-top: 130px;
     padding: 20px;
 		border:solid black 5px;
     border-radius: 10px;
@@ -1759,10 +1760,8 @@ body {
 				margin: 1em 0;
 		}
 		.meta {
-				/* border: solid 1px #999; */
 				border-radius: 5px;
 				padding: 10px;
-				/* width: 250px; */
 				position: absolute;
 				top: 50px;
 				right: 0px; 
@@ -1981,9 +1980,6 @@ body {
 }
 
 @media (max-width:960px) { 
-		.header{
-				display: none;
-		}
 		.open-button {
 				display: block;
 		}
@@ -1996,7 +1992,7 @@ body {
 				padding: 10px;
 				box-sizing: border-box;
 				-moz-box-sizing: border-box;
-				padding-top: 60px;
+				padding-top: 80px;
 		}
 		.login, .register {
 				width: 70%;
@@ -2171,4 +2167,78 @@ body {
 		/* .link-character .title { */
 		/* 		width: 100%; */
 		/* } */
+
+		.header.show .header-wrap {
+				display: none;
+		}
+		.header.show.open .header-wrap {
+				display: block; 
+		}
+
+		.header {
+				margin-top: 0px;
+				.header-wrap {
+						display: block;
+						position: relative;
+						/* top: 35px; */
+						left: 0;
+						right: 0;
+						background-color: #111;
+						z-index: 9999999;
+						width: auto;
+						overflow: hidden;
+				}
+				.header-wrap > * {
+						display: block;
+				}
+
+				.header-wrap #buttons {
+						position: relative;
+				}
+
+				.header-wrap #buttons > * {
+						display: block;
+				}
+				.header-waiter {
+						display: none;
+				}
+
+				.functional {
+						position: relative;
+						display: block;
+				}
+
+				.functional > * {
+						display: block;
+				}
+
+				.header-content {
+						height: auto;
+				}
+
+				#buttons > *, .functional > * {
+						width: 70% !important;
+						margin: 7px 15% !important;
+						padding: 10px !important;
+				}
+
+				#buttons, .functional {
+						width: 100%;
+				}
+
+				#buttons > *:last-child {
+						margin-bottom: 0 !important;
+				}
+				.toggle {
+						display: none;
+				}
+				.title {
+						display: none !important;
+				}
+		}
+		.adventure .meta {
+				width: 100%;
+				top: 70px;
+				text-align: center;
+		}
 }

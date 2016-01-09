@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var LoginRoute = Ember.Route.extend({
+var Route = Ember.Route.extend({
 	intl: Ember.inject.service(),
   beforeModel: function () {
     this.get('intl').setLocale('en-us');
@@ -20,4 +20,4 @@ var LoginRoute = Ember.Route.extend({
 	}
 });
 
-export default LoginRoute;
+export default Route;
