@@ -1,16 +1,34 @@
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
 $darkhighlight: #353535;
 $lighthighlight: #EAEAEA;
 body {
 		margin: 0;
 }
-body > * > div {
-		width: 960px;
-		margin: 0 auto;
-		position: relative;
-}
 
+.loading {
+  font-size: 84px;
+  margin: 40px;
+  text-align: center;
+}
+.open-button {
+		display: none;
+    margin-top: 8px;
+    font-size: 24px;
+}
 .wrapper {
     padding-top: 60px;
+		width: 960px;
+		margin: 0 auto;
+}
+.ember-modal-dialog {
+		position: relative;
+		width: 70%;
+		max-width: 960px;
+		margin-top: 0 !important;
+		top: 10% !important;
+		border-radius: 0;
 }
 
 .round-button {
@@ -1059,56 +1077,73 @@ body > * > div {
 		}
 }
 
-.ember-modal-dialog {
-  position: fixed;
-  background-color: white;
-  color: black;
-  overflow: hidden;
-  z-index: 1000000;
-  width: 960px;
-  padding: 10px;
-  box-shadow: black 5px 5px 10px;
-}
+/* .ember-modal-dialog { */
+/*   position: fixed; */
+/*   background-color: white; */
+/*   color: black; */
+/*   overflow: hidden; */
+/*   z-index: 1000000; */
+/*   width: 960px; */
+/*   padding: 10px; */
+/*   box-shadow: black 5px 5px 10px; */
+/* } */
 
-#modal-overlays {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000000;
-}
+/* .ember-modal-wrapper { */
+/*   position: absolute; */
+/*   top: 0; */
+/*   left: 0; */
+/*   right: 0; */
+/*   bottom: 0; */
+/* } */
 
-.ember-modal-overlay {
-    z-index: 999999;
-    position: fixed;
-    top: 0;
-    left: 0;
-		right: 0;
-		bottom: 0;
-    background-color: rgba(0,0,0,0.1);
-		width: 100%;
-}
+/* .ember-modal-overlay { */
+/*     z-index: 999999; */
+/*     position: fixed; */
+/*     top: 0; */
+/*     left: 0; */
+/* 		right: 0; */
+/* 		bottom: 0; */
+/*     background-color: rgba(0,0,0,0.1); */
+/* } */
 
 .spell-select {
+
+    padding-top: 50px;
 		span.title {
+				background-color: black;
+				color: white;
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding: 10px 20px;
+				right: 0;
 				display: block;
 				font-size: 20px;
 				margin-bottom: 0.5em;
 				font-weight: bold;
 		}
 		ul.results {
+				min-height: 40px;
 				max-height: 150px;
 				overflow-y: scroll;
 				border: solid 1px gray;
 		}
 
 		span.label {
-				width: 200px;
+				width: 20%;
 				display: inline-block;
+		}
+		.search input {
+				width: 60%;
+		}
+		.search, .options {
+				position: relative;
 		}
 
 		input {
+				position: absolute;
 				margin: 0;
+				right: 0px;
 		}
 
 		input[type="checkbox"] {
@@ -1143,7 +1178,7 @@ body > * > div {
 		position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+		right: 0px;
     z-index: 1000000000000;
     margin-top: -55px;
 		overflow:hidden;
@@ -1166,8 +1201,6 @@ body > * > div {
 				height: 40px;
 				overflow: hidden;
 				box-shadow: #444 0px 5px 10px;
-				width: 105%;
-				margin-left: -2.5%;
 		}
 
 		.header-wrap > * {
@@ -1521,7 +1554,7 @@ body > * > div {
 				left: -10px;
 				position: relative;
 				top: -10px;
-				width: 110%;
+				width: 100%;
 				background-color: black;
 				color: white;
 				display: block;
@@ -1575,7 +1608,13 @@ body > * > div {
 }
 
 .select-char-block {
+    padding: 45px 10px 0 10px;
 		.title {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				padding: 10px 20px !important;
 				font-size: 20px;
 				padding: 0.3em;
 				font-weight: bold;
@@ -1585,6 +1624,7 @@ body > * > div {
 		}
 
 		select {
+				margin-left: 0;
 				background-color: white;
 				padding: 5px;
 				border: solid 2px black;
@@ -1938,4 +1978,197 @@ body > * > div {
 				height: 250px;
 				line-height: 250px;
 		}
+}
+
+@media (max-width:960px) { 
+		.header{
+				display: none;
+		}
+		.open-button {
+				display: block;
+		}
+		.header .toggle {
+				display: none;
+		}
+		.wrapper {
+				width: 100%;
+				overflow: hidden;
+				padding: 10px;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				padding-top: 60px;
+		}
+		.login, .register {
+				width: 70%;
+				.actions > * {
+						display: block;
+						text-align: center;
+						margin: 10px auto;
+				}
+
+				.actions {
+						text-align: center;
+				}
+		}
+		.main-menu {
+				width: 100%;
+		}
+		.home.admin {
+				.player-header {
+						width: 100%;
+						box-sizing: border=box;
+				}
+
+				.player {
+						border: none !important;
+				}
+
+				.admin .player .player-header {
+						width: 100%;
+						position: relative;
+						box-sizing: border-box;
+						-moz-box-sizing: border-box;
+						margin: 0;
+				}
+				.player .field {
+						right: 20px;
+				}
+
+				.characters {
+						width: 100%;
+						font-size: 12px;
+				}
+
+				.characters th {
+						font-size: 10px;
+				}
+		}
+		.character {
+				.level {
+						position: relative;
+						font-size: 14px;
+						height: auto;
+						left: 0;
+						top: 0;
+						line-height: normal;
+						width: auto;
+						text-align: left;
+				}
+
+				.level > * {
+						top: 0;
+						left: 0;
+				}
+
+				.level > *:before {
+						content: "Level: ";
+				}
+				.name {
+						width: 100%;
+						background-image: none;
+						margin: 0;
+						height: auto;
+				}
+
+				.image {
+						position: relative;
+						width: 100%;
+						margin: 10px 0;
+						top: 0;
+						height: auto;
+						.figure {
+								position: relative !important;
+								top: auto;
+								left: auto;
+								right: auto;
+								bottom: auto;
+						}
+				}
+
+			  .name > * {
+						left: 0;
+						top: 0;
+				}
+				.class {
+						margin-bottom: 0;
+				}
+				.stats {
+						width: 100%;
+				}
+				.defenses, .initiative {
+						width: 40%;
+						left: 5%;
+						right: auto;
+				}
+
+				.life, .perception {
+						width: 40%;
+						right: 5%;
+				}
+				.perception, .initiative {
+						top: 5px;
+				}
+				.char-kpis {
+						.lifedefenses, .percinit {
+								position: relative;
+						}
+						.defenses, .initiative {
+								position: relative;
+						}
+				}
+				.abilities table tr > * {
+						width: 13.6%;
+						box-sizing: border-box;
+				}
+
+				.abilities table tr:nth-child(3) td {
+						width: 13.6%;
+						margin: 5px;
+				}
+				.left-side, .right-side {
+						padding-left: 10px;
+						width: 100% !important;
+						box-sizing: border-box;
+						display: block;
+						right: auto;
+				}
+				.right-side > div * > .title {
+						text-align: left;
+						padding-right: 5px;
+						padding-left: 50px !important;
+				}
+				.right-side > div .title:after {
+						left: -20px !important;
+						right: auto !important;
+				}
+				.attacks table {
+						font-size: 12px;
+				}
+				.spells > .title {
+						margin-left: 10px !important;
+				}
+
+				.spells > .title:after {
+						left: -6px;
+				}
+				.spell-detail .spell-wrap {
+						column-count: 1;
+						-webkit-column-count: 1;
+						-moz-column-count: 1;
+				}
+		}
+		/* .ember-modal-dialog { */
+		/* 		position: relative; */
+		/* 		width: 350px; */
+		/* } */
+		/* .ember-modal-wrapper { */
+		/* 		width: 100%; */
+		/* 		position: relative; */
+		/* } */
+		/* .ember-modal-overlay { */
+		/* 		position: absolute; */
+		/* } */
+		/* .link-character .title { */
+		/* 		width: 100%; */
+		/* } */
 }
