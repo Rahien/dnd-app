@@ -25,14 +25,13 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
     if not current
       current =
         left: Ember.ArrayProxy.create content: [
-          { kind: "char-attacks" },
-          { kind: "char-profs" },
-          { kind: "char-inventory" },
+          { kind: "char-attacks", title: "Attacks" },
+          { kind: "char-profs", title: "Proficiencies" },
+          { kind: "char-inventory", title: "Gear" },
           { kind: "specced", title: "Wealth", content: "wealth" }
         ]
         right: Ember.ArrayProxy.create content: [
           { kind: "specced", title: "Features and Traits", content: "traits" },
-          { kind: "specced", title: "Feats", content: "feats" },
           { kind: "specced", title: "Spells", content: "spells" },
           { kind: "specced", title: "Short Description", content: "description" }
         ]
@@ -122,6 +121,31 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
         blocks = Ember.get(blocks,'left')
 
       blocks.insertAt(index+1,block)
-      
+    delete: ->
+      Ember.$.ajax "/dnd/api/char/#{@get('_id')}",
+        method: "DELETE"
+        success: =>
+          @transitionToRoute 'chars'
+        error: =>
+          @sendMessage 'error', "Could not remove character!"
+    goTo: ->
+      @set 'selectFind', true
+      false
+    confirmMove: (positionSpec) ->
+      scrollTarget = null
+      if positionSpec.kind == "words"
+        scrollTarget = Ember.$(":Contains(#{positionSpec.search}):not(:has(*))").filter("span, div, p")
+      else if positionSpec.kind.indexOf("char-") == 0
+        scrollTarget = Ember.$(".#{positionSpec.kind.substring(5)}")
+      else
+        scrollTarget = Ember.$(".#{positionSpec.content}")
+      if scrollTarget?[0]
+        $('html, body').animate
+          scrollTop: Math.max(0, scrollTarget.offset().top-100)
+        , 1000
+      else
+        @sendMessage 'error', 'Not found',
+          autoClose: 3000
+      @set 'selectFind', false
 
 `export default CharController`

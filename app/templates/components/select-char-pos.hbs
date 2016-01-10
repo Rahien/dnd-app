@@ -1,0 +1,18 @@
+<div class="title">
+	Where would you like to go?
+</div>
+<div class="info">
+	Please select the kind of thing you are looking for
+</div>
+<select onchange={{action (mut findType) value="target.value"}}>
+	{{#each findTypes as |type|}}
+    <option value={{type.index}} selected={{eq findType type.index}}>{{type.title}}</option>
+	{{/each}}
+</select>
+{{#if showExtra}}
+	<span class="label">Looks like</span>{{input value=title enter="confirm"}}
+{{/if}}
+<div class="buttons">
+	<div class="button {{if canConfirm 'enabled' 'disabled'}}" {{action "confirm"}}>confirm</div>
+	<div class="button" {{action "cancel"}}>cancel</div>
+</div>

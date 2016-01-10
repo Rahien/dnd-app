@@ -21,12 +21,20 @@ ApplicationController = Ember.Controller.extend
   removeMessage: (message) ->
     @get('messages').removeObject message
   actions:
-    showButtons: ->
-      @set 'showButtons', not @get('showButtons')
+    showButtons: (value) ->
+      if Ember.isNone(value)
+        @set 'showButtons', not @get('showButtons')
+      else
+        @set 'showButtons', value
+      false
+
     toHome: ->
       @transitionToRoute 'index'
-    toggleMenu: ->
-      @set 'showMenu', (not @get('showMenu'))
+    toggleMenu: (value) ->
+      if Ember.isNone(value)
+        @set 'showMenu', (not @get('showMenu'))
+      else
+        @set 'showMenu', value
       false
     logout: ->
       @get('session').invalidate()

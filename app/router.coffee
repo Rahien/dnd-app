@@ -3,11 +3,6 @@
 
 Router = Ember.Router.extend
   location: config.locationType
-  clearMenu: Ember.on 'didTransition', ->
-    # TODO another reason to switch away from controllers to components
-    applicationController = @container.lookup('controller:application')
-    if applicationController
-  	  applicationController.set 'showButtons', false
 
 Router.map ->
   @route 'login', path: "/dnd/app"
@@ -21,5 +16,10 @@ Router.map ->
 
   @route 'index', path: "*badPath"
   @route 'index', path: "/"
+
+jQuery.expr[":"].Contains = jQuery.expr.createPseudo (arg) ->
+  ( elem ) ->
+    jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+
 
 `export default Router`

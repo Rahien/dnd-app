@@ -3,6 +3,10 @@
 		{{content-editable value=model.name editable=true}}
 	</div>
 	{{#ember-wormhole to="buttons"}}
+		<div class="button goto" {{action "goTo"}}>
+			<span>Find</span>
+			<i class="fa fa-search"></i>
+		</div>
 		<div class="button save" {{action "save"}}>
 			<span>save</span>
 			<i class="fa fa-cloud-upload"></i>
@@ -27,12 +31,14 @@
 		{{content-editable value=model.race tagName="span"}} {{content-editable value=model.class tagName="span"}} 
 	</div>
 	
-	<div class="level">
-		{{content-editable value=model.level}}
-	</div>
-	<div class="prof-bonus">
-		<span class="label">proficiency bonus</span>
-		<span class="value">{{model.profBonus}}</span>
+	<div class="prof-level">
+		<div class="level">
+			{{content-editable value=model.level}}
+		</div>
+		<div class="prof-bonus">
+			<span class="label">proficiency bonus</span>
+			<span class="value">{{model.profBonus}}</span>
+		</div>
 	</div>
 	<div class="image" title="click to change the image">
 		{{file-upload url="/dnd/api/image" didUpload="handleUpload"}}
@@ -76,6 +82,11 @@
 	{{#if selectNewBlock}}
 		{{#modal-dialog}}
 			{{select-char-block char=model confirmBlock="confirmNewBlock"}}
+		{{/modal-dialog}}
+	{{/if}}
+	{{#if selectFind}}
+		{{#modal-dialog}}
+			{{select-char-pos char=model confirmMove="confirmMove"}}
 		{{/modal-dialog}}
 	{{/if}}
 </div>

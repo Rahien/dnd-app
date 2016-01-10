@@ -1,7 +1,7 @@
 `import Ember from 'ember'`
 
 CharInventoryComponent = Ember.Component.extend
-  classNames: ["gear"]
+  classNames: ["gear inventory"]
        
   load: Ember.computed "char.gear.@each.weight", ->
     gear = @get 'char.gear'
