@@ -8,9 +8,13 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
     @_super(arguments...)
     # yes i know i should use components and get rid of controllers. will do later
     self = this
-    Ember.run.schedule "afterRender",this, ->
-      Ember.$('img').on 'error', ->
-        self.set 'model.image', "/assets/images/charimage.png"
+    Ember.run.schedule "afterRender",this, @fixImage
+  fixImage: ->
+    charImage = Ember.$('img')
+    if charImage[0].complete and charImage[0].naturalWidth == 0
+      self.set 'model.image', "/assets/images/charimage.png"
+    charImage.on 'error', ->
+      self.set 'model.image', "/assets/images/charimage.png"
   showSpells: Ember.computed "charBlocks.left.[]", "charBlocks.right.[]", ->
     left = @get 'charBlocks.left'
     right = @get 'charBlocks.right'
