@@ -244,6 +244,16 @@ body {
 		.stats {
 				width: 450px;
 				text-align: justify;
+				position: relative;
+				padding-bottom: 30px;
+
+				.create {
+						position: absolute;
+						bottom: -10px;
+						left: 0px;
+						top: auto;
+						display: none;
+				}
 				span.label {
 						font-weight: bold;
 				}
@@ -254,7 +264,8 @@ body {
 
 				.prop {
 						display:inline-block;
-				}		
+						line-height: 25px;
+				}
 				.prop:hover {
 						.delete {
 								display:inline-block;
@@ -437,7 +448,7 @@ body {
 				display:block;
 		}
 		.notes .title {
-				margin: 1em 0;
+				margin-bottom: 1em;
 		}
 
 		.left-side, .right-side {
