@@ -9,10 +9,5 @@ AuthRoute = Ember.Route.extend AuthenticatedRouteMixin,
       loginController.set 'attemptedTransition', transition
     
       @transitionTo 'login'
-    else
-      @get('session').authorize 'authorizer:oauth2', (headerName, headerValue) => 
-        headers = {}
-        headers[headerName] = headerValue
-        Ember.$.ajaxSetup(headers: headers)
 
 `export default AuthRoute`

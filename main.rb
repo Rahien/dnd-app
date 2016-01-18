@@ -98,13 +98,28 @@ class MyServer < Sinatra::Base
 
       id = pwdOk(user, pwd)
       if id
-        token = token! id
+        token, refresh = token! id
         {
           "access_token" => token,
           "token_type" => "bearer",
+          "refresh_token" => refresh,
           "expires_in" => TOKENTIMETOLIVE
         }.to_json
       else
+        halt 401, "Not authorized\n"
+      end
+    elsif params[:grant_type] == "refresh_token"
+      protected!
+      refreshToken = params[:refresh_token]
+      begin
+        token, refresh = refreshToken! refreshToken
+        {
+          "access_token" => token,
+          "token_type" => "bearer",
+          "refresh_token" => refresh,
+          "expires_in" => TOKENTIMETOLIVE
+        }.to_json
+      rescue
         halt 401, "Not authorized\n"
       end
     end
@@ -682,7 +697,7 @@ def ensureTokenIndices
     MONGOC[TOKENS].indexes.create_many([
       { key: { user: 1 }, unique: true, name: "tokens_main_index"},
       { key: { token: 1 }, unique: true, name: "tokens_unique_index"},
-      { key: { token: 1, user: 1, created: 1 }, name: "tokens_index"}
+      { key: { token: 1, user: 1, created: 1, refresh: 1 }, name: "tokens_index"}
     ])
   end
 end
@@ -711,11 +726,28 @@ end
 
 def token! (user)
   token = SecureRandom.uuid()
+  refresh = SecureRandom.uuid()
   existing = MONGOC[TOKENS].delete_many(user: user)
   puts "deleted #{existing} tokens..."
-  MONGOC[TOKENS].insert_one(user: user, token: token, created: (Time.new).to_i)
-  token
+  MONGOC[TOKENS].insert_one(user: user, token: token, refresh: refresh, created: (Time.new).to_i)
+  [token, refresh]
 end
+
+def refreshToken! (refresh)
+  found = MONGOC[TOKENS].find(refresh: refresh).projection({ token: 1, user: 1, created: 1, _id: 1 })
+  if found.count == 1
+    result = found.first()
+    if  ((Time.new).to_i) - result["created"] <= TOKENTIMETOLIVE
+      token, refresh = token! result["user"]
+      [token, refresh]
+    else
+      throw "could not refresh token"
+    end
+  else
+    throw "could not refresh token"
+  end
+end
+
 
 def addAllSpells
   rows = []
