@@ -136,6 +136,9 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
       false
     confirmMove: (positionSpec) ->
       scrollTarget = null
+      if not positionSpec
+        @set 'selectFind', false
+        return false
       if positionSpec.kind == "words"
         scrollTarget = Ember.$(":Contains(#{positionSpec.search}):not(:has(*))").filter("span, div, p")
       else if positionSpec.kind.indexOf("char-") == 0

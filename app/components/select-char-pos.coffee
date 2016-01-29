@@ -7,6 +7,8 @@ SelectCharPosComponent = Ember.Component.extend
     foundSpells = false
     blocks.push { kind: "words", title: "Words" }
     blocks.map (block, index) ->
+      if not Ember.get(block, 'title')
+        Ember.set(block, 'title', Ember.get(block, 'kind').replace("char-", ""))
       block.index = index
       block
   findType: 0

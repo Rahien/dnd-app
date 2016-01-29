@@ -6,7 +6,6 @@ $lighthighlight: #EAEAEA;
 body {
 		margin: 0;
 }
-
 .loading {
   font-size: 84px;
   margin: 40px;
@@ -23,9 +22,14 @@ body {
 		width: 960px;
 		margin: 0 auto;
 }
+.ember-modal-overlay {
+		z-index: 10002;
+    background-color: rgba(0,0,0,0.1);
+}
 .ember-modal-dialog {
 		position: relative;
-		width: 80%;
+		z-index: 10002;
+    width: 80%;
 		max-width: 960px;
 		margin-top: 0 !important;
 		top: 10% !important;
@@ -185,7 +189,7 @@ body {
 		.prof-bonus {
 				border: solid 6px black;
 				border-radius: 100px;
-				z-index: 10000;
+				z-index: 1000;
 				background-color: black;
 				top: 350px;
 				width: 120px;
@@ -1207,7 +1211,7 @@ body {
     top: 0;
     left: 0;
 		right: 0px;
-    z-index: 1000000000000;
+    z-index: 10000;
     margin-top: -55px;
 		overflow:hidden;
 		-webkit-transition: margin-top 1s;
@@ -1422,7 +1426,7 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-		z-index: 1000001;
+		z-index: 10001;
 
 		.message-wrap {
 				width: 100%;
@@ -2268,7 +2272,7 @@ body {
 						left: 0;
 						right: 0;
 						background-color: #111;
-						z-index: 9999999;
+						z-index: 10000;
 						width: auto;
 						overflow: hidden;
 				}

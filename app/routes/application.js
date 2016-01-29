@@ -4,7 +4,7 @@ var Route = Ember.Route.extend({
 	intl: Ember.inject.service(),
   session: Ember.inject.service('session'),
   observeSessionData: Ember.observer('session.data.authenticated.access_token', function(){
-			var newToken = this.get('session.data.authenticated.access_token');
+			this.get('session.data.authenticated.access_token');
 			this.get('session').authorize('authorizer:oauth2', function(headerName, headerValue){
 					var headers = {};
 					headers[headerName] = headerValue;
