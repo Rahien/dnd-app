@@ -3,3 +3,6 @@ PASS=secret
 MAIN_APP_FILE=main.rb
 TOKENTIME=3600
 MONGO=mongo:27017
+VIRTUAL_HOST=your.app.example.com
+LETSENCRYPT_HOST=your.app.example.com
+LETSENCRYPT_EMAIL=youremail@example.com

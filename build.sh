@@ -17,7 +17,6 @@ cp Gemfile "$dest/web/Gemfile"
 cp environment "$dest/environment"
 cp -r dist "$dest/web/public"
 cp manifest.json "$dest/web/public"
-cp -r certificates "$dest/web/certificates"
 cp spells.csv "$dest/web/spells.csv"
 cp docker-compose.yml "$dest/docker-compose.yml"
 

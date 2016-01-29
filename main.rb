@@ -6,20 +6,12 @@ require 'bcrypt'
 require 'sinatra/base'
 require 'webrick'
 require 'webrick/https'
-require 'openssl'
 require 'mongo'
 
-CERT_PATH = 'certificates/'
-
 webrick_options = {
-        :Port               => 8443,
+        :Port               => 80,
         :Logger             => WEBrick::Log::new($stderr, WEBrick::Log::DEBUG),
         :DocumentRoot       => "/ruby/htdocs",
-        :SSLEnable          => true,
-        :SSLVerifyClient    => OpenSSL::SSL::VERIFY_NONE,
-        :SSLCertificate     => OpenSSL::X509::Certificate.new(  File.open(File.join(CERT_PATH, "server.crt")).read),
-        :SSLPrivateKey      => OpenSSL::PKey::RSA.new(          File.open(File.join(CERT_PATH, "server.key")).read),
-        :SSLCertName        => [ [ "CN",WEBrick::Utils::getservername ] ]
 }
 
 MONGO = ENV["MONGO"] || "localhost:27017"

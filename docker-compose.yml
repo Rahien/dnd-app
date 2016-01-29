@@ -1,7 +1,7 @@
 dndWeb:
   image: erikap/ruby-sinatra
   ports:
-   - "8443:8443"
+   - "80:80"
   volumes:
    - "./web:/usr/src/app"
   env_file:
