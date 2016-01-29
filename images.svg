@@ -28,10 +28,10 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="869"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-width="1920"
+     inkscape:window-height="1033"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1" />
   <defs
      id="defs4">
@@ -823,6 +823,23 @@
          scale="30"
          in="SourceGraphic" />
     </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3194-0">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/initiative.png"
+         transform="matrix(0.7607757,0,0,0.7226889,274.38076,73.70681)"
+         d="m 296.42857,674.86218 a 41.42857,41.42857 0 1 1 -82.85714,0 41.42857,41.42857 0 1 1 82.85714,0 z"
+         sodipodi:ry="41.42857"
+         sodipodi:rx="41.42857"
+         sodipodi:cy="674.86218"
+         sodipodi:cx="255"
+         id="path3196-7"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.31428552;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:type="arc" />
+    </clipPath>
   </defs>
   <metadata
      id="metadata7">
@@ -832,7 +849,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2084,6 +2101,180 @@
                sodipodi:type="arc" />
           </g>
         </g>
+      </g>
+    </g>
+    <g
+       transform="matrix(3.84,0,0,3.84,-2781.5702,-1927.4214)"
+       id="g3654-7"
+       inkscape:export-filename="/home/karel/source/personal/dnd-app/public/assets/images/icon-high.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:type="arc"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.31428552;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3064-1-8-2-5-54"
+         sodipodi:cx="255"
+         sodipodi:cy="674.86218"
+         sodipodi:rx="41.42857"
+         sodipodi:ry="41.42857"
+         d="m 296.42857,674.86218 c 0,22.88037 -18.5482,41.42857 -41.42857,41.42857 -22.88037,0 -41.42857,-18.5482 -41.42857,-41.42857 0,-22.88036 18.5482,-41.42857 41.42857,-41.42857 22.88037,0 41.42857,18.54821 41.42857,41.42857 z"
+         transform="matrix(0.58023875,0,0,0.58023875,367.75116,154.95932)"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         clip-path="url(#clipPath3194-0)"
+         transform="matrix(0.69191867,0,0,0.67118751,191.63147,169.89236)"
+         id="g3153-9">
+        <path
+           transform="matrix(1.2152202,0,0,1.2152202,-100.55854,-117.47359)"
+           sodipodi:type="arc"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="path3127-5"
+           sodipodi:cx="467.2355"
+           sodipodi:cy="545.82965"
+           sodipodi:rx="6.993546"
+           sodipodi:ry="6.993546"
+           d="m 474.22905,545.82965 c 0,3.86243 -3.13112,6.99355 -6.99355,6.99355 -3.86242,0 -6.99354,-3.13112 -6.99354,-6.99355 0,-3.86243 3.13112,-6.99355 6.99354,-6.99355 3.86243,0 6.99355,3.13112 6.99355,6.99355 z" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="path3129-5"
+           sodipodi:cx="468.90063"
+           sodipodi:cy="578.79919"
+           sodipodi:rx="18.649456"
+           sodipodi:ry="14.653145"
+           d="m 487.55009,578.79919 c 0,8.09271 -8.34965,14.65315 -18.64946,14.65315 -10.29981,0 -18.64945,-6.56044 -18.64945,-14.65315 0,-8.0927 8.34964,-14.65314 18.64945,-14.65314 10.29981,0 18.64946,6.56044 18.64946,14.65314 z"
+           transform="matrix(1.13109,0,0,0.99006511,-62.645605,2.9244865)" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="path3133-8"
+           sodipodi:cx="471.67636"
+           sodipodi:cy="585.16003"
+           sodipodi:rx="29.435619"
+           sodipodi:ry="9.8903675"
+           d="m 501.11198,585.16003 c 0,5.4623 -13.17878,9.89037 -29.43562,9.89037 -16.25684,0 -29.43562,-4.42807 -29.43562,-9.89037 0,-5.46229 13.17878,-9.89036 29.43562,-9.89036 16.25684,0 29.43562,4.42807 29.43562,9.89036 z"
+           transform="translate(-3.2967893,2.3548495)" />
+      </g>
+    </g>
+    <g
+       id="g3680"
+       transform="matrix(1.92,0,0,1.92,-1839.4031,-690.06362)"
+       inkscape:export-filename="/home/karel/source/personal/dnd-app/public/assets/images/icon-mid.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         transform="matrix(0.58023875,0,0,0.58023875,367.75116,154.95932)"
+         d="m 296.42857,674.86218 c 0,22.88037 -18.5482,41.42857 -41.42857,41.42857 -22.88037,0 -41.42857,-18.5482 -41.42857,-41.42857 0,-22.88036 18.5482,-41.42857 41.42857,-41.42857 22.88037,0 41.42857,18.54821 41.42857,41.42857 z"
+         sodipodi:ry="41.42857"
+         sodipodi:rx="41.42857"
+         sodipodi:cy="674.86218"
+         sodipodi:cx="255"
+         id="path3682"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.31428552;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <g
+         id="g3684"
+         transform="matrix(0.69191867,0,0,0.67118751,191.63147,169.89236)"
+         clip-path="url(#clipPath3194-0)"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90">
+        <path
+           d="m 474.22905,545.82965 c 0,3.86243 -3.13112,6.99355 -6.99355,6.99355 -3.86242,0 -6.99354,-3.13112 -6.99354,-6.99355 0,-3.86243 3.13112,-6.99355 6.99354,-6.99355 3.86243,0 6.99355,3.13112 6.99355,6.99355 z"
+           sodipodi:ry="6.993546"
+           sodipodi:rx="6.993546"
+           sodipodi:cy="545.82965"
+           sodipodi:cx="467.2355"
+           id="path3686"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:type="arc"
+           transform="matrix(1.2152202,0,0,1.2152202,-100.55854,-117.47359)" />
+        <path
+           transform="matrix(1.13109,0,0,0.99006511,-62.645605,2.9244865)"
+           d="m 487.55009,578.79919 c 0,8.09271 -8.34965,14.65315 -18.64946,14.65315 -10.29981,0 -18.64945,-6.56044 -18.64945,-14.65315 0,-8.0927 8.34964,-14.65314 18.64945,-14.65314 10.29981,0 18.64946,6.56044 18.64946,14.65314 z"
+           sodipodi:ry="14.653145"
+           sodipodi:rx="18.649456"
+           sodipodi:cy="578.79919"
+           sodipodi:cx="468.90063"
+           id="path3688"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:type="arc" />
+        <path
+           transform="translate(-3.2967893,2.3548495)"
+           d="m 501.11198,585.16003 c 0,5.4623 -13.17878,9.89037 -29.43562,9.89037 -16.25684,0 -29.43562,-4.42807 -29.43562,-9.89037 0,-5.46229 13.17878,-9.89036 29.43562,-9.89036 16.25684,0 29.43562,4.42807 29.43562,9.89036 z"
+           sodipodi:ry="9.8903675"
+           sodipodi:rx="29.435619"
+           sodipodi:cy="585.16003"
+           sodipodi:cx="471.67636"
+           id="path3690"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           sodipodi:type="arc" />
+      </g>
+    </g>
+    <g
+       transform="matrix(0.96,0,0,0.96,-1368.3195,-41.384731)"
+       id="g3692"
+       inkscape:export-filename="/home/karel/source/personal/dnd-app/public/assets/images/icon-low.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:type="arc"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.31428552;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3694"
+         sodipodi:cx="255"
+         sodipodi:cy="674.86218"
+         sodipodi:rx="41.42857"
+         sodipodi:ry="41.42857"
+         d="m 296.42857,674.86218 c 0,22.88037 -18.5482,41.42857 -41.42857,41.42857 -22.88037,0 -41.42857,-18.5482 -41.42857,-41.42857 0,-22.88036 18.5482,-41.42857 41.42857,-41.42857 22.88037,0 41.42857,18.54821 41.42857,41.42857 z"
+         transform="matrix(0.58023875,0,0,0.58023875,367.75116,154.95932)"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/karel/source/mongo-dnd5/public/assets/images/charsheets/character.png"
+         clip-path="url(#clipPath3194-0)"
+         transform="matrix(0.69191867,0,0,0.67118751,191.63147,169.89236)"
+         id="g3696">
+        <path
+           transform="matrix(1.2152202,0,0,1.2152202,-100.55854,-117.47359)"
+           sodipodi:type="arc"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="path3698"
+           sodipodi:cx="467.2355"
+           sodipodi:cy="545.82965"
+           sodipodi:rx="6.993546"
+           sodipodi:ry="6.993546"
+           d="m 474.22905,545.82965 c 0,3.86243 -3.13112,6.99355 -6.99355,6.99355 -3.86242,0 -6.99354,-3.13112 -6.99354,-6.99355 0,-3.86243 3.13112,-6.99355 6.99354,-6.99355 3.86243,0 6.99355,3.13112 6.99355,6.99355 z" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="path3700"
+           sodipodi:cx="468.90063"
+           sodipodi:cy="578.79919"
+           sodipodi:rx="18.649456"
+           sodipodi:ry="14.653145"
+           d="m 487.55009,578.79919 c 0,8.09271 -8.34965,14.65315 -18.64946,14.65315 -10.29981,0 -18.64945,-6.56044 -18.64945,-14.65315 0,-8.0927 8.34964,-14.65314 18.64945,-14.65314 10.29981,0 18.64946,6.56044 18.64946,14.65314 z"
+           transform="matrix(1.13109,0,0,0.99006511,-62.645605,2.9244865)" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="path3702"
+           sodipodi:cx="471.67636"
+           sodipodi:cy="585.16003"
+           sodipodi:rx="29.435619"
+           sodipodi:ry="9.8903675"
+           d="m 501.11198,585.16003 c 0,5.4623 -13.17878,9.89037 -29.43562,9.89037 -16.25684,0 -29.43562,-4.42807 -29.43562,-9.89037 0,-5.46229 13.17878,-9.89036 29.43562,-9.89036 16.25684,0 29.43562,4.42807 29.43562,9.89036 z"
+           transform="translate(-3.2967893,2.3548495)" />
       </g>
     </g>
   </g>
