@@ -859,9 +859,19 @@ body {
 						top: 8px;
 						border: solid 1px white;
 				}
+				.toggle-spell-detail.round-button {
+						position: absolute;
+						display:none;
+						right: 37px;
+						top: 8px;
+						border: solid 1px white;
+				}
 		}
 		.spell-detail:hover {
 				.add-spell-group.round-button {
+						display: block;
+				}
+				.toggle-spell-detail.round-button {
 						display: block;
 				}
 		}
@@ -922,9 +932,11 @@ body {
     background-color: black;
     color: white;
     padding-bottom: 0.5em;
-    margin-bottom: 0.3em !important;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
+}
+.spell .action {
+    margin-top: 0.3em !important;
 }
 
 .spell > *:first-child:after {
@@ -1035,6 +1047,12 @@ body {
 				position: absolute;
 				top: 8px;
 				right: 0px;
+				z-index: 10;
+		}
+		.round-button.group-size {
+				position: absolute;
+				top: 6px;
+				right: 0;
 		}
 
 		.spell-group:hover .spell-group-controls {

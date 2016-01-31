@@ -2,6 +2,7 @@
 
 CharSpellBookComponent = Ember.Component.extend
   classNames: ["spells","spell-detail"]
+  showDetails: true
   spellGroups: Ember.computed 'char.spellGroups', 'spells', ->
     spells = @get 'spells'
     spellgroups = @get 'char.spellGroup'
@@ -21,6 +22,12 @@ CharSpellBookComponent = Ember.Component.extend
       groups.addObject
         title: "Spells"
         spells: []
+      Ember.run.later ->
+        target = Ember.$(".spell-group").last()
+        $('html, body').animate
+          scrollTop: Math.max(0, target.offset().top-100)
+        , 1000
+
     addSpell: (group) ->
       @set 'showModal', true
       @set 'targetGroup', group
@@ -80,5 +87,9 @@ CharSpellBookComponent = Ember.Component.extend
       spells = @get 'spells'
       s = spells[group.title.trim()]
       s.removeObject spell
+    toggleSpellDetail: ->
+      @toggleProperty 'showDetails'
+    toggleGroup: (group) ->
+      Ember.set(group, 'open', !Ember.get(group, 'open'))
 
 `export default CharSpellBookComponent`
