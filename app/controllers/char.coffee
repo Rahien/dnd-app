@@ -125,7 +125,7 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
 
       blocks.insertAt(index+1,block)
     delete: ->
-      Ember.$.ajax "/dnd/api/char/#{@get('_id')}",
+      Ember.$.ajax "/dnd/api/char/#{@get('model._id')}",
         method: "DELETE"
         success: =>
           @transitionToRoute 'chars'
