@@ -1223,6 +1223,9 @@ body {
 		}
 
 }
+a.downloadlocation, input.uploadInput {
+		display: none;
+}
 
 .header {
 		position: fixed;
@@ -1276,11 +1279,6 @@ body {
 
 				span:first-child {
 						padding-right: 6px;
-				}
-		}
-		#buttons {
-				a.downloadlocation, input.uploadInput {
-						display: none;
 				}
 		}
 

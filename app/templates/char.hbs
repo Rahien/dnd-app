@@ -1,4 +1,6 @@
 <div class="character">
+	<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
+	<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
 	<div class="name">
 		{{content-editable value=model.name editable=true}}
 	</div>
@@ -15,12 +17,10 @@
 			<span>download</span>
 			<i class="fa fa-download"></i>
 		</div>
-		<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
 		<div class="button upload" {{action "upload"}}>
 			<span>from file</span>
 			<i class="fa fa-file-text-o"></i>
 		</div>
-		<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
 		<div class="button delete" {{action "delete"}}>
 			<span>remove</span>
 			<i class="fa fa-user-times"></i>
