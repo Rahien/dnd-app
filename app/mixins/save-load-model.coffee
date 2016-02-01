@@ -8,7 +8,7 @@ SaveLoadModelMixin = Ember.Mixin.create
     upload: ->
       Ember.$('.uploadInput').click()
     doUpload: ->
-      input = Ember.$('#buttons input.uploadInput')[0]
+      input = Ember.$('input.uploadInput')[0]
       file = input.files[0]
       onError = =>
         @sendMessage 'error', "Sorry, could not read the file"

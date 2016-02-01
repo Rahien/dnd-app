@@ -46,7 +46,10 @@ Char = Ember.Object.extend
     Math.floor((level-1)/4)+2
   serialize: ->
     simplify = JSON.stringify(this)
-    JSON.parse(simplify)
+    json = JSON.parse(simplify)
+    json.charBlocks.left = @get('charBlocks.left.content')
+    json.charBlocks.right = @get('charBlocks.right.content')
+    json
   strmod: Ember.computed "abilities.str", ->
     @mod("str")
   dexmod: Ember.computed "abilities.dex", ->
