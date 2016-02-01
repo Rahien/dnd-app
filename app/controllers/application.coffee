@@ -10,7 +10,7 @@ ApplicationController = Ember.Controller.extend
 
   messages: null
   menuShow: Ember.computed 'showMenu', 'currentRouteName', ->
-    if @get('currentRouteName') == "login"
+    if (@get('currentRouteName') == "login") or (@get('currentRouteName') == "register")
       return "hide"
     if @get('showMenu')
       "show"
