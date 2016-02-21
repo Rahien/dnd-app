@@ -119,6 +119,8 @@ CompareCharactersComponent = Ember.Component.extend SendMessage,
     unlinkCharacter: (char) ->
       @sendAction "unlinkCharacter", char
     removeProperty: (prop) ->
+      if @get('selectedProperties.length') <= 1
+        return false
       @get('selectedOrder').removeObject(prop.id)
       @get('defaultOrder').removeObject(prop.id)
       @get('selectedProperties').removeObject(prop.id)
