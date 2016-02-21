@@ -15,7 +15,7 @@ Monster.getDefault = ->
       int: 8
       wis: 12
       cha: 4
-    size: "small"
+    size: "Small"
     type: "beast"
     alignment: "chaotic neutral"
     ac: 12

@@ -1,13 +1,30 @@
 {{#each monsters as |monster|}}
   <div class="monster">
-    <div class="name">
-      {{content-editable value=monster.name editable=true}}
+    <div class="head">
+      <div class="name">
+        {{content-editable value=monster.name editable=true}}
+      </div>
+      <div class="about">
+        {{content-editable title="Size" class="size" value=monster.size editable=true}}
+        {{content-editable title="Type" class="type" value=monster.type editable=true}}
+        {{content-editable title="Alignment" class="alignment" value=monster.alignment editable=true}}
+      </div>
     </div>
-    <div class="about">
-      {{content-editable value=monster.size editable=true}}
-      {{content-editable value=monster.type editable=true}}
-      {{content-editable value=monster.alignment editable=true}}
+    <div class="basic">
+      <div class="stat">
+        <span class="label">Armor Class</span>
+        {{content-editable value=monster.ac editable=true}}
+      </div>
+      <div class="stat">
+        <span class="label">Hit Points</span>
+        {{content-editable value=monster.hp editable=true}}
+      </div>
+      <div class="stat">
+        <span class="label">Speed</span>
+        {{content-editable value=monster.speed editable=true}}
+      </div>
     </div>
+	  {{char-kpis char=monster showDef=false showLife=false showPerception=false}}
 	  {{char-stats char=monster}}
     {{free-block content=monster.traits classNames="traits"}}
     {{free-block title="Actions" content=monster.actions classNames="actions"}}

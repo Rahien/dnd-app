@@ -36,10 +36,10 @@
 		{{/unless}}
 	</div>
 	<div class="players {{if showPlayers 'open'}}">
-		<div class="title">
+		<div class="title" {{action "togglePlayers"}}>
 			<span>Players</span>
 			<div class="round-button addPlayer" {{action "addPlayer" bubbles=false}}><i class="fa fa-user-plus"></i></div>
-			<div class="round-button togglePlayers" {{action "togglePlayers" bubbles=false}}><i class="fa {{if showPlayers 'fa-eye-slash' 'fa-eye'}}"></i></div>
+			<div class="round-button togglePlayers"><i class="fa {{if showPlayers 'fa-eye-slash' 'fa-eye'}}"></i></div>
 		</div>
     {{#if showPlayers}}
 		  <div class="playerList">
@@ -52,10 +52,10 @@
     {{/if}}
 	</div>
 	<div class="monsters {{if showMonsters 'open'}}">
-		<div class="title">
+		<div class="title" {{action "toggleMonsters"}}>
 			<span>Monsters</span>
 			<div class="round-button addMonster" {{action "addMonster" bubbles=false}}><i class="fa fa-paw"></i></div>
-			<div class="round-button toggleMonsters" {{action "toggleMonsters" bubbles=false}}><i class="fa {{if showMonsters 'fa-eye-slash' 'fa-eye'}}"></i></div>
+			<div class="round-button toggleMonsters"><i class="fa {{if showMonsters 'fa-eye-slash' 'fa-eye'}}"></i></div>
 		</div>
     {{#if showMonsters}}
 		  <div class="monsterList">

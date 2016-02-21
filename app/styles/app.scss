@@ -1834,23 +1834,78 @@ a.downloadlocation, input.uploadInput {
 				color: #666;
 				font-style: italic;
 		}
-		td {
-				position: relative;
-				.round-button {
-						display:none;
-						position: absolute;
-						top: 3px;
-						right: 3px;
-						border: solid 2px white;
-						width: 19px;
-						height: 19px;
-						line-height: 19px;
-						font-size: 14px;
-				}
-		}
-		td:hover .round-button {
-				display: block;
-		}
+    .players {
+		    td {
+				    position: relative;
+				    .round-button {
+						    display:none;
+						    position: absolute;
+						    top: 3px;
+						    right: 3px;
+						    border: solid 2px white;
+						    width: 19px;
+						    height: 19px;
+						    line-height: 19px;
+						    font-size: 14px;
+				    }
+		    }
+		    td:hover .round-button {
+				    display: block;
+		    }
+		    td {
+				    text-align: center;
+				    border: solid 3px black;
+				    background-color: white;
+				    input {
+						    width: 100%;
+						    height: 100%;
+						    overflow: hidden;
+						    text-overflow: ellipsis;
+						    outline: none;
+						    text-align: center;
+						    font-size: 10px;
+				    }
+		    }
+
+		    td:first-child {
+				    background-color: black;
+				    border: none;
+		    }
+
+		    th, td {
+				    text-overflow: ellipsis;
+				    overflow: hidden;
+		    }
+		    th:first-child, td:first-child {
+		    }
+
+		    th {
+				    vertical-align: bottom;
+				    text-align: center;
+				    color: white;
+				    padding: 10px 0;
+				    position: relative;
+				    .round-button:nth-child(2) {
+						    right: auto;
+						    left: 3px;
+				    }
+				    .round-button {
+						    display: none;
+						    position: absolute;
+						    top: 2px;
+						    right: 3px;
+						    border: solid 2px white;
+						    width: 20px;
+						    height: 20px;
+						    line-height: 20px;
+						    font-size: 14px;
+				    }
+		    }
+		    th:hover .round-button {
+				    display: block;
+		    }
+
+    }
 		span.tagname {
 				border: solid 3px white;
 				display: block;
@@ -1872,59 +1927,6 @@ a.downloadlocation, input.uploadInput {
 		table.comparison {
 				background-color: black;
 				font-size: 10px;
-		}
-
-		td {
-				text-align: center;
-				border: solid 3px black;
-				background-color: white;
-				input {
-						width: 100%;
-						height: 100%;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						outline: none;
-						text-align: center;
-						font-size: 10px;
-				}
-		}
-
-		td:first-child {
-				background-color: black;
-				border: none;
-		}
-
-		th, td {
-				text-overflow: ellipsis;
-				overflow: hidden;
-		}
-		th:first-child, td:first-child {
-		}
-
-		th {
-				vertical-align: bottom;
-				text-align: center;
-				color: white;
-				padding: 10px 0;
-				position: relative;
-				.round-button:nth-child(2) {
-						right: auto;
-						left: 3px;
-				}
-				.round-button {
-						display: none;
-						position: absolute;
-						top: 2px;
-						right: 3px;
-						border: solid 2px white;
-						width: 20px;
-						height: 20px;
-						line-height: 20px;
-						font-size: 14px;
-				}
-		}
-		th:hover .round-button {
-				display: block;
 		}
 
 		.description .title {
@@ -1955,26 +1957,32 @@ a.downloadlocation, input.uploadInput {
 		.players, .monsters {
 		}
     .monsters {
-        .monsterList {
-            background-color: black;
-            color: white;
-        }
-
         .monsterList .round-button {
             border: solid 1px white;
         }
 
-        .monster span.value {
-            background-color: inherit;
+        .monster {
+            padding: 0 10px;
+            span.value {
+                background-color: inherit;
+            }
+            .name {
+                margin: 0;
+            }
+            .head {
+                padding: 10px 0;
+            }
+
+            .type:after {
+                content: ",";
+                margin-left: -3px;
+            }
+
+            .head .about > * {
+                display: inline-block;
+                font-style: italic;
+            }
         }
-    }
-    .monsters .drawer {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-        right: 0;
-        left: auto;
     }
 		.drawer {
         -moz-user-select: none;
