@@ -1895,14 +1895,10 @@ a.downloadlocation, input.uploadInput {
 		}
 
 		th, td {
-				width: 50px;
 				text-overflow: ellipsis;
 				overflow: hidden;
-				max-width: 50px;
 		}
 		th:first-child, td:first-child {
-				max-width: 100px;
-				width: 100px;
 		}
 
 		th {
@@ -1957,14 +1953,8 @@ a.downloadlocation, input.uploadInput {
 		}
 
 		.players, .monsters {
-				position: absolute;
-				top: 70px;
-				right: 10px;
-				margin: 20px 0;
 		}
     .monsters {
-        left: 10px;
-        right: auto;
         .monsterList {
             background-color: black;
             color: white;
@@ -2003,13 +1993,6 @@ a.downloadlocation, input.uploadInput {
 				cursor: col-resize;
 		}
 		.playerList, .monsterList {
-				margin-left: 45px;
-				max-width: 0px;
-				overflow: hidden;
-				-webkit-transition: max-width 1s;
-				-o-transition: max-width 1s;
-				-moz-transition: max-width 1s;
-				transition: max-width 1s;
 
 		}
     .monsterList {
@@ -2017,36 +2000,45 @@ a.downloadlocation, input.uploadInput {
         margin-right: 45px;
     }
 		.players.open .playerList, .monsters.open .monsterList {
-				max-width: 1000px;
 		}
 
-		.drawer span {
-				transform: rotate(-90deg) translate(50%);
-				-webkit-transform: rotate(-90deg);
-				-moz-transform: rotate(-90deg);
-				font-family: 'Cinzel Decorative', cursive;
-				font-weight: bold;
-				display: block;
-				top: 50%;
-				position: absolute;
-				transform-origin: 0 50%;
-				-webkit-transform-origin: 0 50%;
-				-moz-transform-origin: 0 50%;
-				margin-left: 55%;
-				margin-top: 50%;
-		}
+    .playerList, .monsterList {
+        table {
+            width: 100%;
+            td:first-child,  th:first-child {
 
-		.addPlayer, .addMonster {
-				top: 7px;
+            }
+        }
+    }
+    .players .title, .monsters .title {
+        background-color: black;
+        color: white;
+        padding: 0.5em;
+        font-size: 25px;
+        font-family: 'Cinzel Decorative', cursive;
+        font-weight: bold;
+        border: solid 1px white;
+        border-width: 0 0 2px 0;
+    }
+
+    .players, .monsters {
+        border-radius: 10px;
+        border: solid 0px black;
+        overflow: hidden;
+        padding-bottom: 20px;
+    }
+
+		.addPlayer, .togglePlayers, .toggleMonsters, .addMonster {
+				top: -4px;
 				left: 8px;
 				border: solid 1px white;
 				display: none;
 		}
 
-		.addPlayer:hover, .addMonster:hover {
+		.addPlayer:hover, .addMonster:hover, .togglePlayers:hover, .toggleMonsters:hover {
 				background-color: $darkhighlight;
 		}
-		.drawer:hover .addPlayer, .drawer:hover .addMonster {
+		.title:hover .addPlayer, .title:hover .addMonster, .title:hover .togglePlayers, .title:hover .toggleMonsters {
 				display: inline-block;
 		}
 		.emptymessage {

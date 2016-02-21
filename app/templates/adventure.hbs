@@ -29,37 +29,43 @@
 	<div class="meta">
 		Created by {{model.owner.name}} on {{format-date model.date day="numeric" month="long" year="numeric"}}
 	</div>
-	<div class="players {{if showPlayers 'open'}}">
-		<div class="drawer" {{action "togglePlayers"}}>
-			<span>Players</span>
-			<div class="round-button addPlayer" {{action "addPlayer" bubbles=false}}><i class="fa fa-user-plus"></i></div>
-		</div>
-		<div class="playerList">
-			{{#if hasPlayers}}
-				{{compare-characters characters=model.chars additionalProperties=model.additionalProperties selectedProperties=model.selectedProperties unlinkCharacter="unlinkCharacter" showMessage="showMessage"}}
-			{{else}}
-				<div class="emptymessage">No players yet!</div>
-			{{/if}}
-		</div>
-	</div>
-	<div class="monsters {{if showMonsters 'open'}}">
-		<div class="monsterList">
-			{{#if hasMonsters}}
-        {{monster-list monsters=model.monsters}}
-			{{else}}
-				<div class="emptymessage">No monsters yet!</div>
-			{{/if}}
-		</div>
-		<div class="drawer" {{action "toggleMonsters"}}>
-			<span>Monsters</span>
-			<div class="round-button addMonster" {{action "addMonster" bubbles=false}}><i class="fa fa-paw"></i></div>
-		</div>
-	</div>
 	<div class="content">
 		{{free-block title="Adventure description" content=model.description classNames="description" placeholder="No description yet"}}
 		{{#unless noDmNotes}}
 			{{free-block title="DM Notes" content=model.dmNotes classNames="dmNotes" placeholder="No notes yet"}}
 		{{/unless}}
+	</div>
+	<div class="players {{if showPlayers 'open'}}">
+		<div class="title">
+			<span>Players</span>
+			<div class="round-button addPlayer" {{action "addPlayer" bubbles=false}}><i class="fa fa-user-plus"></i></div>
+			<div class="round-button togglePlayers" {{action "togglePlayers" bubbles=false}}><i class="fa {{if showPlayers 'fa-eye-slash' 'fa-eye'}}"></i></div>
+		</div>
+    {{#if showPlayers}}
+		  <div class="playerList">
+			  {{#if hasPlayers}}
+				  {{compare-characters characters=model.chars additionalProperties=model.additionalProperties selectedProperties=model.selectedProperties unlinkCharacter="unlinkCharacter" showMessage="showMessage"}}
+			  {{else}}
+				  <div class="emptymessage">No players yet!</div>
+			  {{/if}}
+		  </div>
+    {{/if}}
+	</div>
+	<div class="monsters {{if showMonsters 'open'}}">
+		<div class="title">
+			<span>Monsters</span>
+			<div class="round-button addMonster" {{action "addMonster" bubbles=false}}><i class="fa fa-paw"></i></div>
+			<div class="round-button toggleMonsters" {{action "toggleMonsters" bubbles=false}}><i class="fa {{if showMonsters 'fa-eye-slash' 'fa-eye'}}"></i></div>
+		</div>
+    {{#if showMonsters}}
+		  <div class="monsterList">
+			  {{#if hasMonsters}}
+          {{monster-list monsters=model.monsters}}
+			  {{else}}
+				  <div class="emptymessage">No monsters yet!</div>
+			  {{/if}}
+		  </div>
+    {{/if}}
 	</div>
 </div>
 {{#if showModal}}
