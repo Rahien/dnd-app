@@ -1,56 +1,59 @@
 <div class="lifedefenses">
+  {{#if showDef}}
+	  <div class="defenses">
+		  <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+			  <tbody>
+				  <tr>
+					  {{content-editable value=char.ac.armor tagName="td"}}
+				  </tr>
+				  <tr>
+					  <td>Armor Class</td>
+				  </tr>
+				  <tr>
+					  {{content-editable value=char.ac.noArmor tagName="td"}}
+				  </tr>
+				  <tr>
+					  <td>AC - no armor</td>
+				  </tr>
+			  </tbody>
+		  </table>
+	  </div>
+  {{/if}}
+  {{#if showLife}}
+	  <div class="life">
+		  <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+			  <tbody>
+				  <tr>
+					  <td class="left">HP</td>
+					  {{content-editable value=char.hp.total tagName="td"}}
+					  {{content-editable value=char.hp.current tagName="td"}}
+				  </tr>
 
-	<div class="defenses">
-		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-			<tbody>
-				<tr>
-					{{content-editable value=char.ac.armor tagName="td"}}
-				</tr>
-				<tr>
-					<td>Armor Class</td>
-				</tr>
-				<tr>
-					{{content-editable value=char.ac.noArmor tagName="td"}}
-				</tr>
-				<tr>
-					<td>AC - no armor</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="life">
-		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-			<tbody>
-				<tr>
-					<td class="left">HP</td>
-					{{content-editable value=char.hp.total tagName="td"}}
-					{{content-editable value=char.hp.current tagName="td"}}
-				</tr>
+				  <tr>
+					  <td class="left"></td>
+					  <td class="left">Total</td>
+					  <td class="left">Rem.</td>
+				  </tr>
+			  </tbody>
+		  </table>
 
-				<tr>
-					<td class="left"></td>
-					<td class="left">Total</td>
-					<td class="left">Rem.</td>
-				</tr>
-			</tbody>
-		</table>
+		  <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+			  <tbody>
+				  <tr>
+					  <td class="left">HD</td>
+					  {{content-editable value=char.hd.total tagName="td"}}
+					  {{content-editable value=char.hd.current tagName="td"}}
+				  </tr>
 
-		<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-			<tbody>
-				<tr>
-					<td class="left">HD</td>
-					{{content-editable value=char.hd.total tagName="td"}}
-					{{content-editable value=char.hd.current tagName="td"}}
-				</tr>
-
-				<tr>
-					<td class="left"></td>
-					<td class="right">Total</td>
-					<td class="left">Rem.</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+				  <tr>
+					  <td class="left"></td>
+					  <td class="right">Total</td>
+					  <td class="left">Rem.</td>
+				  </tr>
+			  </tbody>
+		  </table>
+	  </div>
+  {{/if}}
 </div>
 
 <div class="abilities">
@@ -82,8 +85,10 @@
 	
 </div>
 
-<div class="percinit">
-	{{content-editable classNames="initiative" value=char.initiative}}
-	{{content-editable classNames="perception" value=char.perception}}
-</div>
+{{#if showPerception}}
+  <div class="percinit">
+	  {{content-editable classNames="initiative" value=char.initiative}}
+	  {{content-editable classNames="perception" value=char.perception}}
+  </div>
+{{/if}}
 
