@@ -3,6 +3,10 @@
 		{{content-editable value=model.name editable=true}}
 	</div>
 	{{#ember-wormhole to="buttons"}}
+		<div class="button goto" {{action "goTo"}}>
+			<span>find</span>
+			<i class="fa fa-search"></i>
+		</div>
 		<div class="button save" {{action "save"}}>
 			<span>save</span>
 			<i class="fa fa-cloud-upload"></i>
@@ -61,5 +65,10 @@
 {{#if showModal}}
 	{{#modal-dialog}}
 		{{link-character target=model closeDialog="closeDialog" linkCharacter="linkCharacter"}}
+	{{/modal-dialog}}
+{{/if}}
+{{#if selectFind}}
+	{{#modal-dialog}}
+		{{select-pos findTypes=findTypes confirmMove="confirmMove"}}
 	{{/modal-dialog}}
 {{/if}}

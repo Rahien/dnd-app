@@ -8,6 +8,20 @@
 AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   hasPlayers: Ember.computed.notEmpty "model.chars"
   hasMonsters: Ember.computed.notEmpty "model.monsters"
+  findTypes: Ember.computed 'hasMonsters', 'hasChars', 'noDmNotes', ->
+    targets = [
+      { kind: "description", title: "Description", finder: ".description" }
+     ]
+    if @get 'hasMonsters'
+      targets.push { kind: "monsters", title: "Monsters", finder: ".monsters" }
+    if @get 'hasPlayers'
+      targets.push { kind: "chars", title: "Players", finder: ".players" }
+    unless @get 'noDmNotes'
+      targets.push { kind: "dmnotes", title: "DM Notes", finder: ".dmNotes" }
+    targets.push { kind: "words", title: "Words" }
+    targets.map (target, index) ->
+      target.index = index
+      target
   filename: Ember.computed "model.name", ->
     name = @get 'model.name'
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -115,5 +129,10 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
       if index > -1
         players.splice(index,1)
         @updatePlayers(players)
+    goTo: ->
+      @set 'selectFind', true
+      false
+    confirmMove: ->
+      @set 'selectFind', false
 
 `export default AdventureController`
