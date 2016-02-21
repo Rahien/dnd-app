@@ -4,15 +4,14 @@ ApplicationController = Ember.Controller.extend
   session: Ember.inject.service('session')
   init: ->
     @_super(arguments...)
-    @set 'showMenu', true
     @set 'messages', Ember.ArrayProxy.create
       content: []
 
   messages: null
-  menuShow: Ember.computed 'showMenu', 'currentRouteName', ->
+  menuShow: Ember.computed 'currentRouteName', ->
     if (@get('currentRouteName') == "login") or (@get('currentRouteName') == "register")
       return "hide"
-    if @get('showMenu')
+    else
       "show"
   homeShow: Ember.computed 'currentRouteName', ->
     @get('currentRouteName') != "index"
@@ -30,12 +29,6 @@ ApplicationController = Ember.Controller.extend
 
     toHome: ->
       @transitionToRoute 'index'
-    toggleMenu: (value) ->
-      if Ember.isNone(value)
-        @set 'showMenu', (not @get('showMenu'))
-      else
-        @set 'showMenu', value
-      false
     logout: ->
       @get('session').invalidate()
       @transitionToRoute 'login'
