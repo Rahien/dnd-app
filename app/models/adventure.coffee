@@ -27,6 +27,7 @@ Adventure.getDefault = ->
     name: "Once more unto the breach"
     date: Date.now()
     chars: []
+    monsters: []
     dmNotes: ""
 
 `export default Adventure`

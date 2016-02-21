@@ -2,10 +2,12 @@
 `import SendMessage from '../mixins/send-message'`
 `import SaveLoad from '../mixins/save-load-model'`
 `import Char from '../models/char'`
+`import Monster from '../models/monster'`
 `import Adventure from '../models/adventure'`
 
 AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   hasPlayers: Ember.computed.notEmpty "model.chars"
+  hasMonsters: Ember.computed.notEmpty "model.monsters"
   filename: Ember.computed "model.name", ->
     name = @get 'model.name'
     name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -28,6 +30,16 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
         @sendMessage 'goodstuff', "Players updated"
       error: (error) =>
         @sendMessage 'error', "Could not update players: #{error.responseText}"
+  updateMonsters: (newMonsters) ->
+    @set('model.monsters', newMonsters)
+    Ember.$.ajax "/dnd/api/adventure/#{@get('model._id')}",
+      type: "PUT"
+      contentType: "application/json; charset=utf-8"
+      data: JSON.stringify({ monsters: newMonsters })
+      success: =>
+        @sendMessage 'goodstuff', "Monsters updated"
+      error: (error) =>
+        @sendMessage 'error', "Could not update monsters: #{error.responseText}"
   fetchCharacter: (id) -> new Ember.RSVP.Promise (resolve, reject) =>
     Ember.$.ajax "/dnd/api/char/#{id}",
       type: "GET"
@@ -55,6 +67,17 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
       false
     addPlayer: ->
       @set 'showModal', true
+      @set 'showPlayers', true
+      false
+    addMonster: ->
+      @set 'showMonsters', true
+      newMonster = Monster.getDefault()
+      if not @get 'model.monsters'
+        @set 'model.monsters', []
+      monsters = @get('model.monsters').concat([newMonster])
+      @updateMonsters(monsters)
+    toggleMonsters: ->
+      @set 'showMonsters', not @get('showMonsters')
       false
     closeDialog: ->
       @set 'showModal', false

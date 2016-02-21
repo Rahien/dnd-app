@@ -28,7 +28,7 @@
 	<div class="players {{if showPlayers 'open'}}">
 		<div class="drawer" {{action "togglePlayers"}}>
 			<span>Players</span>
-			<div class="round-button addPlayer" {{action "addPlayer"}}><i class="fa fa-user-plus"></i></div>
+			<div class="round-button addPlayer" {{action "addPlayer" bubbles=false}}><i class="fa fa-user-plus"></i></div>
 		</div>
 		<div class="playerList">
 			{{#if hasPlayers}}
@@ -36,6 +36,19 @@
 			{{else}}
 				<div class="emptymessage">No players yet!</div>
 			{{/if}}
+		</div>
+	</div>
+	<div class="monsters {{if showMonsters 'open'}}">
+		<div class="monsterList">
+			{{#if hasMonsters}}
+        {{monster-list monsters=model.monsters}}
+			{{else}}
+				<div class="emptymessage">No monsters yet!</div>
+			{{/if}}
+		</div>
+		<div class="drawer" {{action "toggleMonsters"}}>
+			<span>Monsters</span>
+			<div class="round-button addMonster" {{action "addMonster" bubbles=false}}><i class="fa fa-paw"></i></div>
 		</div>
 	</div>
 	<div class="content">

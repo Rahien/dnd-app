@@ -1,0 +1,15 @@
+{{#each monsters as |monster|}}
+  <div class="monster">
+    <div class="name">
+      {{content-editable value=monster.name editable=true}}
+    </div>
+    <div class="about">
+      {{content-editable value=monster.size editable=true}}
+      {{content-editable value=monster.type editable=true}}
+      {{content-editable value=monster.alignment editable=true}}
+    </div>
+	  {{char-stats char=monster}}
+    {{free-block content=monster.traits classNames="traits"}}
+    {{free-block title="Actions" content=monster.actions classNames="actions"}}
+  </div>
+{{/each}}

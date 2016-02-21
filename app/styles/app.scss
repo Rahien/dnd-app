@@ -42,7 +42,7 @@ body {
 		}
 		.characters {
 				max-height: 70vh;
-				overflow: scroll;
+				overflow-y: auto;
 		}
 		.title {
 				position: absolute;
@@ -53,6 +53,9 @@ body {
 }
 
 .round-button {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 		background-color: black;   color: white;   border-radius: 200px;   
 		width: 25px;   
 		height: 25px;   
@@ -1276,7 +1279,9 @@ a.downloadlocation, input.uploadInput {
 				cursor: pointer;
 				min-width: 90px;
 				font-size: 15px;
-
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
 				span:first-child {
 						padding-right: 6px;
 				}
@@ -1290,9 +1295,6 @@ a.downloadlocation, input.uploadInput {
 				#buttons {
 						position: absolute;
 						left: 0px;
-						.goto {
-								display: none;
-						}
 
 				}
 		}
@@ -1350,6 +1352,9 @@ a.downloadlocation, input.uploadInput {
 		}
 
 		.actions > *, .register, .buttons .button {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
 				display: inline-block;
 				padding: 5px;
 				margin: 5px 0;
@@ -1418,6 +1423,9 @@ a.downloadlocation, input.uploadInput {
     margin: 1em 0;
 }
 .tbutton {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 		display: inline-block;
 		padding: 5px;
 		margin: 5px 0;
@@ -1638,6 +1646,9 @@ a.downloadlocation, input.uploadInput {
 				text-align: center;
 				padding: 0;
 				margin-top: -9px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
 		}
 		.button {
 				display: inline-block;
@@ -1732,6 +1743,9 @@ a.downloadlocation, input.uploadInput {
 		}
 
 		.buttons .button {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
 				border: solid 2px black;
 				border-radius: 7px;
 				padding: 5px;
@@ -1860,20 +1874,6 @@ a.downloadlocation, input.uploadInput {
 				font-size: 10px;
 		}
 
-		span.value {
-				display: inline-block;
-				margin: 3px;
-				background-color: white;
-				padding: 3px;
-				width: 92%;
-				box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				min-height: 90%;
-				vertical-align: middle;
-				overflow: hidden;
-				text-overflow: ellipsis;
-		}
-
 		td {
 				text-align: center;
 				border: solid 3px black;
@@ -1956,13 +1956,40 @@ a.downloadlocation, input.uploadInput {
 				width: 900px;
 		}
 
-		.players {
+		.players, .monsters {
 				position: absolute;
 				top: 70px;
 				right: 10px;
 				margin: 20px 0;
 		}
+    .monsters {
+        left: 10px;
+        right: auto;
+        .monsterList {
+            background-color: black;
+            color: white;
+        }
+
+        .monsterList .round-button {
+            border: solid 1px white;
+        }
+
+        .monster span.value {
+            background-color: inherit;
+        }
+    }
+    .monsters .drawer {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        right: 0;
+        left: auto;
+    }
 		.drawer {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -1975,8 +2002,7 @@ a.downloadlocation, input.uploadInput {
 				color: white;
 				cursor: col-resize;
 		}
-
-		.playerList {
+		.playerList, .monsterList {
 				margin-left: 45px;
 				max-width: 0px;
 				overflow: hidden;
@@ -1986,7 +2012,11 @@ a.downloadlocation, input.uploadInput {
 				transition: max-width 1s;
 
 		}
-		.players.open .playerList {
+    .monsterList {
+        margin-left: 0px;
+        margin-right: 45px;
+    }
+		.players.open .playerList, .monsters.open .monsterList {
 				max-width: 1000px;
 		}
 
@@ -2006,17 +2036,17 @@ a.downloadlocation, input.uploadInput {
 				margin-top: 50%;
 		}
 
-		.addPlayer {
+		.addPlayer, .addMonster {
 				top: 7px;
 				left: 8px;
 				border: solid 1px white;
 				display: none;
 		}
 
-		.addPlayer:hover {
+		.addPlayer:hover, .addMonster:hover {
 				background-color: $darkhighlight;
 		}
-		.drawer:hover .addPlayer {
+		.drawer:hover .addPlayer, .drawer:hover .addMonster {
 				display: inline-block;
 		}
 		.emptymessage {
@@ -2298,9 +2328,6 @@ a.downloadlocation, input.uploadInput {
 
 				.header-wrap #buttons {
 						position: relative;
-						.goto {
-								display: block;
-						}
 				}
 
 				.header-wrap #buttons > * {
