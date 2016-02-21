@@ -70,6 +70,10 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
     blocks.map (block, index) ->
       if not Ember.get(block, 'title')
         Ember.set(block, 'title', Ember.get(block, 'kind').replace("char-", ""))
+      if Ember.get(block,'kind').indexOf("char-") == 0
+        Ember.set(block, 'finder', ".#{Ember.get(block, 'kind').substring(5)}")
+      else
+        Ember.set(block, 'finder', ".#{Ember.get(block, 'content')}")
       block.index = index
       block
 
@@ -145,23 +149,6 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
       @set 'selectFind', true
       false
     confirmMove: (positionSpec) ->
-      scrollTarget = null
-      if not positionSpec
-        @set 'selectFind', false
-        return false
-      if positionSpec.kind == "words"
-        scrollTarget = Ember.$(":Contains(#{positionSpec.search}):not(:has(*))").filter("span, div, p")
-      else if positionSpec.kind.indexOf("char-") == 0
-        scrollTarget = Ember.$(".#{positionSpec.kind.substring(5)}")
-      else
-        scrollTarget = Ember.$(".#{positionSpec.content}")
-      if scrollTarget?[0]
-        $('html, body').animate
-          scrollTop: Math.max(0, scrollTarget.offset().top-100)
-        , 1000
-      else
-        @sendMessage 'error', 'Not found',
-          autoClose: 3000
       @set 'selectFind', false
 
 `export default CharController`
