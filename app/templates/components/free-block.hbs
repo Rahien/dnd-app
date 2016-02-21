@@ -1,4 +1,6 @@
-<span class="title"  {{action "toggleEdit"}}>{{title}}</span>
+{{#if hasTitle}}
+  <span class="title"  {{action "toggleEdit"}}>{{title}}</span>
+{{/if}}
 <div {{action "toggleEdit"}}>
 	{{#if showPlaceholder}}
 		{{placeholder}}

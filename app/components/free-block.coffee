@@ -1,7 +1,7 @@
 `import Ember from 'ember'`
 
 FreeBlockComponent = Ember.Component.extend
-  title: "Block"
+  hasTitle: Ember.computed.notEmpty 'title'
   classNames: "free-block"
   classNameBindings: ["editing:editing"]
   showPlaceholder: Ember.computed "placeholder", "noContent", ->
