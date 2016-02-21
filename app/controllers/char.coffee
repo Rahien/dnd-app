@@ -13,7 +13,7 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
     if charImage[0].complete and charImage[0].naturalWidth == 0
       @set 'model.image', "/assets/images/charimage.png"
     charImage.on 'error', =>
-      @set 'model.image', "/assets/images/charimage.png"
+      @set 'model.image', '/assets/images/charimage.png'
   showSpells: Ember.computed "charBlocks.left.[]", "charBlocks.right.[]", ->
     left = @get 'charBlocks.left'
     right = @get 'charBlocks.right'
@@ -63,6 +63,16 @@ CharController = Ember.Controller.extend SendMessage, SaveLoad,
         @sendMessage 'error', 'Could not save character!'
   modelFromObject: (object) ->
     Char.create object
+  findTypes: Ember.computed 'model', ->
+    blocks = @get('model.charBlocks.left.content').concat(@get('model.charBlocks.right.content'))
+    foundSpells = false
+    blocks.push { kind: "words", title: "Words" }
+    blocks.map (block, index) ->
+      if not Ember.get(block, 'title')
+        Ember.set(block, 'title', Ember.get(block, 'kind').replace("char-", ""))
+      block.index = index
+      block
+
   actions:
     save: ->
       @doSave()

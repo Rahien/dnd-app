@@ -2,15 +2,7 @@
 
 SelectCharPosComponent = Ember.Component.extend
   classNames: "select-char-block"
-  findTypes: Ember.computed 'char', ->
-    blocks = @get('char.charBlocks.left.content').concat(@get('char.charBlocks.right.content'))
-    foundSpells = false
-    blocks.push { kind: "words", title: "Words" }
-    blocks.map (block, index) ->
-      if not Ember.get(block, 'title')
-        Ember.set(block, 'title', Ember.get(block, 'kind').replace("char-", ""))
-      block.index = index
-      block
+  # findTypes: null, expected dto be list of find descriptions
   findType: 0
   findSpec: Ember.computed "findType", "findTypes", ->
     block = @get('findTypes')[@get('findType')]
