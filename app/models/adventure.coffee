@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 `import Char from './char'`
+`import Monster from './monster'`
 
 Adventure = Ember.Object.extend
   serialize: ->
@@ -21,6 +22,10 @@ Adventure = Ember.Object.extend
     newChars = chars.map (char) ->
       Char.create(char)
     chars.splice.apply(chars,[0,Number.MAX_VALUE].concat(newChars))
+    monsters = @get 'monsters'
+    newMonsters = monsters.map (monster) ->
+      Monster.create(monster)
+    monsters.splice.apply(monsters,[0,Number.MAX_VALUE].concat(newMonsters))
 
 Adventure.getDefault = ->
   Adventure.create 

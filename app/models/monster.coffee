@@ -1,14 +1,28 @@
 `import DS from 'ember-data'`
 
 Monster = Ember.Object.extend {
-  
+  strmod: Ember.computed "abilities.str", ->
+    @mod("str")
+  dexmod: Ember.computed "abilities.dex", ->
+    @mod("dex")
+  conmod: Ember.computed "abilities.con", ->
+    @mod("con")
+  intmod: Ember.computed "abilities.int", ->
+    @mod("int")
+  wismod: Ember.computed "abilities.wis", ->
+    @mod("wis")
+  chamod: Ember.computed "abilities.cha", ->
+    @mod("cha")
+  mod: (ability) ->
+    value = @get "abilities.#{ability}"
+    Math.floor((value-10)/2)
 }
 
 Monster.getDefault = ->
   Monster.create
     name: "A rat in the basement"
     attacks: []
-    stats:
+    abilities:
       str: 16
       dex: 16
       con: 14
@@ -29,6 +43,6 @@ Monster.getDefault = ->
     ]
     traits: ""
     actions: ""
-    
+
 
 `export default Monster`
