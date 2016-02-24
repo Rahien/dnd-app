@@ -56,34 +56,7 @@
   {{/if}}
 </div>
 
-<div class="abilities">
-	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-		<thead>
-			<tr>
-				<th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{{content-editable value=char.abilities.str tagName="td"}}
-				{{content-editable value=char.abilities.dex tagName="td"}}
-				{{content-editable value=char.abilities.con tagName="td"}}
-				{{content-editable value=char.abilities.int tagName="td"}}
-				{{content-editable value=char.abilities.wis tagName="td"}}
-				{{content-editable value=char.abilities.cha tagName="td"}}
-			</tr>
-
-			<tr>
-				<td></td><td></td><td></td><td></td><td></td><td></td>
-			</tr>
-
-			<tr>
-				<td>{{char.strmod}}</td><td>{{char.dexmod}}</td><td>{{char.conmod}}</td><td>{{char.intmod}}</td><td>{{char.wismod}}</td><td>{{char.chamod}}</td>
-			</tr>
-		</tbody>
-	</table>
-	
-</div>
+{{char-abilities char=char}}
 
 {{#if showPerception}}
   <div class="percinit">

@@ -4,6 +4,9 @@
       <div class="name">
         {{content-editable value=monster.name editable=true}}
       </div>
+		  <span class="round-button delete" title="remove stat" {{action "removeMonster" monster}}>
+			  <i class="fa fa-times"></i>
+		  </span>
       <div class="about">
         {{content-editable title="Size" class="size" value=monster.size editable=true}}
         {{content-editable title="Type" class="type" value=monster.type editable=true}}
@@ -24,7 +27,7 @@
         {{content-editable value=monster.speed editable=true}}
       </div>
     </div>
-	  {{char-kpis char=monster showDef=false showLife=false showPerception=false}}
+	  {{char-abilities char=monster singleRow=true}}
 	  {{char-stats char=monster}}
     {{free-block content=monster.traits classNames="traits"}}
     {{free-block title="Actions" content=monster.actions classNames="actions"}}
