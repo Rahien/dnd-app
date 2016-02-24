@@ -1971,7 +1971,21 @@ a.downloadlocation, input.uploadInput {
             }
             .head {
                 padding: 10px 0;
+                position: relative;
+                border-bottom: solid 2px black;
+
+                .delete {
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
+                    display: none;
+                }
+
             }
+            .head:hover .delete {
+                display: block;
+            }
+
 
             .type:after {
                 content: ",";
@@ -1981,6 +1995,81 @@ a.downloadlocation, input.uploadInput {
             .head .about > * {
                 display: inline-block;
                 font-style: italic;
+            }
+            .create {
+                display: none;
+            }
+
+            .stats:hover .create {
+                display: block;
+            }
+
+
+            .basic {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .stats {
+                padding-bottom: 10px;
+                border-bottom: solid 2px black;
+                margin-bottom: 10px;
+            }
+
+
+            .basic, .stats {
+                margin-bottom: 10px;
+                .stat .label, .prop .label {
+                    font-weight: bold;
+                    display: inline-block;
+                }
+
+                .stat > *, .prop > * {
+                    display: inline-block;
+                }
+
+                .stat .label:after, .prop .label:after {
+                    content: ":";
+                }
+                .delete {
+                    width: 20px;
+                    height: 20px;
+                    top: -1px;
+                    line-height: 20px;
+                    font-size: 12px;
+                    display: none;
+                }
+                .stat:hover .delete, .prop:hover .delete {
+                    display: inline-block;
+                }
+            }
+            .abilities {
+                margin-bottom: 10px;
+                table {
+                    border-top: solid 2px black;
+                    border-bottom: solid 2px black;
+                }
+
+                table tbody {
+                    border-top: none;
+                }
+                table thead {
+                    border-bottom: none;
+                }
+                th {
+                    text-transform: uppercase;
+                }
+                table td {
+                    text-align: center;
+                }
+
+                table td span:nth-child(2):before {
+                    content: "(";
+                }
+
+                table td span:nth-child(2):after {
+                    content: ")";
+                }
             }
         }
     }
@@ -2003,10 +2092,7 @@ a.downloadlocation, input.uploadInput {
 		.playerList, .monsterList {
 
 		}
-    .monsterList {
-        margin-left: 0px;
-        margin-right: 45px;
-    }
+
 		.players.open .playerList, .monsters.open .monsterList {
 		}
 
