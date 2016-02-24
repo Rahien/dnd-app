@@ -60,7 +60,7 @@
     {{#if showMonsters}}
 		  <div class="monsterList">
 			  {{#if hasMonsters}}
-          {{monster-list monsters=model.monsters}}
+          {{monster-list monsters=model.monsters removeMonster="removeMonster"}}
 			  {{else}}
 				  <div class="emptymessage">No monsters yet!</div>
 			  {{/if}}

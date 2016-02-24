@@ -8,6 +8,7 @@
 AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   hasPlayers: Ember.computed.notEmpty "model.chars"
   hasMonsters: Ember.computed.notEmpty "model.monsters"
+  showMonsters: true
   findTypes: Ember.computed 'hasMonsters', 'hasChars', 'noDmNotes', ->
     targets = [
       { kind: "description", title: "Description", finder: ".description" }
@@ -89,6 +90,10 @@ AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
       if not @get 'model.monsters'
         @set 'model.monsters', []
       monsters = @get('model.monsters').concat([newMonster])
+      @updateMonsters(monsters)
+    removeMonster: (monster) ->
+      monsters = @get('model.monsters').concat([])
+      monsters.splice(monsters.indexOf(monster),1)
       @updateMonsters(monsters)
     toggleMonsters: ->
       @set 'showMonsters', not @get('showMonsters')
