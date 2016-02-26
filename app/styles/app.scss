@@ -1957,12 +1957,31 @@ a.downloadlocation, input.uploadInput {
 		.players, .monsters {
 		}
     .monsters {
+        .monsterList > * {
+            column-count: 2;
+            -moz-column-count:2;
+            -webkit-column-count: 2;
+        }
+
+        margin-bottom: 50px;
         .monsterList .round-button {
             border: solid 1px white;
         }
 
         .monster {
+            .head, .basic, .abilities, .stats, .actions, .reactions, .legendary, .traits {
+                -webkit-column-break-inside: avoid;
+                -webkit-break-inside: avoid;
+                -moz-column-break-inside: avoid;
+                -moz-break-inside: avoid;
+                column-break-inside: avoid;
+                break-inside: avoid;
+            }
+            background: #F5F5F5;
+            border: solid 4px black;
+            border-width: 4px 0 4px 0;
             padding: 0 10px;
+            margin-bottom: 10px;
             span.value {
                 background-color: inherit;
             }
@@ -1973,19 +1992,14 @@ a.downloadlocation, input.uploadInput {
                 padding: 10px 0;
                 position: relative;
                 border-bottom: solid 2px black;
-
-                .delete {
-                    position: absolute;
-                    top: 10px;
-                    right: 0;
-                    display: none;
-                }
-
             }
-            .head:hover .delete {
-                display: block;
+            .buttons {
+                position: absolute;
+                display: none;
+                right: 0;
+                top: 10px;
+                z-index: 100;
             }
-
 
             .type:after {
                 content: ",";
@@ -1998,6 +2012,9 @@ a.downloadlocation, input.uploadInput {
             }
             .create {
                 display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
             }
 
             .stats:hover .create {
@@ -2009,16 +2026,17 @@ a.downloadlocation, input.uploadInput {
                 margin-top: 10px;
                 margin-bottom: 10px;
             }
-
-            .stats {
-                padding-bottom: 10px;
-                border-bottom: solid 2px black;
-                margin-bottom: 10px;
+            .traits {
+                border-top: solid 2px black;
             }
 
+            .traits p {
+                margin-top: 0.6em;
+            }
 
             .basic, .stats {
                 margin-bottom: 10px;
+                position: relative;
                 .stat .label, .prop .label {
                     font-weight: bold;
                     display: inline-block;
@@ -2070,6 +2088,41 @@ a.downloadlocation, input.uploadInput {
                 table td span:nth-child(2):after {
                     content: ")";
                 }
+            }
+            .traits h1, .actions h1, .legendary h1, .reactions h1 {
+                margin: 0;
+                font-size: 1em;
+                font-style: italic;
+                display: inline;
+                float: left;
+            }
+
+            .traits h1:after, .actions h1:after, .legendary h1:after, .reactions h1:after {
+                content: ": ";
+                margin-right: 5px;
+            }
+            .actions .title, .legendary .title, .reactions .title {
+                background: none;
+                color: black;
+                margin: 0;
+                padding: 0;
+                border-bottom: solid 2px black;
+                display: block;
+                font-size: 1.2em;
+            }
+            texarea {
+                min-height: 100px;
+            }
+            .add-trait, .add-legendary, .add-action, .add-reaction {
+                display:none;
+            }
+        }
+        .monster:hover {
+            .add-trait, .add-legendary, .add-action, .add-reaction {
+                display:block;
+            }
+            .buttons {
+                display: inline-block;
             }
         }
     }
@@ -2471,4 +2524,11 @@ a.downloadlocation, input.uploadInput {
 		.select-char-block select {
 				width: 90%;
 		}
+    .adventure .monsters {
+        .monsterList > * {
+            column-count: 1;
+            -moz-column-count:1;
+            -webkit-column-count: 1;
+        }
+    }
 }

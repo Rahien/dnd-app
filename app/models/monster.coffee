@@ -1,6 +1,10 @@
 `import DS from 'ember-data'`
 
 Monster = Ember.Object.extend {
+  hasTraits: Ember.computed.notEmpty 'traits'
+  hasActions: Ember.computed.notEmpty 'actions'
+  hasLegendary: Ember.computed.notEmpty 'legendary'
+  hasReactions: Ember.computed.notEmpty 'reactions'
   strmod: Ember.computed "abilities.str", ->
     @mod("str")
   dexmod: Ember.computed "abilities.dex", ->
@@ -43,6 +47,8 @@ Monster.getDefault = ->
     ]
     traits: ""
     actions: ""
+    legendary: ""
+    reactions: ""
 
 
 `export default Monster`

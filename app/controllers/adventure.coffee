@@ -8,7 +8,7 @@
 AdventureController = Ember.Controller.extend SendMessage, SaveLoad,
   hasPlayers: Ember.computed.notEmpty "model.chars"
   hasMonsters: Ember.computed.notEmpty "model.monsters"
-  showMonsters: true
+  showMonsters: false
   findTypes: Ember.computed 'hasMonsters', 'hasChars', 'noDmNotes', ->
     targets = [
       { kind: "description", title: "Description", finder: ".description" }
