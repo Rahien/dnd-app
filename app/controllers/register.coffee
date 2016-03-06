@@ -2,7 +2,6 @@
 `import SendMessage from '../mixins/send-message'`
 
 RegisterController = Ember.Controller.extend SendMessage,
-
   badUser: Ember.computed 'username', ->
     user = @get 'username'
     (not user) or user.length < 1

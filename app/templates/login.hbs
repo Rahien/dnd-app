@@ -1,21 +1,23 @@
 <div class="login">
-	<div class="user {{if badUser "invalid"}}">
-		<span class="label">user</span>
-		{{input value=username enter="login"}}
-	</div>
-	<div class="password {{if badPwd "invalid"}}">
-		<span class="label">password</span>
-		{{input type="password" value=password enter="login"}}
-	</div>
-	<div class="actions">
-		<div class="login-button" {{action "login"}}>
-  		Log in
+	<form>
+		<div class="user {{if badUser "invalid"}}">
+			<span class="label">user</span>
+			{{input value=username enter="login" name="username"}}
 		</div>
-		<div class="or">
-			or
+		<div class="password {{if badPwd "invalid"}}">
+			<span class="label">password</span>
+			{{input type="password" value=password enter="login" name="password"}}
 		</div>
-		<div {{action "register"}}>
-			Register
-		</div>
-	</div>	
+		<div class="actions">
+			<div class="login-button" {{action "login"}}>
+  			Log in
+			</div>
+			<div class="or">
+				or
+			</div>
+			<div {{action "register"}}>
+				Register
+			</div>
+		</div>	
+	</form>
 </div>
