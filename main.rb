@@ -530,6 +530,10 @@ class MyServer < Sinatra::Base
     adventures = []
     userResp = MONGOC[USERS].find( _id: userId ).first()
     chars = userResp["chars"]
+    if chars.nil?
+      return adventures
+    end
+
     result = MONGOC[ADVENTURES].find( { chars: { "$elemMatch" => { "_id" => { "$in" => chars } } } } ).projection( name: 1, date: 1, owner: 1 )
     result.each do |adv|
       adv["_id"] = adv["_id"].to_str
