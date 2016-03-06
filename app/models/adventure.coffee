@@ -19,13 +19,15 @@ Adventure = Ember.Object.extend
       @set 'selectedProperties', Ember.ArrayProxy.create content: ["initiative", "hp", "ac", "gold"]
     unless @get 'additionalProperties'
       @set 'additionalProperties', {}
-    newChars = chars.map (char) ->
-      Char.create(char)
-    chars.splice.apply(chars,[0,Number.MAX_VALUE].concat(newChars))
-    monsters = @get 'monsters'
-    newMonsters = monsters.map (monster) ->
-      Monster.create(monster)
-    monsters.splice.apply(monsters,[0,Number.MAX_VALUE].concat(newMonsters))
+
+    if @get 'edit'
+      newChars = chars.map (char) ->
+        Char.create(char)
+      chars.splice.apply(chars,[0,Number.MAX_VALUE].concat(newChars))
+      monsters = @get 'monsters'
+      newMonsters = monsters.map (monster) ->
+        Monster.create(monster)
+      monsters.splice.apply(monsters,[0,Number.MAX_VALUE].concat(newMonsters))
 
 Adventure.getDefault = ->
   Adventure.create 

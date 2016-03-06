@@ -243,8 +243,13 @@ class MyServer < Sinatra::Base
   get '/dnd/api/adventure/:id' do
     protected!
     adventure = fetchAdventure(params[:id])
-    unless ownsAdventure?(adventure)
+    if ownsAdventure?(adventure)
+      adventure['edit'] = true
+    else
       adventure.delete "dmNotes"
+      adventure.delete "chars"
+      adventure.delete "monsters"
+      adventure['edit'] = false
     end
     addAdventureOwners([adventure])
     adventure["_id"] = adventure["_id"].to_str
