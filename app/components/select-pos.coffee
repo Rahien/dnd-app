@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SendMessage from '../mixins/send-message'`
 
-SelectCharPosComponent = Ember.Component.extend
+SelectCharPosComponent = Ember.Component.extend SendMessage,
   classNames: "select-char-block"
   # findTypes: null, expected dto be list of find descriptions
   offsetTop: 100
