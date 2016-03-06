@@ -24,7 +24,7 @@ SpeccedBlockComponent = Ember.Component.extend
 
   actions:
     toggleEdit: ->
-      @set 'editing', not @get('editing')
+      @set 'editing', not @get('disabled') and not @get('editing')
 
 
 `export default SpeccedBlockComponent`
