@@ -1,4 +1,5 @@
 <div class="adventure">
+	<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
 	<div class="name">
 		{{content-editable value=model.name editable=model.edit}}
 	</div>
@@ -16,12 +17,10 @@
 				<span>download</span>
 				<i class="fa fa-download"></i>
 			</div>
-			<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
-			<div class="button upload" {{action "upload"}}>
+			<div class="button upload">
 				<span>from file</span>
 				<i class="fa fa-file-text-o"></i>
 			</div>
-			<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
 			<div class="button delete" {{action "delete"}}>
 				<span>remove</span>
 				<i class="fa fa-trash"></i>
@@ -82,3 +81,4 @@
 		{{select-pos findTypes=findTypes confirmMove="confirmMove" showMessage="showMessage"}}
 	{{/modal-dialog}}
 {{/if}}
+<input type="file" class="uploadInput" {{action "doUpload" on="change"}}>
