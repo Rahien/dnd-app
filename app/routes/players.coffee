@@ -65,6 +65,15 @@ PlayersRoute = AuthRoute.extend SendMessage,
           @refresh()
         error: (error) =>
           @sendMessage 'error', "Could not remove #{player.username}. #{error.responseText}"
+    resetPassword: (player) ->
+      Ember.$.ajax "/dnd/api/player/#{player._id}/pwdReset",
+        type: "POST"
+        success: (result) =>
+          @sendMessage 'popup', "Password was reset to '#{result.newPassword}'",
+            autoClose: false
+            title: "Password reset"
+        error: (error) =>
+          @sendMessage 'error', "Could not reset the password of #{player.username}. #{error.responseText}"
     toggleAdmin: (player) ->
       Ember.$.ajax "/dnd/api/setAdmin",
         type: "POST"

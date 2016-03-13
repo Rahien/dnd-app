@@ -286,6 +286,20 @@ class MyServer < Sinatra::Base
     ok
   end
 
+  post '/dnd/api/player/:id/pwdReset' do
+    protected!
+    admin!
+
+    begin
+      pass = SecureRandom.urlsafe_base64 8
+      hash = BCrypt::Password.create(pass)
+      MONGOC[USERS].update_one({ _id: BSON::ObjectId(params[:id]) }, { "$set" => { pwd: hash } })
+    rescue
+      halt 500, "Could not reset the password of this user..."
+    end
+    { newPassword: pass }.to_json
+  end
+
   delete '/dnd/api/player/:id' do
     protected!
     admin!

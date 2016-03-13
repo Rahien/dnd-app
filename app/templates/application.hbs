@@ -25,8 +25,8 @@
 <div class="wrapper {{hasMenu}}">
 	{{outlet}}
 </div>
-<div class="footer {{if hasMessages 'messages'}}">
-	{{#each messages as |message|}}
+<div class="footer {{if hasBottomMessages 'messages'}}">
+	{{#each bottomMessages as |message|}}
 		<div class="message-wrap {{message.type}}" {{action "removeMessage" message}} title="click to remove">
 			<div class="message">
 				{{message.message}}
@@ -34,3 +34,21 @@
 		</div>
 	{{/each}}
 </div>
+{{#if hasPopupMessages}}
+	{{#each popupMessages as |message|}}
+		{{#modal-dialog}}
+		  <div class="message-wrap {{message.type}}">
+        <div class="title">
+          {{if message.title message.title "Alert"}}
+        </div>
+			  <div class="message">
+				  {{message.message}}
+			  </div>
+        <div class="button" {{action "removeMessage" message}}>
+          Ok
+        </div>
+		  </div>
+    {{/modal-dialog}}
+	{{/each}}
+{{/if}}
+

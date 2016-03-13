@@ -16,7 +16,13 @@ ApplicationController = Ember.Controller.extend
   homeShow: Ember.computed 'currentRouteName', ->
     @get('currentRouteName') != "index"
   showButtons: false
+  bottomMessages: Ember.computed.filter 'messages', (message) ->
+    Ember.get(message, 'type') != 'popup'
+  popupMessages: Ember.computed.filter 'messages', (message) ->
+    Ember.get(message, 'type') == 'popup'
   hasMessages: Ember.computed.notEmpty 'messages'
+  hasBottomMessages: Ember.computed.notEmpty 'bottomMessages'
+  hasPopupMessages: Ember.computed.notEmpty 'popupMessages'
   removeMessage: (message) ->
     @get('messages').removeObject message
   actions:
