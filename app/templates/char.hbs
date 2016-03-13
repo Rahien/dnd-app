@@ -1,5 +1,4 @@
 <div class="character">
-	<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>
 	<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
 	<div class="name">
 		{{content-editable value=model.name editable=true}}
@@ -17,7 +16,7 @@
 			<span>download</span>
 			<i class="fa fa-download"></i>
 		</div>
-		<div class="button upload" {{action "upload"}}>
+		<div class="button upload">
 			<span>from file</span>
 			<i class="fa fa-file-text-o"></i>
 		</div>
@@ -86,7 +85,8 @@
 	{{/if}}
 	{{#if selectFind}}
 		{{#modal-dialog}}
-			{{select-pos findTypes=findTypes confirmMove="confirmMove"}}
+			{{select-pos findTypes=findTypes confirmMove="confirmMove" showMessage="showMessage"}}
 		{{/modal-dialog}}
 	{{/if}}
 </div>
+<input type="file" class="uploadInput" {{action "doUpload" on="change"}}/>

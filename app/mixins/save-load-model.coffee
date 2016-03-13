@@ -5,8 +5,6 @@ SaveLoadModelMixin = Ember.Mixin.create
     download: ->
       model = @get 'model'
       Ember.$('a.downloadlocation').attr("href", "data:text/json;charset=utf-8,#{encodeURIComponent(JSON.stringify(model.serialize()))}")[0].click()
-    upload: ->
-      Ember.$('.uploadInput').click()
     doUpload: ->
       input = Ember.$('input.uploadInput')[0]
       file = input.files[0]

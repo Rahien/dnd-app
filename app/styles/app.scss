@@ -1875,6 +1875,7 @@ a.downloadlocation, input.uploadInput {
 		    th, td {
 				    text-overflow: ellipsis;
 				    overflow: hidden;
+						min-width: 100px;
 		    }
 		    th:first-child, td:first-child {
 		    }
@@ -1948,6 +1949,9 @@ a.downloadlocation, input.uploadInput {
 				font-size: 1.2em;   font-family: 'Cinzel Decorative', cursive;   
 				margin: 1em 0;
 				display: block;
+		}
+		.dmNotes {
+				margin-bottom: 1em;
 		}
 
 		.content {
@@ -2145,6 +2149,9 @@ a.downloadlocation, input.uploadInput {
 		.playerList, .monsterList {
 
 		}
+		.playerList {
+				overflow-y: auto;
+		}
 
 		.players.open .playerList, .monsters.open .monsterList {
 		}
@@ -2166,7 +2173,11 @@ a.downloadlocation, input.uploadInput {
         font-weight: bold;
         border: solid 1px white;
         border-width: 0 0 2px 0;
+				border-radius: 10px;
     }
+		.players.open .title, .monsters.open .title {
+				border-radius: 0px;
+		}
 
     .players, .monsters {
         border-radius: 10px;
