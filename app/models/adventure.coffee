@@ -24,7 +24,7 @@ Adventure = Ember.Object.extend
       newChars = chars.map (char) ->
         Char.create(char)
       chars.splice.apply(chars,[0,Number.MAX_VALUE].concat(newChars))
-      monsters = @get 'monsters'
+      monsters = @get('monsters') or []
       newMonsters = monsters.map (monster) ->
         Monster.create(monster)
       monsters.splice.apply(monsters,[0,Number.MAX_VALUE].concat(newMonsters))
