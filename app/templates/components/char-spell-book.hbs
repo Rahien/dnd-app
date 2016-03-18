@@ -29,6 +29,9 @@
 						<div class="spell">
 							{{content-editable classNames="title" value=spell.name tagName="span"}}
 							<div class="spell-controls">
+                <div class="round-button toggle-spell-detail" {{action "toggleSpellDetail" spell}} title="toggle spell detail">
+	                <i class="fa {{if spell.details 'fa-eye' 'fa-eye-slash'}}"></i>
+                </div>
 								<span class="round-button up" title="move up" {{action "spellUp" group spell}}>
 									<i class="fa fa-sort-up"></i>
 								</span>
@@ -39,7 +42,7 @@
 									<i class="fa fa-times"></i>
 								</span>
 							</div>
-							{{#if showDetails}}
+							{{#if (or showDetails spell.details)}}
 								<div class="spell-level">
 									<span class="label">level</span>
 									{{content-editable value=spell.level}}

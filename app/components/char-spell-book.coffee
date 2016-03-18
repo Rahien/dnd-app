@@ -2,7 +2,7 @@
 
 CharSpellBookComponent = Ember.Component.extend
   classNames: ["spells","spell-detail"]
-  showDetails: true
+  showDetails: false
   spellGroups: Ember.computed 'char.spellGroups', 'spells', ->
     spells = @get 'spells'
     spellgroups = @get 'char.spellGroup'
@@ -87,8 +87,11 @@ CharSpellBookComponent = Ember.Component.extend
       spells = @get 'spells'
       s = spells[group.title.trim()]
       s.removeObject spell
-    toggleSpellDetail: ->
-      @toggleProperty 'showDetails'
+    toggleSpellDetail: (spell) ->
+      if not spell
+        @toggleProperty 'showDetails'
+      else
+        Ember.set spell, 'details', not Ember.get(spell, 'details')
     toggleGroup: (group) ->
       Ember.set(group, 'open', !Ember.get(group, 'open'))
 
