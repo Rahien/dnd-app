@@ -2,7 +2,7 @@
 	<div class="prop">
 		{{content-editable value=prop.label classNames="label" tagName="span"}}
 		{{content-editable value=prop.value classNames="value" tagName="span"}}
-		<span class="round-button delete" title="remove stat" {{action "deleteProp" prop}}>
+		<span class="round-button delete" title="remove {{prop.label}}" {{action "deleteProp" prop}}>
 			<i class="fa fa-times"></i>
 		</span>
 	</div>

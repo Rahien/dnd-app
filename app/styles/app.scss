@@ -272,6 +272,7 @@ body {
 				.prop {
 						display:inline-block;
 						line-height: 25px;
+            position: relative;
 				}
 				.prop:hover {
 						.delete {
@@ -288,6 +289,11 @@ body {
 				.round-button {
 						display: none;
 				}
+        span.round-button.delete {
+            position: absolute;
+            left: 10px;
+            top: 1px;
+        }
 
 		}
 		.stats:hover {
