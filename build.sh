@@ -9,7 +9,7 @@ rm -fr "$dest/web"
 rm -fr "$dest/environment"
 rm -fr "$dest/docker-compose.yml"
 
-ember build
+ember build --environment=production
 
 mkdir "$dest/web"
 cp main.rb "$dest/web/main.rb"
