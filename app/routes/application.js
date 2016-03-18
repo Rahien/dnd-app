@@ -21,7 +21,7 @@ var Route = Ember.Route.extend({
 		  var remover = function() {
 			  this.removeMessage(message);
 			};
-      if(message.autoClose != false && (message.type !== "error" || message.autoClose)){
+      if(message.autoClose !== false && (message.type !== "error" || message.autoClose)){
         Ember.run.later(this.get('controller'), remover, (message.autoClose || 5000));
 			}
       return false;
