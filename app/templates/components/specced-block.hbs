@@ -1,6 +1,10 @@
 <span class="title" {{action "toggleEdit"}}>{{title}}</span>
 <div {{action "toggleEdit"}}>
-	{{markdown-section content=content}}
+	{{#if showPlaceholder}}
+		{{placeholder}}
+	{{else}}
+		{{markdown-section content=content}}
+	{{/if}}
 </div>
 {{#if editing}}
 	{{textarea value=content}}

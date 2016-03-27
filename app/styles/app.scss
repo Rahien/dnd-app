@@ -1959,11 +1959,10 @@ a.downloadlocation, input.uploadInput {
 		.dmNotes {
 				margin-bottom: 1em;
 		}
-
-		.content {
-				width: 900px;
-		}
-
+    textarea {
+        min-height: 150px;
+        max-width: 100%;
+    }
 		.players, .monsters {
 		}
     .monsters {

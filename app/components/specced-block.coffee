@@ -5,6 +5,10 @@ SpeccedBlockComponent = Ember.Component.extend
   classNames: "free-block"
   # spec of what to show in this block
   spec: null
+  placeholder: "No content yet..."
+  showPlaceholder: Ember.computed "placeholder", "noContent", ->
+    @get('placeholder') and @get('noContent')
+  noContent: Ember.computed.empty "content"
 
   title: Ember.computed.alias "spec.title"
   classNameBindings: "spec.content"
