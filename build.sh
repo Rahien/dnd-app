@@ -13,6 +13,7 @@ ember build --environment=production
 
 mkdir "$dest/web"
 cp main.rb "$dest/web/main.rb"
+cp -r sinatra "$dest/web/sinatra"
 cp Gemfile "$dest/web/Gemfile"
 cp environment "$dest/environment"
 cp -r dist "$dest/web/public"
