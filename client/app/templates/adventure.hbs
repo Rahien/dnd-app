@@ -1,0 +1,84 @@
+<div class="adventure">
+	<a class="downloadlocation" download="{{filename}}.json" href="">v</a>
+	<div class="name">
+		{{content-editable value=model.name editable=model.edit}}
+	</div>
+	{{#ember-wormhole to="buttons"}}
+		<div class="button goto" {{action "goTo"}}>
+			<span>find</span>
+			<i class="fa fa-search"></i>
+		</div>
+		{{#if model.edit}}
+			<div class="button save" {{action "save"}}>
+				<span>save</span>
+				<i class="fa fa-cloud-upload"></i>
+			</div>
+			<div class="button download" {{action "download"}}>
+				<span>download</span>
+				<i class="fa fa-download"></i>
+			</div>
+			<div class="button upload">
+				<span>from file</span>
+				<i class="fa fa-file-text-o"></i>
+			</div>
+			<div class="button delete" {{action "delete"}}>
+				<span>remove</span>
+				<i class="fa fa-trash"></i>
+			</div>
+		{{/if}}
+	{{/ember-wormhole}}
+	<div class="meta">
+		Created by {{model.owner.name}} on {{format-date model.date day="numeric" month="long" year="numeric"}}
+	</div>
+	<div class="content">
+		{{free-block title="Adventure description" content=model.description classNames="description" placeholder="No description yet" disabled=(not model.edit)}}
+		{{#unless noDmNotes}}
+			{{free-block title="DM Notes" content=model.dmNotes classNames="dmNotes" placeholder="No notes yet"}}
+		{{/unless}}
+	</div>
+	{{#if model.edit}}
+		<div class="players {{if showPlayers 'open'}}">
+			<div class="title" {{action "togglePlayers"}}>
+				<span>Players</span>
+				<div class="round-button addPlayer" {{action "addPlayer" bubbles=false}}><i class="fa fa-user-plus"></i></div>
+				<div class="round-button togglePlayers"><i class="fa {{if showPlayers 'fa-eye-slash' 'fa-eye'}}"></i></div>
+			</div>
+			{{#if showPlayers}}
+				<div class="playerList">
+					{{#if hasPlayers}}
+						{{compare-characters characters=model.chars additionalProperties=model.additionalProperties selectedProperties=model.selectedProperties unlinkCharacter="unlinkCharacter" showMessage="showMessage"}}
+					{{else}}
+						<div class="emptymessage">No players yet!</div>
+					{{/if}}
+				</div>
+			{{/if}}
+		</div>
+		<div class="monsters {{if showMonsters 'open'}}">
+			<div class="title" {{action "toggleMonsters"}}>
+				<span>Monsters</span>
+				<div class="round-button addMonster" {{action "addMonster" bubbles=false}}><i class="fa fa-paw"></i></div>
+				<div class="round-button toggleMonsters"><i class="fa {{if showMonsters 'fa-eye-slash' 'fa-eye'}}"></i></div>
+			</div>
+			{{#if showMonsters}}
+				<div class="monsterList">
+					{{#if hasMonsters}}
+						{{monster-list monsters=model.monsters removeMonster="removeMonster"}}
+					{{else}}
+						<div class="emptymessage">No monsters yet!</div>
+					{{/if}}
+				</div>
+			{{/if}}
+		</div>
+	{{/if}}
+</div>
+{{#if showModal}}
+	{{#modal-dialog}}
+		{{link-character target=model closeDialog="closeDialog" linkCharacter="linkCharacter"}}
+	{{/modal-dialog}}
+{{/if}}
+{{#if selectFind}}
+	{{#modal-dialog}}
+		{{select-pos findTypes=findTypes confirmMove="confirmMove" showMessage="showMessage"}}
+	{{/modal-dialog}}
+{{/if}}
+<input type="file" class="uploadInput" {{action "doUpload" on="change"}}>

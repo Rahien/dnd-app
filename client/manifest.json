@@ -1,0 +1,27 @@
+{
+  "name": "DnD Tools",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "black",
+  "icons": [
+    {
+      "src": "/assets/images/icon-low.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/images/icon-mid.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/images/icon-high.png",
+      "sizes": "192x192"
+    }
+  ],
+  "splash_screens": [
+    {
+      "src": "/assets/images/charimage.png",
+      "sizes": "350x465"
+    }
+  ]
+}

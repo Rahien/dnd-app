@@ -1,0 +1,19 @@
+<div class="title">
+	Select new property
+</div>
+<div class="info">
+	Please select the kind of property you would like to add. For a custom text property, also write a name for the data property and a title for the property.
+</div>
+<select onchange={{action (mut propType) value="target.value"}}>
+	{{#each propertyList as |prop|}}
+    <option value={{prop.id}} selected={{eq propType prop}}>{{prop.name}}</option>
+	{{/each}}
+</select>
+{{#if showExtra}}
+	<span class="label">Title</span>{{input value=title}}
+	<span class="label">Data</span>{{input value=data class=dataClass}}
+{{/if}}
+<div class="buttons">
+	<div class="button {{if canConfirm 'enabled' 'disabled'}}" {{action "confirm"}}>confirm</div>
+	<div class="button" {{action "cancel"}}>cancel</div>
+</div>

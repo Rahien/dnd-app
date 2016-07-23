@@ -1,0 +1,31 @@
+<div class="home">
+	<div class="adventures">
+		{{#ember-wormhole to="buttons"}}
+			<span class="title">Adventures</span>
+		{{/ember-wormhole}}
+		{{#if hasAdventures}}
+			<table border="0" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>Name</th><th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each model as |adventure|}}
+						<tr {{action "openAdventure" adventure}}>
+							<td>{{adventure.name}}</td>
+							<td>{{format-date adventure.date day="numeric" month="long" year="numeric"}}</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		{{else}}
+			<div class="emptymessage">
+				No adventures yet!
+			</div>
+		{{/if}}
+	</div>
+	<div class="tbutton" {{action "newAdventure"}}>
+		New Adventure
+	</div>
+</div>

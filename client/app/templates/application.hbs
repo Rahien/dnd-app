@@ -1,0 +1,54 @@
+<div class="header {{menuShow}} {{if showButtons 'open'}}">
+	<div class="header-content">
+		<div class="open-button" {{action "showButtons"}}>
+			<i class="fa fa-bars"></i>
+		</div>
+		<div class="header-wrap" {{action "showButtons" false}}>
+			<div id="buttons">
+			</div>
+			<div class="functional" id="functional">
+				<div class="logout" {{action "logout"}}>
+					<span>logout</span>
+					<i class="fa fa-lock"></i>
+				</div>
+				{{#if homeShow}}
+					<div class="button characters" {{action "toHome"}}>
+						<span>home</span>
+						<i class="fa fa-home"></i>
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	<div class="header-waiter"></div>
+</div>
+<div class="wrapper {{hasMenu}}">
+	{{outlet}}
+</div>
+<div class="footer {{if hasBottomMessages 'messages'}}">
+	{{#each bottomMessages as |message|}}
+		<div class="message-wrap {{message.type}}" {{action "removeMessage" message}} title="click to remove">
+			<div class="message">
+				{{message.message}}
+			</div>
+		</div>
+	{{/each}}
+</div>
+{{#if hasPopupMessages}}
+	{{#each popupMessages as |message|}}
+		{{#modal-dialog}}
+		  <div class="message-wrap {{message.type}}">
+        <div class="title">
+          {{if message.title message.title "Alert"}}
+        </div>
+			  <div class="message">
+				  {{message.message}}
+			  </div>
+        <div class="button" {{action "removeMessage" message}}>
+          Ok
+        </div>
+		  </div>
+    {{/modal-dialog}}
+	{{/each}}
+{{/if}}
+

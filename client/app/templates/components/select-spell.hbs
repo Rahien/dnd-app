@@ -1,0 +1,24 @@
+<span class="title">Select Spell</span>
+<div class="search">
+	<span class="label">Search</span>
+	{{input value=searchString enter="selectFirst"}}
+</div>
+<div class="options">
+	<span class="label">Restrict class?</span>
+	{{input type="checkbox" checked=useClass}}
+</div>
+<ul class="results">
+	{{#each results as |result|}}
+		<li {{action "selectSpell" result}}>{{result.name}}, level {{result.level}}</li>
+	{{/each}}	
+</ul>
+<div class="buttons">
+	<div class="new-spell" {{action "newSpell"}}>
+		new spell
+	</div>
+	<div class="cancel" {{action "closeDialog"}}>
+		cancel
+	</div>
+</div>
+
+

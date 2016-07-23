@@ -1,0 +1,46 @@
+<span class="title">Gear</span>
+<div>
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<thead>
+			<tr>
+				<th>Possessions</th><th>Gp.</th><th>Wt.</th><th>Notes</th><th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each gear as |possession|}}
+				<tr>
+						{{content-editable value=possession.name tagName="td"}}
+						{{content-editable value=possession.price tagName="td"}}
+						{{content-editable value=possession.weight tagName="td"}}
+						{{content-editable value=possession.notes tagName="td"}}
+						<td{{action 'removeItem' possession}} title="remove item" class="delete">
+							<span class="round-button"><i class="fa fa-times"></i></span>
+						</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+
+	<span class="round-button create" title="new item" {{action 'createItem'}}>
+		<i class="fa fa-plus"></i>
+	</span>
+
+	<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+		<thead>
+			<tr>
+				<th scope="col" class="right">ACTUAL LOAD</th>
+				<th scope="col" class="right">Carry</th>
+				<th scope="col" class="right">Push, Drag or Lift</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="right">{{load}}</td>
+				<td class="right">{{char.carry}}</td>
+				<td class="right">{{char.pushOrDrag}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
