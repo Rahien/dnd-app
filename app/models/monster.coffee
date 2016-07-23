@@ -1,6 +1,10 @@
 `import DS from 'ember-data'`
 
 Monster = Ember.Object.extend {
+  serialize: ->
+    simplify = JSON.parse(JSON.stringify(this))
+    delete simplify.owner
+    simplify
   hasTraits: Ember.computed.notEmpty 'traits'
   hasActions: Ember.computed.notEmpty 'actions'
   hasLegendary: Ember.computed.notEmpty 'legendary'

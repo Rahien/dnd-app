@@ -30,7 +30,7 @@ class MyServer
       adventure.delete "monsters"
       adventure['edit'] = false
     end
-    addAdventureOwners([adventure])
+    addItemOwners([adventure])
     adventure["_id"] = adventure["_id"].to_str
     adventure.to_json
   end
@@ -75,7 +75,7 @@ class MyServer
       adventures = getUserAdventures(user)
     end
 
-    addAdventureOwners(adventures)
+    addItemOwners(adventures)
     adventures
   end
 
@@ -86,24 +86,6 @@ class MyServer
       advs.push adv
     end
     advs
-  end
-
-  def addAdventureOwners (adventures)
-    ownerIds = adventures.map do |adv|
-      BSON::ObjectId(adv["owner"])
-    end
-
-    owners = MONGOC[USERS].find( { _id: { "$in" => ownerIds } } )
-    ownerHash = {}
-    owners.each do |owner|
-      owner.delete "pwd"
-      owner["_id"] = owner["_id"].to_str
-      ownerHash[owner["_id"]] = owner
-    end
-
-    adventures.map do |adv|
-      adv["owner"] = ownerHash[adv["owner"].to_str]
-    end
   end
 
   def getUserAdventures (userId)

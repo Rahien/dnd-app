@@ -16,6 +16,7 @@ webrick_options = {
 
 MONGO = ENV["MONGO"] || "localhost:27017"
 CHARS = :chars
+MONSTERS = :monsters
 ADVENTURES = :adventures
 USERS = :users
 SPELLS = :spells
@@ -168,6 +169,7 @@ end
 
 def ensureStores
   ensureStore USERS
+  ensureStore MONSTERS
   ensureStore SPELLS
   ensureStore CHARS
   ensureStore ADVENTURES
@@ -177,6 +179,7 @@ end
 
 def ensureIndices
   ensureUsersIndices()
+  ensureMonsterIndices()
   ensureCharacterIndices()
   ensureAdventureIndices()
   ensureSpellsIndices()
@@ -185,6 +188,14 @@ end
 
 def ensureUsersIndices
   MONGOC[USERS].indexes.create_one({ name: 1 }, unique: true)
+end
+
+def ensureMonsterIndices
+  MONGOC[MONSTERS].indexes.create_many([
+    { key: { name: 1 }, unique: true, name: "monsters_main_index"},
+    { key: { name: 1, cr: 1, size: 1, type: 1, align: 1, owner: 1 }, name: "monsters_projection_index"}, 
+    { key: { name: "text", description: "text", actions: "text", traits: "text", legendary: "text", reactions: "text"} , weights: { name: 10, description: 1, traits: 1, actions: 1, legendary: 1, reactions: 1 } , name: "monster_text_index" }
+  ])
 end
 
 def ensureCharacterIndices
@@ -274,11 +285,13 @@ def ok
   { success: true }.to_json
 end
 
+require_relative "sinatra/util.rb"
 require_relative "sinatra/players.rb"
 require_relative "sinatra/chars.rb"
 require_relative "sinatra/spells.rb"
 require_relative "sinatra/adventures.rb"
 require_relative "sinatra/attachments.rb"
+require_relative "sinatra/monsters.rb"
 
 ensureStores()
 ensureIndices()

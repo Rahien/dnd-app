@@ -28,6 +28,10 @@
 			      <i class="fa fa-street-view"></i>
           </span>
         {{/if}}
+        <span class="round-button save-monster" title="save to monster index" {{action "saveMonster" monster}}>
+			    <i class="fa fa-cloud-upload"></i>
+        </span>
+
       </div>
       <div class="about">
         {{content-editable title="Size" class="size" value=monster.size editable=true}}
