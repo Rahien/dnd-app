@@ -41,8 +41,7 @@
 	</div>
 	<div class="image" title="click to change the image">
 		{{file-upload url="/dnd/api/image" didUpload="handleUpload"}}
-		<div class="figure">
-			<img src="{{model.image}}" {{action "clickImage" on="click"}}/>
+		<div class="figure" style="background-image: url('{{model.image}}');" {{action "clickImage"}}>
 		</div>
 	</div>
 
@@ -50,30 +49,32 @@
 	{{free-block title="Notes and effects" content=model.notes classNames="notes"}}
 
 	{{char-kpis char=model}}
-	
-	<div class="left-side">
-		{{#each charBlocks.left as |block|}}
-			{{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
-				{{#if (eq block.kind "specced")}}
-					{{specced-block spec=block char=model classNames="char-block"}}
-				{{else}}
-					{{component block.kind char=model classNames="char-block"}}
-				{{/if}}
-			{{/block-controls}}
-		{{/each}}
-	</div>
 
-	<div class="right-side">
-		{{#each charBlocks.right as |block|}}
-			{{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
-				{{#if (eq block.kind "specced")}}
-					{{specced-block spec=block char=model classNames="char-block"}}
-				{{else}}
-					{{component block.kind char=model classNames="char-block"}}
-				{{/if}}
-			{{/block-controls}}
+    <div class="flex">
+	  <div class="left-side">
+		{{#each charBlocks.left as |block|}}
+		  {{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
+			{{#if (eq block.kind "specced")}}
+			  {{specced-block spec=block char=model classNames="char-block"}}
+			{{else}}
+			  {{component block.kind char=model classNames="char-block"}}
+			{{/if}}
+		  {{/block-controls}}
 		{{/each}}
-	</div>
+	  </div>
+
+	  <div class="right-side">
+		{{#each charBlocks.right as |block|}}
+		  {{#block-controls block=block moveUp="moveBlockUp" moveDown="moveBlockDown" addNew="addNewBlockBelow" remove="removeBlock"}}
+			{{#if (eq block.kind "specced")}}
+			  {{specced-block spec=block char=model classNames="char-block"}}
+			{{else}}
+			  {{component block.kind char=model classNames="char-block"}}
+			{{/if}}
+		  {{/block-controls}}
+		{{/each}}
+	  </div>
+    </div>
 
 	{{#if showSpells}}
 		{{char-spell-book char=model}}

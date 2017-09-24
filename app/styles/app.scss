@@ -118,6 +118,9 @@ body {
 				bottom: 0;
 				left: 0;
 				right: 0;
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-position: center center;
 		}
 
 		h1.title {
@@ -131,7 +134,7 @@ body {
 				border: none;
 		}
 		body {
-				font-family: 'Gentium Basic', serif;
+				font-family: arial;
 		}
 		span.section-number-3, span.section-number-2, span.section-number-1, span.section-number-4 {
 				display: none;
@@ -463,6 +466,11 @@ body {
 		.notes .title {
 				margin-bottom: 1em;
 		}
+        .flex {
+          display: flex;
+          align-content: space-between;
+          width: calc(100% + 20px);
+        }
 
 		.left-side, .right-side {
 				display: inline-block;
@@ -498,7 +506,7 @@ body {
 		}
 
 		.life table, .defenses table {
-				font-family: 'Gentium Basic', serif;
+				font-family: arial;
 		}
 
 		.life *, .defenses * {
@@ -641,7 +649,7 @@ body {
 		.attacks {
 				table {
 						width: 100%;
-						font-family: 'Gentium', serif;
+						font-family: arial;
 						border: none;
 				}
 
@@ -771,7 +779,7 @@ body {
 				line-height: 100%;
 		}
 		.gear table {
-				font-family: 'Gentium Basic', serif;
+				font-family: arial;
 				font-size: 14px;
 
 				td:nth-child(1) input {
@@ -1346,7 +1354,7 @@ a.downloadlocation, input.uploadInput {
 		}
 
 		input {
-				font-family: Gentium Basic;
+				font-family: arial;
 				border: none;
 				outline: none;
 				border-bottom: solid 1px black;
@@ -1367,7 +1375,7 @@ a.downloadlocation, input.uploadInput {
 				border: solid black 3px;
 				border-radius: 7px;
 				width: 100px;
-				font-family: 'Gentium Basic', serif;
+				font-family: arial;
 				font-weight: bold;
 				cursor: hand;
 				cursor: pointer;
@@ -1438,7 +1446,7 @@ a.downloadlocation, input.uploadInput {
 		border: solid black 3px;
 		border-radius: 7px;
 		width: 130px;
-		font-family: 'Gentium Basic', serif;
+		font-family: arial;
 		font-weight: bold;
 		cursor: hand;
 		cursor: pointer;
@@ -1527,7 +1535,7 @@ a.downloadlocation, input.uploadInput {
 						top: 10px;
 						right: 10px;
 						color: white;
-						font-family: 'Gentium Basic', serif;
+						font-family: arial;
 						cursor: hand;
 						cursor: pointer;
 						font-size: 16px;
@@ -1635,7 +1643,7 @@ a.downloadlocation, input.uploadInput {
 				border: solid black 3px;
 				border-radius: 7px;
 				width: 130px;
-				font-family: 'Gentium Basic', serif;
+				font-family: arial;
 				font-weight: bold;
 				cursor: hand;
 				cursor: pointer;
