@@ -4,13 +4,9 @@
 `import Char from '../models/char'`
 
 CharController = Ember.Controller.extend SendMessage, SaveLoad,
-  init: ->
-    @_super(arguments...)
-    # yes i know i should use components and get rid of controllers. will do later
-    Ember.run.schedule "afterRender",this, @fixImage
   fixImage: ->
     charImage = Ember.$('img')
-    if charImage[0].complete and charImage[0].naturalWidth == 0
+    if charImage and charImage[0] and charImage[0].complete and charImage[0].naturalWidth == 0
       @set 'model.image', "/assets/images/charimage.png"
     charImage.on 'error', =>
       @set 'model.image', '/assets/images/charimage.png'

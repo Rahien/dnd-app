@@ -2,7 +2,8 @@
 `import config from './config/environment'`
 
 Router = Ember.Router.extend
-  location: config.locationType
+  location: config.locationType,
+  rootURL: config.rootURL
 
 Router.map ->
   @route 'login', path: "/dnd/app"

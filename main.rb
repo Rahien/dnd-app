@@ -252,7 +252,7 @@ end
 
 def addAllSpells
   rows = []
-  CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true } ) do |row|
+  CSV.foreach("spells.csv" , { :col_sep => "|", :headers => true, :encoding => "utf-8" } ) do |row|
     object = {}
     row.headers.map do |header|
       object[header] = row[header]

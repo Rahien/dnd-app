@@ -3,7 +3,7 @@
 	{{#if showPlaceholder}}
 		{{placeholder}}
 	{{else}}
-		{{markdown-section content=content}}
+      {{markdown-to-html markdown=content tables=true tasklists=true simpleLineBreaks=true openLinksInNewWindow=true}}
 	{{/if}}
 </div>
 {{#if editing}}

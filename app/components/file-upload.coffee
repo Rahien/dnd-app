@@ -4,9 +4,8 @@
 FileUpload = EmberUploader.FileField.extend
   multiple: false,
   url: '',
-  filesDidChange: Ember.observer 'files', ->
+  filesDidChange: (files) ->
     uploadUrl = this.get 'url'
-    files = this.get 'files'
 
     uploader = EmberUploader.Uploader.create
       url: uploadUrl
